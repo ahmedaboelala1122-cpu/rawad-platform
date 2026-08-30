@@ -9,15 +9,13 @@
     <style>
         body { 
             font-family: 'Tajawal', sans-serif; 
-            margin: 0; 
-            padding: 0;
+            margin: 0; padding: 0;
             background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #e0e7ff 100%);
             min-height: 100vh;
         }
         .hidden { display: none !important; }
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; margin-bottom: 1rem; }
         .video-box iframe, .video-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        
         @media (max-width: 768px) {
             .hero-title { font-size: 2rem !important; }
             .section-title { font-size: 1.5rem !important; }
@@ -32,7 +30,7 @@
     <!-- القائمة العلوية -->
     <nav style="background: white; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;">
         <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <h1 style="font-size: 1.5rem; font-weight: 900; color: #7c3aed; margin: 0; cursor: pointer;" onclick="showHome()"> رُوّاد الصغار</h1>
+            <h1 style="font-size: 1.5rem; font-weight: 900; color: #7c3aed; margin: 0; cursor: pointer;" onclick="showHome()">🚀 رُوّاد الصغار</h1>
             <div class="nav-buttons" style="display: flex; gap: 10px;">
                 <button onclick="showHome()" style="background: #7c3aed; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">🏠 الرئيسية</button>
                 <button onclick="showAdmin()" style="background: #f59e0b; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">⚙️ لوحة التحكم</button>
@@ -42,84 +40,68 @@
 
     <!-- الصفحة الرئيسية -->
     <div id="homePage">
-        <!-- الهيرو -->
         <section style="background: linear-gradient(135deg, #fecdd3 0%, #bae6fd 50%, #bbf7d0 100%); padding: 60px 20px; text-align: center; border-radius: 0 0 50px 50px;">
             <h1 class="hero-title" style="font-size: 3rem; font-weight: 900; color: #1e293b; margin-bottom: 20px;">اتعلم بمرح! 🎉</h1>
             <p style="font-size: 1.25rem; color: #64748b; margin-bottom: 40px;">فيديوهات تعليمية + أسئلة تفاعلية</p>
             
             <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto;">
-                <button onclick="showStage('kg')" style="background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); padding: 30px; border-radius: 20px; border: 4px solid #fb7185; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(251, 113, 133, 0.2); transition: transform 0.3s;">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">🧸</div>
+                <button onclick="showStage('kg')" style="background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); padding: 30px; border-radius: 20px; border: 4px solid #fb7185; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(251, 113, 133, 0.2);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;"></div>
                     <h3 style="font-size: 1.5rem; font-weight: 900; color: #e11d48; margin: 0;">رياض الأطفال</h3>
-                    <p id="count-kg" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                    <p id="count-kg" style="color: #64748b; margin-top: 10px;">جاري التحميل...</p>
                 </button>
-                
-                <button onclick="showStage('grade1')" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 30px; border-radius: 20px; border: 4px solid #38bdf8; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(56, 189, 248, 0.2); transition: transform 0.3s;">
+                <button onclick="showStage('grade1')" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 30px; border-radius: 20px; border: 4px solid #38bdf8; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(56, 189, 248, 0.2);">
                     <div style="font-size: 3rem; margin-bottom: 10px;">📚</div>
                     <h3 style="font-size: 1.5rem; font-weight: 900; color: #0284c7; margin: 0;">الصف الأول</h3>
-                    <p id="count-grade1" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                    <p id="count-grade1" style="color: #64748b; margin-top: 10px;">جاري التحميل...</p>
                 </button>
-                
-                <button onclick="showStage('grade2')" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 30px; border-radius: 20px; border: 4px solid #4ade80; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(74, 222, 128, 0.2); transition: transform 0.3s;">
+                <button onclick="showStage('grade2')" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 30px; border-radius: 20px; border: 4px solid #4ade80; cursor: pointer; font-family: inherit; box-shadow: 0 8px 16px rgba(74, 222, 128, 0.2);">
                     <div style="font-size: 3rem; margin-bottom: 10px;">️</div>
                     <h3 style="font-size: 1.5rem; font-weight: 900; color: #059669; margin: 0;">الصف الثاني</h3>
-                    <p id="count-grade2" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                    <p id="count-grade2" style="color: #64748b; margin-top: 10px;">جاري التحميل...</p>
                 </button>
             </div>
         </section>
 
-        <!-- قسم كيف نعلّم -->
         <section style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
             <h2 class="section-title" style="font-size: 2.5rem; font-weight: 900; text-align: center; color: #7c3aed; margin-bottom: 40px;">🌟 كيف نعلّم؟</h2>
             <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto;">
                 <div style="background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="font-size: 3rem; margin-bottom: 15px;">📺</div>
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed; margin-bottom: 10px;">فيديوهات قصيرة</h3>
-                    <p style="color: #64748b;">دروس مصممة في 5-10 دقائق عشان الطفل يركز ويستمتع</p>
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed;">فيديوهات قصيرة</h3>
+                    <p style="color: #64748b;">دروس مصممة في 5-10 دقائق</p>
                 </div>
                 <div style="background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="font-size: 3rem; margin-bottom: 15px;">📝</div>
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed; margin-bottom: 10px;">أسئلة تفاعلية</h3>
-                    <p style="color: #64748b;">اختبارات بعد كل درس عشان نقيس الفهم</p>
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed;">أسئلة تفاعلية</h3>
+                    <p style="color: #64748b;">اختبارات بعد كل درس</p>
                 </div>
                 <div style="background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="font-size: 3rem; margin-bottom: 15px;">🎮</div>
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed; margin-bottom: 10px;">تعلم بالمرح</h3>
-                    <p style="color: #64748b;">ألعاب وأنشطة تجعل التعليم ممتعاً</p>
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #7c3aed;">تعلم بالمرح</h3>
+                    <p style="color: #64748b;">أنشطة تجعل التعليم ممتعاً</p>
                 </div>
             </div>
         </section>
 
-        <!-- قسم الأسئلة الشائعة -->
         <section style="background: white; padding: 60px 20px; border-radius: 50px 50px 0 0; margin-top: 40px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 class="section-title" style="font-size: 2.5rem; font-weight: 900; text-align: center; color: #7c3aed; margin-bottom: 40px;">❓ أسئلة شائعة</h2>
-                
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <details style="background: #f8fafc; padding: 20px; border-radius: 16px; cursor: pointer;">
-                        <summary style="font-weight: bold; font-size: 1.1rem; color: #7c3aed; list-style: none;">هل المحتوى مجاني؟</summary>
-                        <p style="margin-top: 10px; color: #64748b; padding-right: 20px;">نعم! جميع الدروس والفيديوهات متاحة مجاناً للأطفال.</p>
-                    </details>
-                    
-                    <details style="background: #f8fafc; padding: 20px; border-radius: 16px; cursor: pointer;">
-                        <summary style="font-weight: bold; font-size: 1.1rem; color: #7c3aed; list-style: none;">كم وقت التعلم اليومي المناسب؟</summary>
-                        <p style="margin-top: 10px; color: #64748b; padding-right: 20px;">ننصح بـ 30-60 دقيقة يومياً حسب عمر الطفل.</p>
-                    </details>
-                    
-                    <details style="background: #f8fafc; padding: 20px; border-radius: 16px; cursor: pointer;">
-                        <summary style="font-weight: bold; font-size: 1.1rem; color: #7c3aed; list-style: none;">هل المحتوى متوافق مع المنهج المصري؟</summary>
-                        <p style="margin-top: 10px; color: #64748b; padding-right: 20px;">نعم! تم تصميم المحتوى ليكمل ما يدرسه الطفل في المدرسة.</p>
-                    </details>
-                </div>
+                <details style="background: #f8fafc; padding: 20px; border-radius: 16px; cursor: pointer; margin-bottom: 15px;">
+                    <summary style="font-weight: bold; color: #7c3aed;">هل المحتوى مجاني؟</summary>
+                    <p style="margin-top: 10px; color: #64748b; padding-right: 20px;">نعم! جميع الدروس متاحة مجاناً.</p>
+                </details>
+                <details style="background: #f8fafc; padding: 20px; border-radius: 16px; cursor: pointer;">
+                    <summary style="font-weight: bold; color: #7c3aed;">هل المحتوى متوافق مع المنهج المصري؟</summary>
+                    <p style="margin-top: 10px; color: #64748b; padding-right: 20px;">نعم! تم تصميمه ليكمل ما يدرسه الطفل.</p>
+                </details>
             </div>
         </section>
     </div>
 
-    <!-- قسم عرض المرحلة (منفصل تماماً) -->
+    <!-- قسم عرض المرحلة -->
     <div id="stageSection" class="hidden" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto; min-height: 60vh;">
-        <button onclick="showHome()" style="background: #7c3aed; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 30px; font-family: inherit; display: flex; align-items: center; gap: 8px;">
-            <span>←</span> رجوع للرئيسية
-        </button>
+        <button onclick="showHome()" style="background: #7c3aed; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 30px; font-family: inherit;">← رجوع للرئيسية</button>
         <h2 id="stageTitle" class="section-title" style="font-size: 2.5rem; font-weight: 900; margin-bottom: 30px; color: #7c3aed;"></h2>
         <div id="lessonsContainer" class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;"></div>
     </div>
@@ -131,88 +113,31 @@
             
             <div style="border-bottom: 2px solid #e2e8f0; padding-bottom: 30px; margin-bottom: 30px;">
                 <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📺 إضافة درس جديد</h3>
-                
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-weight: bold; margin-bottom: 5px;">المرحلة:</label>
-                        <select id="lessonStage" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                            <option value="kg">🧸 رياض الأطفال</option>
+                        <select id="lessonStage" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                            <option value="kg"> رياض الأطفال</option>
                             <option value="grade1">📚 الصف الأول</option>
-                            <option value="grade2">✏️ الصف الثاني</option>
+                            <option value="grade2">️ الصف الثاني</option>
                         </select>
                     </div>
                     <div>
                         <label style="display: block; font-weight: bold; margin-bottom: 5px;">عنوان الدرس:</label>
-                        <input type="text" id="lessonTitle" placeholder="مثال: الحروف العربية" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
+                        <input type="text" id="lessonTitle" placeholder="مثال: الحروف العربية" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; box-sizing: border-box;">
                     </div>
                 </div>
-
                 <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 10px;">نوع الفيديو:</label>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <button onclick="setVideoType('youtube')" id="btnYoutube" style="flex: 1; padding: 12px; border: 2px solid #ef4444; background: #fee2e2; color: #dc2626; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">📺 يوتيوب</button>
-                        <button onclick="setVideoType('local')" id="btnLocal" style="flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;"> من الجهاز</button>
-                    </div>
-
-                    <div id="youtubeInput">
-                        <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
-                    </div>
-
-                    <div id="localInput" class="hidden">
-                        <input type="file" id="videoFile" accept="video/*" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                    </div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 10px;">رابط يوتيوب:</label>
+                    <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; box-sizing: border-box;">
                 </div>
-
-                <button onclick="addLesson()" style="width: 100%; padding: 15px; background: #7c3aed; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; font-family: inherit;">✅ إضافة الدرس</button>
-            </div>
-
-            <div style="margin-bottom: 30px;">
-                <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📝 إضافة أسئلة</h3>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                    <div>
-                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">المرحلة:</label>
-                        <select id="questionStage" onchange="updateLessonsDropdown()" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                            <option value="kg">رياض الأطفال</option>
-                            <option value="grade1">الصف الأول</option>
-                            <option value="grade2">الصف الثاني</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">الدرس:</label>
-                        <select id="questionLesson" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                            <option value="">-- اختر الدرس --</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">نص السؤال:</label>
-                    <input type="text" id="questionText" placeholder="اكتب السؤال هنا" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <input type="text" id="answer1" placeholder="الإجابة 1" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                    <input type="text" id="answer2" placeholder="الإجابة 2" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                    <input type="text" id="answer3" placeholder="الإجابة 3" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">الإجابة الصحيحة:</label>
-                    <select id="correctAnswer" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
-                        <option value="0">الإجابة الأولى</option>
-                        <option value="1">الإجابة الثانية</option>
-                        <option value="2">الإجابة الثالثة</option>
-                    </select>
-                </div>
-
-                <button onclick="addQuestion()" style="width: 100%; padding: 15px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; font-family: inherit;">✅ إضافة السؤال</button>
+                <button onclick="addLesson()" id="addLessonBtn" style="width: 100%; padding: 15px; background: #7c3aed; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem;">✅ إضافة الدرس وحفظه على الإنترنت</button>
+                <p id="statusMsg" style="margin-top: 10px; text-align: center; font-weight: bold;"></p>
             </div>
 
             <div style="border-top: 2px solid #e2e8f0; padding-top: 30px;">
                 <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📚 الدروس المضافة:</h3>
                 <div id="adminLessonsList"></div>
-                <button onclick="clearAllData()" style="width: 100%; padding: 12px; background: #dc2626; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; font-family: inherit;">🗑️ حذف كل البيانات</button>
             </div>
         </div>
     </div>
@@ -230,327 +155,191 @@
 
     <!-- الفوتر -->
     <footer style="background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%); color: white; padding: 40px 20px; text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 10px;">🚀 رُوّاد الصغار</h2>
-            <p style="margin-bottom: 20px; opacity: 0.9;">نبني جيلاً واعداً، محباً للتعلم، في بيئة آمنة ومحفزة</p>
-            <div style="border-top: 2px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 20px;">
-                <p style="font-size: 0.9rem; opacity: 0.8;">© 2024 رُوّاد الصغار - جميع الحقوق محفوظة</p>
-            </div>
+        <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 10px;">🚀 رُوّاد الصغار</h2>
+        <p style="opacity: 0.9;">نبني جيلاً واعداً، محباً للتعلم</p>
+        <div style="border-top: 2px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 20px;">
+            <p style="font-size: 0.9rem; opacity: 0.8;">© 2024 جميع الحقوق محفوظة</p>
         </div>
     </footer>
 
-    <script>
-        let db = { kg: [], grade1: [], grade2: [] };
-        let videoType = 'youtube';
-        let currentStage = '';
+    <!-- Firebase & Logic -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
-        try {
-            const saved = localStorage.getItem('rawadPlatform');
-            if (saved) db = JSON.parse(saved);
-        } catch(e) {}
+        // 🔑 إعدادات Firebase الخاصة بك (تم دمجها بنجاح)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmipL2rgfF_05AvIzAKfWgBbqMigofsGY",
+            authDomain: "rawad-platform.firebaseapp.com",
+            projectId: "rawad-platform",
+            storageBucket: "rawad-platform.firebasestorage.app",
+            messagingSenderId: "170742984804",
+            appId: "1:170742984804:web:6e6faf2cdb85e4ef2aaf71"
+        };
 
-        function showHome() {
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let lessonsData = { kg: [], grade1: [], grade2: [] };
+
+        // تحميل الدروس من قاعدة البيانات
+        async function loadLessons() {
+            try {
+                const snapshot = await getDocs(collection(db, 'lessons'));
+                lessonsData = { kg: [], grade1: [], grade2: [] };
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (lessonsData[data.stage]) {
+                        lessonsData[data.stage].push({ id: doc.id, ...data });
+                    }
+                });
+                updateCounts();
+                console.log('تم تحميل الدروس بنجاح:', lessonsData);
+            } catch (error) {
+                console.error('خطأ في التحميل:', error);
+            }
+        }
+
+        // إضافة درس جديد
+        window.addLesson = async function() {
+            const stage = document.getElementById('lessonStage').value;
+            const title = document.getElementById('lessonTitle').value.trim();
+            const url = document.getElementById('youtubeUrl').value.trim();
+            const btn = document.getElementById('addLessonBtn');
+            const statusMsg = document.getElementById('statusMsg');
+
+            if (!title || !url) {
+                alert('الرجاء إدخال العنوان ورابط الفيديو');
+                return;
+            }
+
+            const videoId = extractVideoId(url);
+            if (!videoId) {
+                alert('الرابط غير صحيح، يرجى نسخ رابط يوتيوب كامل');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '⏳ جاري الحفظ على الإنترنت...';
+
+            try {
+                await addDoc(collection(db, 'lessons'), {
+                    stage: stage,
+                    title: title,
+                    date: new Date().toLocaleString('ar-EG'),
+                    videoType: 'youtube',
+                    videoId: videoId,
+                    questions: []
+                });
+                
+                statusMsg.textContent = '✅ تم الحفظ بنجاح! سيظهر للجميع الآن.';
+                statusMsg.style.color = '#10b981';
+                document.getElementById('lessonTitle').value = '';
+                document.getElementById('youtubeUrl').value = '';
+                
+                await loadLessons();
+                displayAdminLessons();
+                
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.textContent = '✅ إضافة الدرس وحفظه على الإنترنت';
+                    statusMsg.textContent = '';
+                }, 3000);
+            } catch (error) {
+                console.error('Error:', error);
+                statusMsg.textContent = '⚠️ حدث خطأ. تأكد من قواعد Firestore في Firebase.';
+                statusMsg.style.color = '#ef4444';
+                btn.disabled = false;
+                btn.textContent = '✅ إضافة الدرس وحفظه على الإنترنت';
+            }
+        };
+
+        function extractVideoId(url) {
+            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
+            return match ? match[1] : null;
+        }
+
+        function updateCounts() {
+            ['kg', 'grade1', 'grade2'].forEach(stage => {
+                const el = document.getElementById(`count-${stage}`);
+                if (el) el.textContent = `${lessonsData[stage].length} دروس`;
+            });
+        }
+
+        window.showStage = function(stage) {
+            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
+            document.getElementById('stageTitle').textContent = names[stage];
+            const container = document.getElementById('lessonsContainer');
+            container.innerHTML = '';
+
+            if (lessonsData[stage].length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px; background: white; border-radius: 20px;"><h3 style="color: #64748b;">لا توجد دروس بعد</h3></div>';
+            } else {
+                lessonsData[stage].forEach((lesson) => {
+                    const card = document.createElement('div');
+                    card.style.cssText = 'background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);';
+                    card.innerHTML = `
+                        <div class="video-box"><iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0" allowfullscreen></iframe></div>
+                        <div style="padding: 20px;">
+                            <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;">${lesson.title}</h3>
+                            <button onclick="viewLesson('${lesson.id}')" style="width: 100%; padding: 12px; background: #7c3aed; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">▶️ مشاهدة الدرس</button>
+                        </div>`;
+                    container.appendChild(card);
+                });
+            }
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('stageSection').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        };
+
+        window.viewLesson = function(lessonId) {
+            const allLessons = [...lessonsData.kg, ...lessonsData.grade1, ...lessonsData.grade2];
+            const lesson = allLessons.find(l => l.id === lessonId);
+            if (!lesson) return;
+            document.getElementById('modalLessonTitle').textContent = lesson.title;
+            document.getElementById('modalContent').innerHTML = `<div class="video-box"><iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+            document.getElementById('lessonModal').classList.remove('hidden');
+        };
+
+        window.closeLessonModal = function() {
+            document.getElementById('lessonModal').classList.add('hidden');
+        };
+
+        function displayAdminLessons() {
+            const container = document.getElementById('adminLessonsList');
+            container.innerHTML = '';
+            let total = 0;
+            ['kg', 'grade1', 'grade2'].forEach(stage => {
+                if (lessonsData[stage].length > 0) {
+                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
+                    total += lessonsData[stage].length;
+                    container.innerHTML += `<h4 style="font-weight: bold; color: #7c3aed; margin: 20px 0 10px;">${names[stage]}</h4>`;
+                    lessonsData[stage].forEach(lesson => {
+                        container.innerHTML += `<div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 10px; font-weight: bold;">${lesson.title}</div>`;
+                    });
+                }
+            });
+            if (total === 0) container.innerHTML = '<div style="text-align: center; color: #64748b; padding: 30px;">لا توجد دروس</div>';
+        }
+
+        window.showHome = function() {
             document.getElementById('homePage').classList.remove('hidden');
             document.getElementById('adminPage').classList.add('hidden');
             document.getElementById('stageSection').classList.add('hidden');
-            updateCounts();
+            loadLessons();
             window.scrollTo(0, 0);
-        }
+        };
 
-        function showAdmin() {
+        window.showAdmin = function() {
             document.getElementById('homePage').classList.add('hidden');
             document.getElementById('adminPage').classList.remove('hidden');
             document.getElementById('stageSection').classList.add('hidden');
             displayAdminLessons();
             window.scrollTo(0, 0);
-        }
+        };
 
-        function showStage(stage) {
-            currentStage = stage;
-            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
-            document.getElementById('stageTitle').textContent = names[stage];
-            
-            const container = document.getElementById('lessonsContainer');
-            container.innerHTML = '';
-
-            if (db[stage].length === 0) {
-                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px; background: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"><div style="font-size: 4rem; margin-bottom: 20px;">📭</div><h3 style="font-size: 1.5rem; font-weight: bold; color: #64748b; margin-bottom: 10px;">لا توجد دروس مضافة بعد</h3><p style="color: #94a3b8;">استخدم لوحة التحكم لإضافة دروس جديدة</p></div>';
-            } else {
-                db[stage].forEach((lesson, idx) => {
-                    const card = document.createElement('div');
-                    card.style.cssText = 'background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;';
-                    card.onmouseenter = function() { this.style.transform = 'translateY(-5px)'; };
-                    card.onmouseleave = function() { this.style.transform = 'translateY(0)'; };
-                    
-                    let videoHtml = '';
-                    if (lesson.videoType === 'youtube') {
-                        videoHtml = '<div class="video-box"><iframe src="https://www.youtube.com/embed/' + lesson.videoId + '" frameborder="0" allowfullscreen></iframe></div>';
-                    } else {
-                        videoHtml = '<div class="video-box"><video controls><source src="' + lesson.videoUrl + '" type="video/mp4"></video></div>';
-                    }
-
-                    const hasQuestions = lesson.questions && lesson.questions.length > 0;
-                    
-                    card.innerHTML = videoHtml + 
-                        '<div style="padding: 20px;">' +
-                        '<h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px; color: #1e293b;">' + lesson.title + '</h3>' +
-                        '<p style="color: #64748b; font-size: 0.875rem; margin-bottom: 15px;">' + lesson.date + '</p>' +
-                        '<div style="display: flex; gap: 10px;">' +
-                        '<button onclick="viewLesson(' + idx + ')" style="flex: 1; padding: 12px; background: #7c3aed; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">▶️ مشاهدة</button>' +
-                        (hasQuestions ? '<button onclick="startQuiz(' + idx + ')" style="flex: 1; padding: 12px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;"> اختبار</button>' : '<span style="flex: 1; padding: 12px; background: #e2e8f0; color: #94a3b8; border-radius: 8px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;">بدون أسئلة</span>') +
-                        '</div></div>';
-                    container.appendChild(card);
-                });
-            }
-
-            document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('stageSection').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        function setVideoType(type) {
-            videoType = type;
-            document.getElementById('youtubeInput').classList.toggle('hidden', type !== 'youtube');
-            document.getElementById('localInput').classList.toggle('hidden', type !== 'local');
-            
-            document.getElementById('btnYoutube').style.cssText = type === 'youtube' 
-                ? 'flex: 1; padding: 12px; border: 2px solid #ef4444; background: #fee2e2; color: #dc2626; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;'
-                : 'flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;';
-            
-            document.getElementById('btnLocal').style.cssText = type === 'local'
-                ? 'flex: 1; padding: 12px; border: 2px solid #f59e0b; background: #fef3c7; color: #d97706; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;'
-                : 'flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;';
-        }
-
-        function addLesson() {
-            const stage = document.getElementById('lessonStage').value;
-            const title = document.getElementById('lessonTitle').value.trim();
-
-            if (!title) {
-                alert('الرجاء إدخال عنوان الدرس');
-                return;
-            }
-
-            const lesson = {
-                id: Date.now(),
-                title: title,
-                date: new Date().toLocaleString('ar-EG'),
-                videoType: videoType,
-                videoId: null,
-                videoUrl: null,
-                questions: []
-            };
-
-            if (videoType === 'youtube') {
-                const url = document.getElementById('youtubeUrl').value.trim();
-                const videoId = extractVideoId(url);
-                
-                if (!videoId) {
-                    alert('الرجاء إدخال رابط يوتيوب صحيح');
-                    return;
-                }
-                
-                lesson.videoId = videoId;
-                saveLesson(stage, lesson);
-            } else {
-                const fileInput = document.getElementById('videoFile');
-                if (!fileInput.files || !fileInput.files[0]) {
-                    alert('الرجاء اختيار ملف فيديو');
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    lesson.videoUrl = e.target.result;
-                    saveLesson(stage, lesson);
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        }
-
-        function saveLesson(stage, lesson) {
-            db[stage].push(lesson);
-            saveToLocalStorage();
-            alert('✅ تم إضافة الدرس بنجاح!\nالدرس سيظهر في قسم ' + (stage === 'kg' ? 'رياض الأطفال' : stage === 'grade1' ? 'الصف الأول' : 'الصف الثاني'));
-            document.getElementById('lessonTitle').value = '';
-            document.getElementById('youtubeUrl').value = '';
-            document.getElementById('videoFile').value = '';
-            displayAdminLessons();
-            updateCounts();
-        }
-
-        function extractVideoId(url) {
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/,
-                /^([a-zA-Z0-9_-]{11})$/
-            ];
-            for (let pattern of patterns) {
-                const match = url.match(pattern);
-                if (match) return match[1];
-            }
-            return null;
-        }
-
-        function updateLessonsDropdown() {
-            const stage = document.getElementById('questionStage').value;
-            const dropdown = document.getElementById('questionLesson');
-            dropdown.innerHTML = '<option value="">-- اختر الدرس --</option>';
-            
-            db[stage].forEach((lesson, idx) => {
-                const option = document.createElement('option');
-                option.value = idx;
-                option.textContent = lesson.title;
-                dropdown.appendChild(option);
-            });
-        }
-
-        function addQuestion() {
-            const stage = document.getElementById('questionStage').value;
-            const lessonIdx = parseInt(document.getElementById('questionLesson').value);
-            const questionText = document.getElementById('questionText').value.trim();
-
-            if (isNaN(lessonIdx) || !questionText) {
-                alert('الرجاء اختيار الدرس وكتابة السؤال');
-                return;
-            }
-
-            const question = {
-                text: questionText,
-                options: [
-                    document.getElementById('answer1').value || 'إجابة 1',
-                    document.getElementById('answer2').value || 'إجابة 2',
-                    document.getElementById('answer3').value || 'إجابة 3'
-                ],
-                correct: parseInt(document.getElementById('correctAnswer').value)
-            };
-
-            db[stage][lessonIdx].questions.push(question);
-            saveToLocalStorage();
-            alert('✅ تم إضافة السؤال بنجاح!');
-            document.getElementById('questionText').value = '';
-            document.getElementById('answer1').value = '';
-            document.getElementById('answer2').value = '';
-            document.getElementById('answer3').value = '';
-            displayAdminLessons();
-        }
-
-        function viewLesson(idx) {
-            const lesson = db[currentStage][idx];
-            document.getElementById('modalLessonTitle').textContent = lesson.title;
-            
-            let videoHtml = '';
-            if (lesson.videoType === 'youtube') {
-                videoHtml = '<div class="video-box"><iframe src="https://www.youtube.com/embed/' + lesson.videoId + '" frameborder="0" allowfullscreen></iframe></div>';
-            } else {
-                videoHtml = '<div class="video-box"><video controls src="' + lesson.videoUrl + '"></video></div>';
-            }
-
-            document.getElementById('modalContent').innerHTML = videoHtml;
-            document.getElementById('lessonModal').classList.remove('hidden');
-        }
-
-        function startQuiz(idx) {
-            const lesson = db[currentStage][idx];
-            document.getElementById('modalLessonTitle').textContent = 'اختبار: ' + lesson.title;
-            
-            let questionsHtml = '';
-            lesson.questions.forEach((q, qIdx) => {
-                questionsHtml += '<div style="margin-bottom: 20px; padding: 20px; background: #f1f5f9; border-radius: 12px;">' +
-                    '<p style="font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;">س' + (qIdx + 1) + ': ' + q.text + '</p>' +
-                    '<div class="question-options" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="quiz-' + qIdx + '">' +
-                    q.options.map((opt, optIdx) => 
-                        '<button onclick="checkQuizAnswer(' + qIdx + ', ' + optIdx + ', ' + q.correct + ')" style="padding: 12px; background: white; border: 2px solid #e2e8f0; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">' + opt + '</button>'
-                    ).join('') +
-                    '</div></div>';
-            });
-
-            document.getElementById('modalContent').innerHTML = questionsHtml;
-            document.getElementById('lessonModal').classList.remove('hidden');
-        }
-
-        function checkQuizAnswer(qIdx, selected, correct) {
-            const container = document.getElementById('quiz-' + qIdx);
-            const buttons = container.querySelectorAll('button');
-            
-            buttons.forEach((btn, idx) => {
-                btn.disabled = true;
-                if (idx === correct) {
-                    btn.style.background = '#10b981';
-                    btn.style.color = 'white';
-                    btn.style.borderColor = '#10b981';
-                } else if (idx === selected && selected !== correct) {
-                    btn.style.background = '#ef4444';
-                    btn.style.color = 'white';
-                    btn.style.borderColor = '#ef4444';
-                }
-            });
-        }
-
-        function closeLessonModal() {
-            document.getElementById('lessonModal').classList.add('hidden');
-        }
-
-        function displayAdminLessons() {
-            const container = document.getElementById('adminLessonsList');
-            container.innerHTML = '';
-
-            let total = 0;
-            ['kg', 'grade1', 'grade2'].forEach(stage => {
-                if (db[stage].length > 0) {
-                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
-                    total += db[stage].length;
-                    
-                    container.innerHTML += '<h4 style="font-weight: bold; color: #7c3aed; margin-top: 20px; margin-bottom: 10px;">' + names[stage] + ' (' + db[stage].length + ' دروس)</h4>';
-                    
-                    db[stage].forEach((lesson, idx) => {
-                        container.innerHTML += '<div style="background: #f1f5f9; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">' +
-                            '<div><div style="font-weight: bold;">' + lesson.title + '</div><div style="font-size: 0.875rem; color: #64748b;">' + lesson.date + ' | ' + (lesson.videoType === 'youtube' ? 'يوتيوب' : 'ملف محلي') + ' | ' + lesson.questions.length + ' أسئلة</div></div>' +
-                            '<button onclick="deleteLesson(\'' + stage + '\', ' + idx + ')" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 1.2rem;">🗑️</button>' +
-                            '</div>';
-                    });
-                }
-            });
-
-            if (total === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #64748b; padding: 30px;">لا توجد دروس مضافة بعد</div>';
-            }
-        }
-
-        function deleteLesson(stage, idx) {
-            if (confirm('هل أنت متأكد من حذف هذا الدرس؟')) {
-                db[stage].splice(idx, 1);
-                saveToLocalStorage();
-                displayAdminLessons();
-                updateCounts();
-            }
-        }
-
-        function clearAllData() {
-            if (confirm('⚠️ هل أنت متأكد من حذف كل البيانات؟')) {
-                db = { kg: [], grade1: [], grade2: [] };
-                saveToLocalStorage();
-                displayAdminLessons();
-                updateCounts();
-                alert('تم حذف كل البيانات');
-            }
-        }
-
-        function saveToLocalStorage() {
-            try {
-                localStorage.setItem('rawadPlatform', JSON.stringify(db));
-            } catch(e) {
-                alert('⚠️ حدث خطأ أثناء حفظ البيانات.');
-            }
-        }
-
-        function updateCounts() {
-            ['kg', 'grade1', 'grade2'].forEach(stage => {
-                const el = document.getElementById('count-' + stage);
-                if (el) el.textContent = db[stage].length + ' دروس';
-            });
-        }
-
-        updateCounts();
+        // تشغيل عند البدء
+        loadLessons();
     </script>
 </body>
 </html>
