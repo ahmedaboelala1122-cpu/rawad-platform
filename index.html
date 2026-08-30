@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رُوّاد الصغار</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+        .hidden { display: none !important; }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; margin-bottom: 1rem; }
+        .video-box iframe, .video-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body style="background: #f8fafc;">
+
+    <!-- القائمة العلوية -->
+    <nav style="background: white; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <h1 style="font-size: 1.5rem; font-weight: 900; color: #4f46e5; margin: 0;">🚀 رُوّاد الصغار</h1>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="showHome()" style="background: #4f46e5; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">🏠 الرئيسية</button>
+                <button onclick="showAdmin()" style="background: #f59e0b; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">⚙️ لوحة التحكم</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== الصفحة الرئيسية ==================== -->
+    <div id="homePage">
+        <!-- الهيرو -->
+        <section style="background: linear-gradient(135deg, #e0e7ff 0%, #fce7f3 100%); padding: 60px 20px; text-align: center;">
+            <h1 style="font-size: 3rem; font-weight: 900; color: #1e293b; margin-bottom: 20px;">اتعلم بمرح! 🎉</h1>
+            <p style="font-size: 1.25rem; color: #64748b; margin-bottom: 40px;">فيديوهات تعليمية + أسئلة تفاعلية</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto;">
+                <button onclick="showStage('kg')" style="background: white; padding: 30px; border-radius: 16px; border: 4px solid #fda4af; cursor: pointer; font-family: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🧸</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 900; color: #e11d48; margin: 0;">رياض الأطفال</h3>
+                    <p id="count-kg" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                </button>
+                
+                <button onclick="showStage('grade1')" style="background: white; padding: 30px; border-radius: 16px; border: 4px solid #a5b4fc; cursor: pointer; font-family: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">📚</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 900; color: #4f46e5; margin: 0;">الصف الأول</h3>
+                    <p id="count-grade1" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                </button>
+                
+                <button onclick="showStage('grade2')" style="background: white; padding: 30px; border-radius: 16px; border: 4px solid #6ee7b7; cursor: pointer; font-family: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">✏️</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 900; color: #059669; margin: 0;">الصف الثاني</h3>
+                    <p id="count-grade2" style="color: #64748b; margin-top: 10px;">0 دروس</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- قسم عرض المرحلة -->
+        <section id="stageSection" class="hidden" style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+            <button onclick="showHome()" style="background: none; border: none; color: #4f46e5; font-weight: bold; cursor: pointer; font-size: 1rem; margin-bottom: 20px; font-family: inherit;">← رجوع للرئيسية</button>
+            <h2 id="stageTitle" style="font-size: 2rem; font-weight: 900; margin-bottom: 30px;"></h2>
+            <div id="lessonsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;"></div>
+        </section>
+    </div>
+
+    <!-- ==================== لوحة التحكم ==================== -->
+    <div id="adminPage" class="hidden" style="padding: 40px 20px; max-width: 900px; margin: 0 auto;">
+        <div style="background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 30px;">️ لوحة التحكم</h2>
+            
+            <!-- إضافة درس -->
+            <div style="border-bottom: 2px solid #e2e8f0; padding-bottom: 30px; margin-bottom: 30px;">
+                <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📺 إضافة درس جديد</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">المرحلة:</label>
+                        <select id="lessonStage" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                            <option value="kg">🧸 رياض الأطفال</option>
+                            <option value="grade1">📚 الصف الأول</option>
+                            <option value="grade2">✏️ الصف الثاني</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">عنوان الدرس:</label>
+                        <input type="text" id="lessonTitle" placeholder="مثال: الحروف العربية" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 10px;">نوع الفيديو:</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button onclick="setVideoType('youtube')" id="btnYoutube" style="flex: 1; padding: 12px; border: 2px solid #ef4444; background: #fee2e2; color: #dc2626; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">📺 يوتيوب</button>
+                        <button onclick="setVideoType('local')" id="btnLocal" style="flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">💾 من الجهاز</button>
+                    </div>
+
+                    <div id="youtubeInput">
+                        <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
+                    </div>
+
+                    <div id="localInput" class="hidden">
+                        <input type="file" id="videoFile" accept="video/*" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                    </div>
+                </div>
+
+                <button onclick="addLesson()" style="width: 100%; padding: 15px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; font-family: inherit;">✅ إضافة الدرس</button>
+            </div>
+
+            <!-- إضافة أسئلة -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📝 إضافة أسئلة</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">المرحلة:</label>
+                        <select id="questionStage" onchange="updateLessonsDropdown()" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                            <option value="kg">رياض الأطفال</option>
+                            <option value="grade1">الصف الأول</option>
+                            <option value="grade2">الصف الثاني</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: bold; margin-bottom: 5px;">الدرس:</label>
+                        <select id="questionLesson" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                            <option value="">-- اختر الدرس --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">نص السؤال:</label>
+                    <input type="text" id="questionText" placeholder="اكتب السؤال هنا" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="answer1" placeholder="الإجابة 1" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                    <input type="text" id="answer2" placeholder="الإجابة 2" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                    <input type="text" id="answer3" placeholder="الإجابة 3" style="padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">الإجابة الصحيحة:</label>
+                    <select id="correctAnswer" style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                        <option value="0">الإجابة الأولى</option>
+                        <option value="1">الإجابة الثانية</option>
+                        <option value="2">الإجابة الثالثة</option>
+                    </select>
+                </div>
+
+                <button onclick="addQuestion()" style="width: 100%; padding: 15px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; font-family: inherit;">✅ إضافة السؤال</button>
+            </div>
+
+            <!-- عرض الدروس -->
+            <div style="border-top: 2px solid #e2e8f0; padding-top: 30px;">
+                <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">📚 الدروس المضافة:</h3>
+                <div id="adminLessonsList"></div>
+                <button onclick="clearAllData()" style="width: 100%; padding: 12px; background: #dc2626; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; font-family: inherit;">🗑️ حذف كل البيانات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض الدرس -->
+    <div id="lessonModal" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: white; border-radius: 16px; padding: 30px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="modalLessonTitle" style="font-size: 1.5rem; font-weight: 900; margin: 0;"></h2>
+                <button onclick="closeLessonModal()" style="background: none; border: none; font-size: 2rem; cursor: pointer; color: #94a3b8;">×</button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // قاعدة البيانات
+        let db = { kg: [], grade1: [], grade2: [] };
+        let videoType = 'youtube';
+        let currentStage = '';
+
+        // تحميل البيانات
+        try {
+            const saved = localStorage.getItem('rawadPlatform');
+            if (saved) db = JSON.parse(saved);
+        } catch(e) {}
+
+        // التنقل
+        function showHome() {
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('adminPage').classList.add('hidden');
+            document.getElementById('stageSection').classList.add('hidden');
+            updateCounts();
+            window.scrollTo(0, 0);
+        }
+
+        function showAdmin() {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('adminPage').classList.remove('hidden');
+            displayAdminLessons();
+            window.scrollTo(0, 0);
+        }
+
+        function showStage(stage) {
+            currentStage = stage;
+            const names = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
+            document.getElementById('stageTitle').textContent = names[stage];
+            
+            const container = document.getElementById('lessonsContainer');
+            container.innerHTML = '';
+
+            if (db[stage].length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #64748b; font-size: 1.2rem;">لا توجد دروس - استخدم لوحة التحكم لإضافة دروس</div>';
+            } else {
+                db[stage].forEach((lesson, idx) => {
+                    const card = document.createElement('div');
+                    card.style.cssText = 'background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+                    
+                    let videoHtml = '';
+                    if (lesson.videoType === 'youtube') {
+                        videoHtml = '<div class="video-box"><iframe src="https://www.youtube.com/embed/' + lesson.videoId + '" frameborder="0" allowfullscreen></iframe></div>';
+                    } else {
+                        videoHtml = '<div class="video-box"><video controls><source src="' + lesson.videoUrl + '" type="video/mp4"></video></div>';
+                    }
+
+                    const hasQuestions = lesson.questions && lesson.questions.length > 0;
+                    
+                    card.innerHTML = videoHtml + 
+                        '<div style="padding: 20px;">' +
+                        '<h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;">' + lesson.title + '</h3>' +
+                        '<p style="color: #64748b; font-size: 0.875rem; margin-bottom: 15px;">' + lesson.date + '</p>' +
+                        '<div style="display: flex; gap: 10px;">' +
+                        '<button onclick="viewLesson(' + idx + ')" style="flex: 1; padding: 10px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">▶️ مشاهدة</button>' +
+                        (hasQuestions ? '<button onclick="startQuiz(' + idx + ')" style="flex: 1; padding: 10px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">📝 اختبار</button>' : '<span style="flex: 1; padding: 10px; background: #e2e8f0; color: #64748b; border-radius: 8px; text-align: center; font-weight: bold;">بدون أسئلة</span>') +
+                        '</div></div>';
+                    container.appendChild(card);
+                });
+            }
+
+            document.getElementById('stageSection').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // لوحة التحكم
+        function setVideoType(type) {
+            videoType = type;
+            document.getElementById('youtubeInput').classList.toggle('hidden', type !== 'youtube');
+            document.getElementById('localInput').classList.toggle('hidden', type !== 'local');
+            
+            document.getElementById('btnYoutube').style.cssText = type === 'youtube' 
+                ? 'flex: 1; padding: 12px; border: 2px solid #ef4444; background: #fee2e2; color: #dc2626; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;'
+                : 'flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;';
+            
+            document.getElementById('btnLocal').style.cssText = type === 'local'
+                ? 'flex: 1; padding: 12px; border: 2px solid #f59e0b; background: #fef3c7; color: #d97706; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;'
+                : 'flex: 1; padding: 12px; border: 2px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;';
+        }
+
+        function addLesson() {
+            const stage = document.getElementById('lessonStage').value;
+            const title = document.getElementById('lessonTitle').value.trim();
+
+            if (!title) {
+                alert('الرجاء إدخال عنوان الدرس');
+                return;
+            }
+
+            const lesson = {
+                id: Date.now(),
+                title: title,
+                date: new Date().toLocaleString('ar-EG'),
+                videoType: videoType,
+                videoId: null,
+                videoUrl: null,
+                questions: []
+            };
+
+            if (videoType === 'youtube') {
+                const url = document.getElementById('youtubeUrl').value.trim();
+                const videoId = extractVideoId(url);
+                
+                if (!videoId) {
+                    alert('الرجاء إدخال رابط يوتيوب صحيح');
+                    return;
+                }
+                
+                lesson.videoId = videoId;
+                saveLesson(stage, lesson);
+            } else {
+                const fileInput = document.getElementById('videoFile');
+                if (!fileInput.files || !fileInput.files[0]) {
+                    alert('الرجاء اختيار ملف فيديو');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    lesson.videoUrl = e.target.result;
+                    saveLesson(stage, lesson);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function saveLesson(stage, lesson) {
+            db[stage].push(lesson);
+            saveToLocalStorage();
+            alert('✅ تم إضافة الدرس بنجاح!');
+            document.getElementById('lessonTitle').value = '';
+            document.getElementById('youtubeUrl').value = '';
+            document.getElementById('videoFile').value = '';
+            displayAdminLessons();
+            updateCounts();
+        }
+
+        function extractVideoId(url) {
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/,
+                /^([a-zA-Z0-9_-]{11})$/
+            ];
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // الأسئلة
+        function updateLessonsDropdown() {
+            const stage = document.getElementById('questionStage').value;
+            const dropdown = document.getElementById('questionLesson');
+            dropdown.innerHTML = '<option value="">-- اختر الدرس --</option>';
+            
+            db[stage].forEach((lesson, idx) => {
+                const option = document.createElement('option');
+                option.value = idx;
+                option.textContent = lesson.title;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function addQuestion() {
+            const stage = document.getElementById('questionStage').value;
+            const lessonIdx = parseInt(document.getElementById('questionLesson').value);
+            const questionText = document.getElementById('questionText').value.trim();
+
+            if (isNaN(lessonIdx) || !questionText) {
+                alert('الرجاء اختيار الدرس وكتابة السؤال');
+                return;
+            }
+
+            const question = {
+                text: questionText,
+                options: [
+                    document.getElementById('answer1').value || 'إجابة 1',
+                    document.getElementById('answer2').value || 'إجابة 2',
+                    document.getElementById('answer3').value || 'إجابة 3'
+                ],
+                correct: parseInt(document.getElementById('correctAnswer').value)
+            };
+
+            db[stage][lessonIdx].questions.push(question);
+            saveToLocalStorage();
+            alert('✅ تم إضافة السؤال بنجاح!');
+            document.getElementById('questionText').value = '';
+            document.getElementById('answer1').value = '';
+            document.getElementById('answer2').value = '';
+            document.getElementById('answer3').value = '';
+            displayAdminLessons();
+        }
+
+        // العرض
+        function viewLesson(idx) {
+            const lesson = db[currentStage][idx];
+            document.getElementById('modalLessonTitle').textContent = lesson.title;
+            
+            let videoHtml = '';
+            if (lesson.videoType === 'youtube') {
+                videoHtml = '<div class="video-box"><iframe src="https://www.youtube.com/embed/' + lesson.videoId + '" frameborder="0" allowfullscreen></iframe></div>';
+            } else {
+                videoHtml = '<div class="video-box"><video controls src="' + lesson.videoUrl + '"></video></div>';
+            }
+
+            document.getElementById('modalContent').innerHTML = videoHtml;
+            document.getElementById('lessonModal').classList.remove('hidden');
+        }
+
+        function startQuiz(idx) {
+            const lesson = db[currentStage][idx];
+            document.getElementById('modalLessonTitle').textContent = 'اختبار: ' + lesson.title;
+            
+            let questionsHtml = '';
+            lesson.questions.forEach((q, qIdx) => {
+                questionsHtml += '<div style="margin-bottom: 20px; padding: 20px; background: #f1f5f9; border-radius: 12px;">' +
+                    '<p style="font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;">س' + (qIdx + 1) + ': ' + q.text + '</p>' +
+                    '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="quiz-' + qIdx + '">' +
+                    q.options.map((opt, optIdx) => 
+                        '<button onclick="checkQuizAnswer(' + qIdx + ', ' + optIdx + ', ' + q.correct + ')" style="padding: 12px; background: white; border: 2px solid #e2e8f0; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit;">' + opt + '</button>'
+                    ).join('') +
+                    '</div></div>';
+            });
+
+            document.getElementById('modalContent').innerHTML = questionsHtml;
+            document.getElementById('lessonModal').classList.remove('hidden');
+        }
+
+        function checkQuizAnswer(qIdx, selected, correct) {
+            const container = document.getElementById('quiz-' + qIdx);
+            const buttons = container.querySelectorAll('button');
+            
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === correct) {
+                    btn.style.background = '#10b981';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = '#10b981';
+                } else if (idx === selected && selected !== correct) {
+                    btn.style.background = '#ef4444';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = '#ef4444';
+                }
+            });
+        }
+
+        function closeLessonModal() {
+            document.getElementById('lessonModal').classList.add('hidden');
+        }
+
+        function displayAdminLessons() {
+            const container = document.getElementById('adminLessonsList');
+            container.innerHTML = '';
+
+            let total = 0;
+            ['kg', 'grade1', 'grade2'].forEach(stage => {
+                if (db[stage].length > 0) {
+                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني' };
+                    total += db[stage].length;
+                    
+                    container.innerHTML += '<h4 style="font-weight: bold; color: #4f46e5; margin-top: 20px; margin-bottom: 10px;">' + names[stage] + ' (' + db[stage].length + ' دروس)</h4>';
+                    
+                    db[stage].forEach((lesson, idx) => {
+                        container.innerHTML += '<div style="background: #f1f5f9; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">' +
+                            '<div><div style="font-weight: bold;">' + lesson.title + '</div><div style="font-size: 0.875rem; color: #64748b;">' + lesson.date + ' | ' + (lesson.videoType === 'youtube' ? 'يوتيوب' : 'ملف محلي') + ' | ' + lesson.questions.length + ' أسئلة</div></div>' +
+                            '<button onclick="deleteLesson(\'' + stage + '\', ' + idx + ')" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 1.2rem;">🗑️</button>' +
+                            '</div>';
+                    });
+                }
+            });
+
+            if (total === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #64748b; padding: 30px;">لا توجد دروس مضافة بعد</div>';
+            }
+        }
+
+        function deleteLesson(stage, idx) {
+            if (confirm('هل أنت متأكد من حذف هذا الدرس؟')) {
+                db[stage].splice(idx, 1);
+                saveToLocalStorage();
+                displayAdminLessons();
+                updateCounts();
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ هل أنت متأكد من حذف كل البيانات؟')) {
+                db = { kg: [], grade1: [], grade2: [] };
+                saveToLocalStorage();
+                displayAdminLessons();
+                updateCounts();
+                alert('تم حذف كل البيانات');
+            }
+        }
+
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('rawadPlatform', JSON.stringify(db));
+            } catch(e) {
+                alert('⚠️ حدث خطأ أثناء حفظ البيانات. قد تكون الفيديوهات كبيرة جداً.');
+            }
+        }
+
+        function updateCounts() {
+            ['kg', 'grade1', 'grade2'].forEach(stage => {
+                const el = document.getElementById('count-' + stage);
+                if (el) el.textContent = db[stage].length + ' دروس';
+            });
+        }
+
+        // البداية
+        updateCounts();
+    </script>
+</body>
+</html>
