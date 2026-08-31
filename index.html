@@ -1166,14 +1166,13 @@
                 alert('❌ خطأ: ' + error.message);
             }
         };
-
-      window.addStandalonePdf = async function() {
+window.addStandalonePdf = async function() {
     const title = document.getElementById('pdfTitle').value.trim();
     const stage = document.getElementById('pdfStage').value;
     const url = document.getElementById('pdfUrl').value.trim();
 
     if (!title || !url) {
-        alert(' الرجاء إدخال العنوان والرابط');
+        alert('❌ الرجاء إدخال العنوان والرابط');
         return;
     }
 
@@ -1185,6 +1184,21 @@
             uploadedBy: currentUser.uid,
             createdAt: new Date()
         });
+
+        alert('✅ تم إضافة الورقة بنجاح!');
+        
+        // تفريغ الحقول بعد النجاح
+        document.getElementById('pdfTitle').value = '';
+        document.getElementById('pdfUrl').value = '';
+        
+        // إعادة تحميل القائمة
+        await loadStandalonePdfs();
+        
+    } catch (error) {
+        console.error('Error adding PDF:', error);
+        alert('❌ خطأ: ' + error.message);
+    }
+};
 
         alert('✅ تم إضافة الورقة بنجاح!');
         document.getElementById('pdfTitle').value = '';
