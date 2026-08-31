@@ -83,6 +83,22 @@
             width: 100%;
             height: 100%;
         }
+
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 2px solid #e5e7eb;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
     </style>
 </head>
 <body>
@@ -94,7 +110,7 @@
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400"></div>
-            <div class="text-7xl mb-4 robot-wave">🤖</div>
+            <div class="text-7xl mb-4 robot-wave"></div>
             
             <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
                 مدرستي في بيتي
@@ -102,27 +118,50 @@
             <p class="text-gray-600 mb-6 text-lg">نتعلم ونلعب معاً!</p>
 
             <div class="space-y-4">
-                <div class="bg-blue-50 rounded-2xl p-4 border-2 border-blue-200">
-                    <label class="block text-blue-700 font-bold mb-2 text-lg">📧 الإيميل</label>
-                    <input type="email" id="userEmail" placeholder="example@email.com" 
-                        class="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg text-center">
+                <!-- تبديل نوع الدخول -->
+                <div class="flex gap-2 mb-4">
+                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">‍👩‍👧 ولي أمر/مدير</button>
+                    <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
                 </div>
 
-                <div class="bg-purple-50 rounded-2xl p-4 border-2 border-purple-200">
-                    <label class="block text-purple-700 font-bold mb-2 text-lg">🔒 الباسورد</label>
-                    <input type="password" id="userPassword" placeholder="••••••••" 
-                        class="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg text-center">
+                <!-- دخول ولي الأمر/المدير -->
+                <div id="userLoginForm">
+                    <div class="bg-blue-50 rounded-2xl p-4 border-2 border-blue-200">
+                        <label class="block text-blue-700 font-bold mb-2 text-lg">📧 الإيميل</label>
+                        <input type="email" id="userEmail" placeholder="example@email.com" 
+                            class="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg text-center">
+                    </div>
+
+                    <div class="bg-purple-50 rounded-2xl p-4 border-2 border-purple-200">
+                        <label class="block text-purple-700 font-bold mb-2 text-lg">🔒 الباسورد</label>
+                        <input type="password" id="userPassword" placeholder="••••••••" 
+                            class="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg text-center">
+                    </div>
+
+                    <button onclick="handleLogin()" 
+                        class="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">
+                        🚀 يلا ندخل!
+                    </button>
+
+                    <div class="pt-4 border-t-2 border-gray-200">
+                        <p class="text-sm text-gray-500 mb-2">مش عندك حساب؟</p>
+                        <button onclick="showRegister()" class="text-purple-600 font-bold hover:underline">
+                            سجل دلوقتي! 📝
+                        </button>
+                    </div>
                 </div>
 
-                <button onclick="handleLogin()" 
-                    class="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">
-                    🚀 يلا ندخل!
-                </button>
+                <!-- دخول الطفل -->
+                <div id="childLoginForm" class="hidden">
+                    <div class="bg-pink-50 rounded-2xl p-4 border-2 border-pink-200">
+                        <label class="block text-pink-700 font-bold mb-2 text-lg">🔑 كود الطفل</label>
+                        <input type="text" id="childCode" placeholder="مثال: AHME-1234" 
+                            class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-500 focus:outline-none text-lg text-center">
+                    </div>
 
-                <div class="pt-4 border-t-2 border-gray-200">
-                    <p class="text-sm text-gray-500 mb-2">مش عندك حساب؟</p>
-                    <button onclick="showRegister()" class="text-purple-600 font-bold hover:underline">
-                        سجل دلوقتي! 📝
+                    <button onclick="handleChildLogin()" 
+                        class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-black py-4 rounded-xl magic-btn text-xl">
+                        🎮 ادخل يا بطل!
                     </button>
                 </div>
 
@@ -134,7 +173,7 @@
     <!-- ==================== صفحة التسجيل ==================== -->
     <div id="registerPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
-            <div class="text-6xl mb-4"></div>
+            <div class="text-6xl mb-4">📝</div>
             <h2 class="text-3xl font-black mb-4 text-purple-700">إنشاء حساب جديد</h2>
             
             <div class="space-y-4">
@@ -148,7 +187,7 @@
                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
 
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">👨‍👩👧 ولي أمر</option>
+                    <option value="parent">‍👩‍👧 ولي أمر</option>
                     <option value="admin">👨‍💼 مدير (للمعلمين)</option>
                 </select>
 
@@ -182,68 +221,114 @@
         </nav>
 
         <div class="max-w-7xl mx-auto px-4 py-8">
+            <!-- Stats -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
-                    <div class="text-5xl mb-2"></div>
+                    <div class="text-5xl mb-2">📚</div>
                     <div class="text-3xl font-black text-purple-600" id="adminTotalLessons">0</div>
                     <div class="text-gray-600 font-bold">إجمالي الدروس</div>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 text-center bounce-card" style="animation-delay: 0.1s">
+                <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
                     <div class="text-5xl mb-2">‍👩‍👧</div>
                     <div class="text-3xl font-black text-pink-600" id="adminTotalUsers">0</div>
                     <div class="text-gray-600 font-bold">المستخدمين</div>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 text-center bounce-card" style="animation-delay: 0.2s">
+                <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
                     <div class="text-5xl mb-2">📄</div>
                     <div class="text-3xl font-black text-blue-600" id="adminTotalPDFs">0</div>
                     <div class="text-gray-600 font-bold">أوراق العمل</div>
                 </div>
-                <div class="glass-panel rounded-2xl p-6 text-center bounce-card" style="animation-delay: 0.3s">
+                <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
                     <div class="text-5xl mb-2">🎥</div>
                     <div class="text-3xl font-black text-green-600" id="adminTotalVideos">0</div>
                     <div class="text-gray-600 font-bold">الفيديوهات</div>
                 </div>
             </div>
 
+            <!-- إضافة درس جديد - مقسم لأقسام منفصلة -->
             <div class="glass-panel rounded-3xl p-8 mb-8">
                 <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
                     <span class="text-3xl">➕</span> إضافة درس جديد
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
-                        <select id="adminStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
-                            <option value="kg"> رياض الأطفال</option>
-                            <option value="grade1">📚 الصف الأول</option>
-                            <option value="grade2">✏️ الصف الثاني</option>
-                            <option value="grade3">🎓 الصف الثالث</option>
-                        </select>
+                <!-- القسم 1: معلومات الدرس -->
+                <div class="section-card">
+                    <div class="section-title text-purple-700">
+                        <span>📋</span> معلومات الدرس
                     </div>
-                    <div>
-                        <label class="block font-bold mb-2 text-gray-700">عنوان الدرس:</label>
-                        <input type="text" id="adminTitle" placeholder="مثال: الحروف العربية" 
-                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
+                            <select id="adminStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                                <option value="kg">🧸 رياض الأطفال</option>
+                                <option value="grade1">📚 الصف الأول</option>
+                                <option value="grade2">✏️ الصف الثاني</option>
+                                <option value="grade3">🎓 الصف الثالث</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-2 text-gray-700">عنوان الدرس:</label>
+                            <input type="text" id="adminTitle" placeholder="مثال: الحروف العربية" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
                     </div>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block font-bold mb-2 text-gray-700">رابط يوتيوب:</label>
+                <!-- القسم 2: الفيديو من يوتيوب -->
+                <div class="section-card">
+                    <div class="section-title text-red-600">
+                        <span>📺</span> فيديو من يوتيوب (اختياري)
+                    </div>
+                    <p class="text-sm text-gray-500 mb-3">إذا كنت عايز تستخدم فيديو من يوتيوب، حط الرابط هنا</p>
                     <input type="text" id="adminYoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." 
                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block font-bold mb-2 text-gray-700">ورقة العمل (PDF) - اختياري:</label>
-                    <input type="file" id="adminPdfFile" accept=".pdf" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                <!-- القسم 3: رفع فيديو من الجهاز -->
+                <div class="section-card">
+                    <div class="section-title text-blue-600">
+                        <span>📤</span> رفع فيديو من جهازك (اختياري)
+                    </div>
+                    <p class="text-sm text-gray-500 mb-3">ارفع فيديو خاص بك من جهازك (MP4, MOV)</p>
+                    <div class="border-2 border-dashed border-blue-300 rounded-xl p-6 text-center bg-blue-50">
+                        <div class="text-5xl mb-2">📹</div>
+                        <p class="font-bold text-blue-700 mb-2">اضغط لاختيار فيديو من جهازك</p>
+                        <p class="text-sm text-gray-500 mb-4">الحد الأقصى: 100 ميجابايت</p>
+                        <input type="file" id="adminVideoFile" accept="video/*" class="hidden" onchange="handleVideoFileSelect(this)">
+                        <button onclick="document.getElementById('adminVideoFile').click()" 
+                            class="bg-blue-600 text-white px-6 py-2 rounded-lg magic-btn font-bold">
+                            📁 اختر فيديو
+                        </button>
+                        <div id="selectedVideoName" class="mt-3 font-bold text-blue-700"></div>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-4 mb-6 bg-yellow-50 p-4 rounded-xl">
-                    <input type="checkbox" id="adminIsLocked" class="w-6 h-6">
-                    <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer">
-                        🔒 قفل الدرس (لا يظهر للطلاب)
-                    </label>
+                <!-- القسم 4: ورقة العمل PDF -->
+                <div class="section-card">
+                    <div class="section-title text-green-600">
+                        <span></span> ورقة العمل PDF (اختياري)
+                    </div>
+                    <p class="text-sm text-gray-500 mb-3">ارفع ورقة عمل PDF للدرس (اختياري)</p>
+                    <div class="border-2 border-dashed border-green-300 rounded-xl p-6 text-center bg-green-50">
+                        <div class="text-5xl mb-2">📝</div>
+                        <p class="font-bold text-green-700 mb-2">اضغط لاختيار ملف PDF</p>
+                        <input type="file" id="adminPdfFile" accept=".pdf" class="hidden" onchange="handlePdfFileSelect(this)">
+                        <button onclick="document.getElementById('adminPdfFile').click()" 
+                            class="bg-green-600 text-white px-6 py-2 rounded-lg magic-btn font-bold">
+                            📁 اختر PDF
+                        </button>
+                        <div id="selectedPdfName" class="mt-3 font-bold text-green-700"></div>
+                    </div>
+                </div>
+
+                <!-- القسم 5: قفل الدرس -->
+                <div class="section-card bg-yellow-50 border-yellow-300">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" id="adminIsLocked" class="w-6 h-6">
+                        <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg">
+                            🔒 قفل الدرس (لا يظهر للطلاب)
+                        </label>
+                    </div>
                 </div>
 
                 <button onclick="addLesson()" id="addLessonBtn" 
@@ -253,8 +338,9 @@
                 <div id="adminStatus" class="mt-4 text-center font-bold text-lg"></div>
             </div>
 
+            <!-- قائمة الدروس -->
             <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700">📋 الدروس المضافة</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700"> الدروس المضافة</h2>
                 <div id="adminLessonsList"></div>
             </div>
         </div>
@@ -272,52 +358,21 @@
                     </div>
                 </div>
                 <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">
-                    🚪 خروج
+                     خروج
                 </button>
             </div>
         </nav>
 
         <div class="max-w-7xl mx-auto px-4 py-8">
             <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
-                <div class="text-6xl mb-4">👨‍‍👧</div>
+                <div class="text-6xl mb-4">👨‍👩‍</div>
                 <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
                 
                 <div id="childrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6">
-                        <div class="text-5xl mb-2">📚</div>
-                        <div class="text-4xl font-black text-purple-600" id="parentCompletedLessons">0</div>
-                        <div class="text-gray-600 font-bold">دروس مكتملة</div>
-                    </div>
-                    <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6">
-                        <div class="text-5xl mb-2">⭐</div>
-                        <div class="text-4xl font-black text-yellow-600" id="parentTotalStars">0</div>
-                        <div class="text-gray-600 font-bold">النجوم</div>
-                    </div>
-                    <div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6">
-                        <div class="text-5xl mb-2">🏆</div>
-                        <div class="text-4xl font-black text-green-600" id="parentAchievements">0</div>
-                        <div class="text-gray-600 font-bold">الإنجازات</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
-                    <span class="text-3xl">📹</span> الجلسات المباشرة القادمة
-                </h2>
-                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 border-2 border-purple-300">
-                    <div class="flex items-center justify-between flex-wrap gap-4">
-                        <div>
-                            <h3 class="font-black text-lg mb-1">📹 جلسة مراجعة أسبوعية</h3>
-                            <p class="text-gray-600">الأحد 6:00 مساءً - Google Meet</p>
-                        </div>
-                        <button onclick="joinLiveSession()" class="bg-purple-600 text-white px-6 py-3 rounded-xl magic-btn font-bold">
-                            🎥 انضمام
-                        </button>
-                    </div>
-                </div>
+                <button onclick="addChild()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl magic-btn font-bold text-lg">
+                    ➕ إضافة طفل جديد
+                </button>
             </div>
         </div>
     </div>
@@ -349,7 +404,7 @@
                 <div class="absolute top-0 left-0 w-full h-full opacity-20">
                     <div class="absolute top-4 left-4 text-6xl animate-bounce">⭐</div>
                     <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s">🎈</div>
-                    <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s"></div>
+                    <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s">🎉</div>
                 </div>
                 <div class="relative z-10">
                     <h2 class="text-4xl font-black mb-2">مرحباً بك يا بطل! 🎉</h2>
@@ -360,53 +415,31 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <button onclick="showChildStage('kg')" 
                     class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-pink-300 hover:border-pink-500">
-                    <div class="text-7xl mb-4"></div>
+                    <div class="text-7xl mb-4">🧸</div>
                     <h3 class="text-2xl font-black text-pink-600 mb-2">رياض الأطفال</h3>
                     <p id="childKgCount" class="text-gray-600 font-bold">0 دروس</p>
-                    <div class="mt-4 text-3xl"></div>
                 </button>
 
                 <button onclick="showChildStage('grade1')" 
-                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-blue-300 hover:border-blue-500" style="animation-delay: 0.1s">
+                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-blue-300 hover:border-blue-500">
                     <div class="text-7xl mb-4">📚</div>
                     <h3 class="text-2xl font-black text-blue-600 mb-2">الصف الأول</h3>
                     <p id="childGrade1Count" class="text-gray-600 font-bold">0 دروس</p>
-                    <div class="mt-4 text-3xl">🚀</div>
                 </button>
 
                 <button onclick="showChildStage('grade2')" 
-                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-green-300 hover:border-green-500" style="animation-delay: 0.2s">
+                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-green-300 hover:border-green-500">
                     <div class="text-7xl mb-4">✏️</div>
                     <h3 class="text-2xl font-black text-green-600 mb-2">الصف الثاني</h3>
                     <p id="childGrade2Count" class="text-gray-600 font-bold">0 دروس</p>
-                    <div class="mt-4 text-3xl">🦸</div>
                 </button>
 
                 <button onclick="showChildStage('grade3')" 
-                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-purple-300 hover:border-purple-500" style="animation-delay: 0.3s">
-                    <div class="text-7xl mb-4">🎓</div>
+                    class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-purple-300 hover:border-purple-500">
+                    <div class="text-7xl mb-4"></div>
                     <h3 class="text-2xl font-black text-purple-600 mb-2">الصف الثالث</h3>
                     <p id="childGrade3Count" class="text-gray-600 font-bold">0 دروس</p>
-                    <div class="mt-4 text-3xl">🏆</div>
                 </button>
-            </div>
-
-            <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
-                    <span class="text-3xl">📹</span> الجلسات المباشرة
-                </h2>
-                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 border-2 border-purple-300">
-                    <div class="flex items-center justify-between flex-wrap gap-4">
-                        <div>
-                            <h3 class="font-black text-lg mb-1">📹 جلسة مراجعة أسبوعية</h3>
-                            <p class="text-gray-600">الأحد 6:00 مساءً - مع المعلم أحمد</p>
-                        </div>
-                        <button onclick="joinLiveSession()" 
-                            class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl magic-btn font-bold text-lg">
-                            🎥 انضمام الآن
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -416,7 +449,7 @@
         <nav class="bg-gradient-to-r from-pink-500 to-purple-600 sticky top-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <button onclick="backToChildDashboard()" class="bg-white text-purple-600 px-6 py-2 rounded-full font-bold magic-btn">
-                    ⬅️ رجوع
+                    ️ رجوع
                 </button>
                 <h2 id="stageTitle" class="text-2xl font-black text-white"></h2>
                 <div class="w-24"></div>
@@ -465,12 +498,15 @@
         let lessonsData = { kg: [], grade1: [], grade2: [], grade3: [] };
         let currentUser = null;
         let userData = null;
+        let currentChild = null;
+        let selectedVideoFile = null;
+        let selectedPdfFile = null;
 
         // Floating Background
         function createFloatingElements() {
-            const elements = ['📚', '️', '🎨', '🎵', '🌟', '🍎', '🎪', '🎈'];
+            const elements = ['📚', '✏️', '🎨', '🎵', '', '🍎', '🎪', '🎈'];
             const container = document.getElementById('floatingBg');
-            elements.forEach((emoji, index) => {
+            elements.forEach((emoji) => {
                 const el = document.createElement('div');
                 el.className = 'floating-element';
                 el.textContent = emoji;
@@ -482,7 +518,7 @@
         }
         createFloatingElements();
 
-        // Navigation Functions
+        // Navigation
         window.showRegister = function() {
             document.getElementById('loginPage').classList.add('hidden');
             document.getElementById('registerPage').classList.remove('hidden');
@@ -491,6 +527,37 @@
         window.showLogin = function() {
             document.getElementById('registerPage').classList.add('hidden');
             document.getElementById('loginPage').classList.remove('hidden');
+        };
+
+        window.showUserLogin = function() {
+            document.getElementById('userLoginForm').classList.remove('hidden');
+            document.getElementById('childLoginForm').classList.add('hidden');
+            document.getElementById('btnUserLogin').className = 'flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold';
+            document.getElementById('btnChildLogin').className = 'flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold';
+        };
+
+        window.showChildLogin = function() {
+            document.getElementById('userLoginForm').classList.add('hidden');
+            document.getElementById('childLoginForm').classList.remove('hidden');
+            document.getElementById('btnUserLogin').className = 'flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold';
+            document.getElementById('btnChildLogin').className = 'flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold';
+        };
+
+        // File Selection Handlers
+        window.handleVideoFileSelect = function(input) {
+            if (input.files && input.files[0]) {
+                selectedVideoFile = input.files[0];
+                document.getElementById('selectedVideoName').textContent = '✅ ' + selectedVideoFile.name;
+                // Clear YouTube URL if video file selected
+                document.getElementById('adminYoutubeUrl').value = '';
+            }
+        };
+
+        window.handlePdfFileSelect = function(input) {
+            if (input.files && input.files[0]) {
+                selectedPdfFile = input.files[0];
+                document.getElementById('selectedPdfName').textContent = '✅ ' + selectedPdfFile.name;
+            }
         };
 
         // Register
@@ -549,6 +616,39 @@
             }
         };
 
+        // Child Login
+        window.handleChildLogin = async function() {
+            const code = document.getElementById('childCode').value.trim();
+
+            if (!code) {
+                document.getElementById('loginError').textContent = '❌ أدخل كود الطفل';
+                document.getElementById('loginError').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const childrenDoc = await getDocs(query(collection(db, 'children'), where('code', '==', code)));
+                
+                if (childrenDoc.empty) {
+                    document.getElementById('loginError').textContent = ' كود الطفل غير صحيح';
+                    document.getElementById('loginError').classList.remove('hidden');
+                    return;
+                }
+
+                currentChild = childrenDoc.docs[0].data();
+                currentChild.id = childrenDoc.docs[0].id;
+
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('childDashboard').classList.remove('hidden');
+                document.getElementById('loginError').classList.add('hidden');
+
+                await loadChildData();
+            } catch (error) {
+                document.getElementById('loginError').textContent = '❌ خطأ: ' + error.message;
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        };
+
         // Auth State Change
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -564,52 +664,53 @@
                         document.getElementById('adminDashboard').classList.remove('hidden');
                         await loadAdminData();
                     } else if (userData.role === 'parent') {
-                        await checkAndLoadParent();
+                        document.getElementById('parentDashboard').classList.remove('hidden');
+                        await loadParentData();
                     }
                 }
             }
         });
 
-        async function checkAndLoadParent() {
-            const childrenDoc = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
-            
-            if (childrenDoc.empty) {
-                // No children yet, ask for child name
-                const childName = prompt('أدخل اسم طفلك:');
-                if (childName) {
-                    const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
-                    
-                    await addDoc(collection(db, 'children'), {
-                        parentId: currentUser.uid,
-                        name: childName,
-                        code: childCode,
-                        stage: null,
-                        stars: 0,
-                        completedLessons: [],
-                        createdAt: new Date()
-                    });
-
-                    await updateDoc(doc(db, 'users', currentUser.uid), {
-                        children: [{ name: childName, code: childCode }]
-                    });
-
-                    alert(`✅ تم إضافة الطفل بنجاح!\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
-                }
-            }
-            
-            document.getElementById('parentDashboard').classList.remove('hidden');
-            await loadParentData();
-        }
-
         // Logout
         window.logout = async function() {
-            await signOut(auth);
+            if (currentUser) {
+                await signOut(auth);
+            }
             currentUser = null;
             userData = null;
+            currentChild = null;
             document.querySelectorAll('[id$="Dashboard"], [id$="View"]').forEach(el => el.classList.add('hidden'));
             document.getElementById('loginPage').classList.remove('hidden');
             document.getElementById('userEmail').value = '';
             document.getElementById('userPassword').value = '';
+            document.getElementById('childCode').value = '';
+            document.getElementById('loginError').classList.add('hidden');
+        };
+
+        // Add Child
+        window.addChild = async function() {
+            const childName = prompt('أدخل اسم الطفل:');
+            if (childName) {
+                const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
+                
+                await addDoc(collection(db, 'children'), {
+                    parentId: currentUser.uid,
+                    name: childName,
+                    code: childCode,
+                    stage: null,
+                    stars: 0,
+                    completedLessons: [],
+                    createdAt: new Date()
+                });
+
+                const newChildren = [...(userData.children || []), { name: childName, code: childCode }];
+                await updateDoc(doc(db, 'users', currentUser.uid), {
+                    children: newChildren
+                });
+
+                alert(`✅ تم إضافة الطفل بنجاح!\n\nالاسم: ${childName}\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
+                await loadParentData();
+            }
         };
 
         // Admin Functions
@@ -622,12 +723,12 @@
                 let totalVideos = 0;
                 let totalPDFs = 0;
 
-                lessonsSnapshot.forEach(doc => {
-                    const data = doc.data();
+                lessonsSnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
                     if (lessonsData[data.stage]) {
-                        lessonsData[data.stage].push({ id: doc.id, ...data });
+                        lessonsData[data.stage].push({ id: docSnap.id, ...data });
                     }
-                    if (data.videoUrl) totalVideos++;
+                    if (data.videoUrl || data.videoId) totalVideos++;
                     if (data.pdfUrl) totalPDFs++;
                 });
 
@@ -650,24 +751,25 @@
 
             ['kg', 'grade1', 'grade2', 'grade3'].forEach(stage => {
                 if (lessonsData[stage].length > 0) {
-                    const names = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
                     container.innerHTML += `<h3 class="text-xl font-bold mb-4 mt-6">${names[stage]}</h3>`;
 
                     lessonsData[stage].forEach(lesson => {
                         const lockIcon = lesson.isLocked ? '🔒' : '🔓';
-                        const pdfIcon = lesson.pdfUrl ? '📄' : '';
+                        const pdfIcon = lesson.pdfUrl ? '' : '';
+                        const videoType = lesson.videoUrl ? '📤 مرفوع' : (lesson.videoId ? '📺 يوتيوب' : '');
                         container.innerHTML += `
                             <div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4">
                                 <div class="flex-1">
                                     <div class="font-bold text-lg">${lesson.title}</div>
                                     <div class="text-sm text-gray-500">
-                                        ${lockIcon} ${lesson.videoType === 'youtube' ? 'يوتيوب' : 'مرفوع'} ${pdfIcon}
+                                        ${lockIcon} ${videoType} ${pdfIcon}
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
                                     <button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" 
                                         class="bg-yellow-500 text-white px-4 py-2 rounded-lg magic-btn">
-                                        ${lesson.isLocked ? 'فتح' : 'قفل'}
+                                        ${lesson.isLocked ? '🔓 فتح' : ' قفل'}
                                     </button>
                                     <button onclick="deleteLesson('${lesson.id}', '${stage}')" 
                                         class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">
@@ -688,19 +790,18 @@
         window.addLesson = async function() {
             const stage = document.getElementById('adminStage').value;
             const title = document.getElementById('adminTitle').value.trim();
-            const url = document.getElementById('adminYoutubeUrl').value.trim();
+            const youtubeUrl = document.getElementById('adminYoutubeUrl').value.trim();
             const isLocked = document.getElementById('adminIsLocked').checked;
             const btn = document.getElementById('addLessonBtn');
             const status = document.getElementById('adminStatus');
 
-            if (!title || !url) {
-                alert('❌ الرجاء إدخال العنوان ورابط الفيديو');
+            if (!title) {
+                alert('❌ الرجاء إدخال عنوان الدرس');
                 return;
             }
 
-            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
-            if (!match) {
-                alert('❌ رابط يوتيوب غير صحيح');
+            if (!youtubeUrl && !selectedVideoFile) {
+                alert('❌ الرجاء إضافة رابط يوتيوب أو رفع فيديو من الجهاز');
                 return;
             }
 
@@ -709,38 +810,68 @@
             status.textContent = '';
 
             try {
+                let videoId = null;
+                let videoUrl = null;
                 let pdfUrl = null;
-                const pdfFile = document.getElementById('adminPdfFile').files[0];
-                
-                if (pdfFile) {
+
+                // Handle YouTube URL
+                if (youtubeUrl) {
+                    const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
+                    if (!match) {
+                        alert('❌ رابط يوتيوب غير صحيح');
+                        btn.disabled = false;
+                        btn.textContent = '💾 حفظ الدرس';
+                        return;
+                    }
+                    videoId = match[1];
+                }
+
+                // Handle Video Upload
+                if (selectedVideoFile) {
+                    status.textContent = '⏳ جاري رفع الفيديو...';
+                    const videoRef = ref(storage, `videos/${Date.now()}_${selectedVideoFile.name}`);
+                    await uploadBytes(videoRef, selectedVideoFile);
+                    videoUrl = await getDownloadURL(videoRef);
+                }
+
+                // Handle PDF Upload
+                if (selectedPdfFile) {
                     status.textContent = '⏳ جاري رفع PDF...';
-                    const pdfRef = ref(storage, `pdfs/${Date.now()}_${pdfFile.name}`);
-                    await uploadBytes(pdfRef, pdfFile);
+                    const pdfRef = ref(storage, `pdfs/${Date.now()}_${selectedPdfFile.name}`);
+                    await uploadBytes(pdfRef, selectedPdfFile);
                     pdfUrl = await getDownloadURL(pdfRef);
                 }
 
                 await addDoc(collection(db, 'lessons'), {
                     stage,
                     title,
-                    videoType: 'youtube',
-                    videoId: match[1],
-                    pdfUrl,
-                    isLocked,
+                    videoType: videoUrl ? 'upload' : 'youtube',
+                    videoId: videoId,
+                    videoUrl: videoUrl,
+                    pdfUrl: pdfUrl,
+                    isLocked: isLocked,
                     createdAt: new Date(),
                     questions: []
                 });
 
                 status.textContent = '✅ تم حفظ الدرس بنجاح!';
                 status.className = 'mt-4 text-center font-bold text-lg text-green-600';
+                
+                // Reset form
                 document.getElementById('adminTitle').value = '';
                 document.getElementById('adminYoutubeUrl').value = '';
+                document.getElementById('adminVideoFile').value = '';
                 document.getElementById('adminPdfFile').value = '';
+                document.getElementById('selectedVideoName').textContent = '';
+                document.getElementById('selectedPdfName').textContent = '';
+                selectedVideoFile = null;
+                selectedPdfFile = null;
 
                 await loadAdminData();
 
                 setTimeout(() => {
                     btn.disabled = false;
-                    btn.textContent = '💾 حفظ الدرس';
+                    btn.textContent = ' حفظ الدرس';
                     status.textContent = '';
                 }, 3000);
 
@@ -779,27 +910,21 @@
                 const childrenList = document.getElementById('childrenList');
                 childrenList.innerHTML = '';
 
-                let totalStars = 0;
-                let totalCompleted = 0;
-
-                childrenDoc.forEach(doc => {
-                    const child = doc.data();
-                    totalStars += child.stars || 0;
-                    totalCompleted += (child.completedLessons || []).length;
-
+                childrenDoc.forEach(docSnap => {
+                    const child = docSnap.data();
                     childrenList.innerHTML += `
                         <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300">
                             <div class="text-4xl mb-2">👶</div>
                             <h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3>
                             <p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p>
-                            <p class="text-sm text-gray-500">النجوم:  ${child.stars || 0}</p>
+                            <p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>
                         </div>
                     `;
                 });
 
-                document.getElementById('parentCompletedLessons').textContent = totalCompleted;
-                document.getElementById('parentTotalStars').textContent = totalStars;
-                document.getElementById('parentAchievements').textContent = Math.floor(totalStars / 10);
+                if (childrenDoc.empty) {
+                    childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين. اضغط "إضافة طفل جديد" للبدء.</div>';
+                }
             } catch (error) {
                 console.error('Error loading parent data:', error);
             }
@@ -811,10 +936,10 @@
                 const snapshot = await getDocs(collection(db, 'lessons'));
                 lessonsData = { kg: [], grade1: [], grade2: [], grade3: [] };
 
-                snapshot.forEach(doc => {
-                    const data = doc.data();
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
                     if (lessonsData[data.stage] && !data.isLocked) {
-                        lessonsData[data.stage].push({ id: doc.id, ...data });
+                        lessonsData[data.stage].push({ id: docSnap.id, ...data });
                     }
                 });
 
@@ -822,7 +947,7 @@
                 document.getElementById('childGrade1Count').textContent = `${lessonsData.grade1.length} دروس`;
                 document.getElementById('childGrade2Count').textContent = `${lessonsData.grade2.length} دروس`;
                 document.getElementById('childGrade3Count').textContent = `${lessonsData.grade3.length} دروس`;
-                document.getElementById('childStars').textContent = '0';
+                document.getElementById('childStars').textContent = currentChild?.stars || 0;
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -833,7 +958,7 @@
                 kg: '🧸 رياض الأطفال', 
                 grade1: '📚 الصف الأول', 
                 grade2: '✏️ الصف الثاني',
-                grade3: '🎓 الصف الثالث'
+                grade3: ' الصف الثالث'
             };
             document.getElementById('stageTitle').textContent = names[stage];
             document.getElementById('childDashboard').classList.add('hidden');
@@ -843,14 +968,17 @@
             container.innerHTML = '';
 
             if (lessonsData[stage].length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد</div>';
+                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد </div>';
             } else {
                 lessonsData[stage].forEach(lesson => {
                     const pdfBadge = lesson.pdfUrl ? '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📄 PDF</span>' : '';
                     container.innerHTML += `
                         <div class="glass-panel rounded-2xl overflow-hidden bounce-card">
                             <div class="video-box">
-                                <iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>
+                                ${lesson.videoType === 'youtube' 
+                                    ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>`
+                                    : `<video controls src="${lesson.videoUrl}"></video>`
+                                }
                             </div>
                             <div class="p-6">
                                 <h3 class="text-xl font-bold mb-2">${lesson.title}</h3>
@@ -862,7 +990,7 @@
                                 ${lesson.pdfUrl ? `
                                     <a href="${lesson.pdfUrl}" target="_blank" 
                                         class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">
-                                        📥 تحميل ورقة العمل
+                                         تحميل ورقة العمل
                                     </a>
                                 ` : ''}
                             </div>
@@ -883,11 +1011,17 @@
             if (!lesson) return;
 
             document.getElementById('modalLessonTitle').textContent = lesson.title;
-            let content = `<div class="video-box mb-6"><iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+            let content = '';
+
+            if (lesson.videoType === 'youtube') {
+                content = `<div class="video-box mb-6"><iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+            } else {
+                content = `<div class="video-box mb-6"><video controls src="${lesson.videoUrl}"></video></div>`;
+            }
 
             if (lesson.pdfUrl) {
                 content += `<a href="${lesson.pdfUrl}" target="_blank" class="block bg-blue-500 text-white font-bold py-4 rounded-xl text-center magic-btn mb-4">
-                    📥 تحميل ورقة العمل PDF
+                     تحميل ورقة العمل PDF
                 </a>`;
             }
 
@@ -902,10 +1036,6 @@
 
         window.closeLessonModal = function() {
             document.getElementById('lessonModal').classList.add('hidden');
-        };
-
-        window.joinLiveSession = function() {
-            window.open('https://meet.google.com', '_blank');
         };
 
         // Expose functions
