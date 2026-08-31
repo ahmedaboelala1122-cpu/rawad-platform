@@ -653,19 +653,63 @@
             } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
-        async function loadStandalonePdfs() {
-            try {
-                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
-                const container = document.getElementById('standalonePdfsList');
-                container.innerHTML = '';
-                if (pdfsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>'; return; }
-                pdfsSnapshot.forEach(docSnap => {
-                    const pdf = docSnap.data();
-                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: ' جميع المراحل' };
-                    container.innerHTML += `<div class="bg-green-50 rounded-xl p-4 mb-3 flex justify-between items-center border-2 border-green-200"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><a href="${pdf.url}" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
-                });
-            } catch (error) { console.error('Error loading standalone PDFs:', error); }
+    async function loadStandalonePdfs() {
+    try {
+        const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+        const container = document.getElementById('standalonePdfsList');
+        container.innerHTML = '';
+        
+        if (pdfsSnapshot.empty) { 
+            container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>'; 
+            return; 
         }
+
+        pdfsSnapshot.forEach(docSnap => {
+            const pdf = docSnap.data();
+            const stageNames = { 
+                kg: '🧸 رياض الأطفال', 
+                grade1: ' الصف الأول', 
+                grade2: '️ الصف الثاني', 
+                grade3: ' الصف الثالث', 
+                all: ' جميع المراحل' 
+            };
+            
+            container.innerHTML += `
+                <div class="bg-green-50 rounded-xl p-4 mb-3 flex justify-between items-center border-2 border-green-200">
+                    <div>
+                        <div class="font-bold text-lg">${pdf.title}</div>
+                        <div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="${pdf.url}" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg magic-btn">
+                            👁️ عرض
+                        </a>
+                        <button onclick="deleteStandalonePdf('${docSnap.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">
+                            🗑️ حذف
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) { 
+        console.error('Error loading standalone PDFs:', error); 
+    }
+}
+
+// دالة حذف PDF
+window.deleteStandalonePdf = async function(pdfId) {
+    if (!confirm('هل أنت متأكد من حذف ورقة العمل هذه؟')) return;
+    
+    try {
+        await deleteDoc(doc(db, 'standalonePdfs', pdfId));
+        alert('✅ تم حذف ورقة العمل بنجاح!');
+        await loadStandalonePdfs();
+        await loadAdminData();
+    } catch (error) {
+        console.error('Error deleting PDF:', error);
+        alert('❌ حدث خطأ أثناء الحذف: ' + error.message);
+    }
+};
 
         async function loadAdminData() {
             try {
@@ -811,22 +855,46 @@
         }
 
         async function loadChildPdfs() {
-            try {
-                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
-                const container = document.getElementById('childPdfsList');
-                container.innerHTML = '';
-                if (pdfsSnapshot.empty) { container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; return; }
-                
-                // عرض جميع الـ PDFs لكل الأطفال (للتجربة)
-                pdfsSnapshot.forEach(docSnap => {
-                    const pdf = docSnap.data();
-                    // عرض الـ PDF لو المرحلة "جميع المراحل"
-                    if (pdf.stage === 'all') {
-                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2"></div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn"> تحميل</a></div>`;
-                    }
-                });
-            } catch (error) { console.error('Error loading child PDFs:', error); }
+    try {
+        const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+        const container = document.getElementById('childPdfsList');
+        container.innerHTML = '';
+        
+        if (pdfsSnapshot.empty) { 
+            container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; 
+            return; 
         }
+
+        // تحويل المرحلة الموصى بها للطفل إلى كود
+        let childStageCode = '';
+        if (currentChild.recommendedStage) {
+            if (currentChild.recommendedStage.includes('رياض الأطفال')) childStageCode = 'kg';
+            else if (currentChild.recommendedStage.includes('الصف الأول')) childStageCode = 'grade1';
+            else if (currentChild.recommendedStage.includes('الصف الثاني')) childStageCode = 'grade2';
+            else if (currentChild.recommendedStage.includes('الصف الثالث')) childStageCode = 'grade3';
+        }
+
+        pdfsSnapshot.forEach(docSnap => {
+            const pdf = docSnap.data();
+            // عرض الـ PDF لو:
+            // 1. المرحلة = "جميع المراحل"
+            // 2. أو المرحلة = مرحلة الطفل
+            if (pdf.stage === 'all' || pdf.stage === childStageCode) {
+                container.innerHTML += `
+                    <div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center">
+                        <div class="text-5xl mb-2">📄</div>
+                        <h3 class="font-bold text-lg mb-3">${pdf.title}</h3>
+                        <a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">
+                            📥 تحميل
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    } catch (error) { 
+        console.error('Error loading child PDFs:', error); 
+    }
+}
 
         window.showChildStage = function(stage) {
             const names = { kg: '🧸 رياض الأطفال', grade1: ' الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
