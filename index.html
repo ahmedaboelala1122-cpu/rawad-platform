@@ -99,6 +99,63 @@
             align-items: center;
             gap: 8px;
         }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Assessment Styles */
+        .assessment-option {
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+        }
+        .assessment-option:hover {
+            border-color: #8b5cf6;
+            background: #f3f0ff;
+            transform: translateY(-2px);
+        }
+        .assessment-option.correct {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .assessment-option.wrong {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .star-rating {
+            font-size: 2rem;
+            color: #fbbf24;
+        }
     </style>
 </head>
 <body>
@@ -106,11 +163,16 @@
     <!-- Animated Background -->
     <div class="floating-bg" id="floatingBg"></div>
 
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp()" title="تواصل عبر واتساب">
+        💬
+    </div>
+
     <!-- ==================== صفحة تسجيل الدخول ==================== -->
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400"></div>
-            <div class="text-7xl mb-4 robot-wave"></div>
+            <div class="text-7xl mb-4 robot-wave">🤖</div>
             
             <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
                 مدرستي في بيتي
@@ -120,7 +182,7 @@
             <div class="space-y-4">
                 <!-- تبديل نوع الدخول -->
                 <div class="flex gap-2 mb-4">
-                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">‍👩‍👧 ولي أمر/مدير</button>
+                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨👩‍👧 ولي أمر/مدير</button>
                     <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
                 </div>
 
@@ -173,7 +235,7 @@
     <!-- ==================== صفحة التسجيل ==================== -->
     <div id="registerPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
-            <div class="text-6xl mb-4">📝</div>
+            <div class="text-6xl mb-4"></div>
             <h2 class="text-3xl font-black mb-4 text-purple-700">إنشاء حساب جديد</h2>
             
             <div class="space-y-4">
@@ -187,7 +249,7 @@
                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
 
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">‍👩‍👧 ولي أمر</option>
+                    <option value="parent">👨‍👩‍ ولي أمر</option>
                     <option value="admin">👨‍💼 مدير (للمعلمين)</option>
                 </select>
 
@@ -203,19 +265,67 @@
         </div>
     </div>
 
+    <!-- ==================== اختبار تحديد المستوى ==================== -->
+    <div id="assessmentPage" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-2xl w-full text-center relative overflow-hidden">
+            <div class="text-8xl mb-4 robot-wave inline-block"></div>
+            
+            <div id="assessmentContent">
+                <h2 class="text-3xl font-black mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    أهلاً يا بطل! أنا روبو!
+                </h2>
+                <p class="text-gray-600 mb-6 text-lg">
+                    هسألك شوية أسئلة عشان أعرف مستواك ونبدأ معاً في المغامرة! 
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="bg-yellow-100 rounded-2xl p-4 border-2 border-yellow-300">
+                        <p class="font-bold text-lg mb-4">السؤال <span id="currentQNum">1</span> من <span id="totalQs">7</span></p>
+                        <p id="questionText" class="text-xl font-bold mb-6 text-purple-700"></p>
+                        
+                        <div id="answerOptions" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Options will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-4 rounded-full transition-all duration-500" style="width: 14%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="resultScreen" class="hidden">
+                <div class="text-8xl mb-4 star-burst inline-block">🏆</div>
+                <h2 class="text-3xl font-black mb-4 text-purple-700">ممتاز يا بطل!</h2>
+                <p id="resultText" class="text-xl mb-6 text-gray-700 font-bold"></p>
+                
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 border-4 border-yellow-400 mb-6">
+                    <div class="text-6xl mb-2"></div>
+                    <p class="text-2xl font-black text-orange-700" id="recommendedStage"></p>
+                </div>
+
+                <button onclick="goToDashboard()" 
+                    class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">
+                    🚀 يلا نبدأ!
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- ==================== لوحة المدير ==================== -->
     <div id="adminDashboard" class="hidden min-h-screen">
         <nav class="bg-gradient-to-r from-purple-600 to-pink-600 sticky top-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <span class="text-4xl">🏠</span>
+                    <span class="text-4xl"></span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
                         <span class="text-yellow-300 text-sm font-bold">👨‍💼 لوحة المدير</span>
                     </div>
                 </div>
                 <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">
-                    🚪 خروج
+                     خروج
                 </button>
             </div>
         </nav>
@@ -229,7 +339,7 @@
                     <div class="text-gray-600 font-bold">إجمالي الدروس</div>
                 </div>
                 <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
-                    <div class="text-5xl mb-2">‍👩‍👧</div>
+                    <div class="text-5xl mb-2">👩‍👧</div>
                     <div class="text-3xl font-black text-pink-600" id="adminTotalUsers">0</div>
                     <div class="text-gray-600 font-bold">المستخدمين</div>
                 </div>
@@ -245,7 +355,7 @@
                 </div>
             </div>
 
-            <!-- إضافة درس جديد - مقسم لأقسام منفصلة -->
+            <!-- إضافة درس جديد -->
             <div class="glass-panel rounded-3xl p-8 mb-8">
                 <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
                     <span class="text-3xl">➕</span> إضافة درس جديد
@@ -274,26 +384,19 @@
                     </div>
                 </div>
 
-                <!-- القسم 2: الفيديو من يوتيوب -->
+                <!-- القسم 2: الفيديو -->
                 <div class="section-card">
                     <div class="section-title text-red-600">
-                        <span>📺</span> فيديو من يوتيوب (اختياري)
+                        <span>📺</span> الفيديو (يوتيوب أو رفع من الجهاز)
                     </div>
-                    <p class="text-sm text-gray-500 mb-3">إذا كنت عايز تستخدم فيديو من يوتيوب، حط الرابط هنا</p>
-                    <input type="text" id="adminYoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
-                </div>
-
-                <!-- القسم 3: رفع فيديو من الجهاز -->
-                <div class="section-card">
-                    <div class="section-title text-blue-600">
-                        <span>📤</span> رفع فيديو من جهازك (اختياري)
+                    <div class="mb-4">
+                        <label class="block font-bold mb-2 text-gray-700">رابط يوتيوب:</label>
+                        <input type="text" id="adminYoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." 
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                     </div>
-                    <p class="text-sm text-gray-500 mb-3">ارفع فيديو خاص بك من جهازك (MP4, MOV)</p>
                     <div class="border-2 border-dashed border-blue-300 rounded-xl p-6 text-center bg-blue-50">
                         <div class="text-5xl mb-2">📹</div>
-                        <p class="font-bold text-blue-700 mb-2">اضغط لاختيار فيديو من جهازك</p>
-                        <p class="text-sm text-gray-500 mb-4">الحد الأقصى: 100 ميجابايت</p>
+                        <p class="font-bold text-blue-700 mb-2">أو ارفع فيديو من جهازك</p>
                         <input type="file" id="adminVideoFile" accept="video/*" class="hidden" onchange="handleVideoFileSelect(this)">
                         <button onclick="document.getElementById('adminVideoFile').click()" 
                             class="bg-blue-600 text-white px-6 py-2 rounded-lg magic-btn font-bold">
@@ -303,10 +406,42 @@
                     </div>
                 </div>
 
+                <!-- القسم 3: الأسئلة التفاعلية -->
+                <div class="section-card">
+                    <div class="section-title text-green-600">
+                        <span>📝</span> الأسئلة التفاعلية (اختياري)
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">أضف من 3 إلى 5 أسئلة اختيار من متعدد للدرس</p>
+                    
+                    <div id="questionsContainer">
+                        <div class="question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200">
+                            <div class="font-bold mb-3 text-purple-700">السؤال 1:</div>
+                            <input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1">
+                                <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2">
+                                <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3">
+                            </div>
+                            <div class="mt-3">
+                                <label class="font-bold text-sm">الإجابة الصحيحة: </label>
+                                <select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg">
+                                    <option value="0">الإجابة الأولى</option>
+                                    <option value="1">الإجابة الثانية</option>
+                                    <option value="2">الإجابة الثالثة</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="addQuestionField()" class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg magic-btn font-bold">
+                         إضافة سؤال آخر
+                    </button>
+                </div>
+
                 <!-- القسم 4: ورقة العمل PDF -->
                 <div class="section-card">
                     <div class="section-title text-green-600">
-                        <span></span> ورقة العمل PDF (اختياري)
+                        <span>📄</span> ورقة العمل PDF (اختياري)
                     </div>
                     <p class="text-sm text-gray-500 mb-3">ارفع ورقة عمل PDF للدرس (اختياري)</p>
                     <div class="border-2 border-dashed border-green-300 rounded-xl p-6 text-center bg-green-50">
@@ -338,9 +473,67 @@
                 <div id="adminStatus" class="mt-4 text-center font-bold text-lg"></div>
             </div>
 
+            <!-- إدارة رقم الواتساب -->
+            <div class="glass-panel rounded-3xl p-8 mb-8">
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
+                    <span class="text-3xl">💬</span> رقم الواتساب للتواصل
+                </h2>
+                <div class="bg-green-50 rounded-xl p-6 border-2 border-green-300">
+                    <label class="block font-bold mb-2 text-gray-700">رقم الواتساب (مع مفتاح الدولة):</label>
+                    <div class="flex gap-4">
+                        <input type="text" id="whatsappNumber" placeholder="مثال: 201234567890" 
+                            class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:outline-none">
+                        <button onclick="updateWhatsAppNumber()" class="bg-green-600 text-white px-8 py-3 rounded-xl magic-btn font-bold">
+                             حفظ
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">مثال: لمصر اكتب 201234567890 (20 + الرقم من غير الصفر)</p>
+                </div>
+            </div>
+
+            <!-- مكتبة أوراق العمل المستقلة -->
+            <div class="glass-panel rounded-3xl p-8 mb-8">
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
+                    <span class="text-3xl"></span> مكتبة أوراق العمل المستقلة
+                </h2>
+                <div class="section-card">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block font-bold mb-2 text-gray-700">عنوان الورقة:</label>
+                            <input type="text" id="pdfTitle" placeholder="مثال: اختبار الشهر" 
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
+                            <select id="pdfStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                                <option value="kg">🧸 رياض الأطفال</option>
+                                <option value="grade1">📚 الصف الأول</option>
+                                <option value="grade2">✏️ الصف الثاني</option>
+                                <option value="grade3">🎓 الصف الثالث</option>
+                                <option value="all">🌟 جميع المراحل</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="border-2 border-dashed border-purple-300 rounded-xl p-6 text-center bg-purple-50">
+                        <div class="text-5xl mb-2">📄</div>
+                        <p class="font-bold text-purple-700 mb-2">اختر ملف PDF</p>
+                        <input type="file" id="standalonePdfFile" accept=".pdf" class="hidden" onchange="handleStandalonePdfSelect(this)">
+                        <button onclick="document.getElementById('standalonePdfFile').click()" 
+                            class="bg-purple-600 text-white px-6 py-2 rounded-lg magic-btn font-bold">
+                             اختر ملف
+                        </button>
+                        <div id="selectedStandalonePdfName" class="mt-3 font-bold text-purple-700"></div>
+                    </div>
+                    <button onclick="uploadStandalonePdf()" class="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">
+                        📤 رفع الورقة
+                    </button>
+                </div>
+                <div id="standalonePdfsList" class="mt-6"></div>
+            </div>
+
             <!-- قائمة الدروس -->
             <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700"> الدروس المضافة</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700">📋 الدروس المضافة</h2>
                 <div id="adminLessonsList"></div>
             </div>
         </div>
@@ -354,7 +547,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-blue-200 text-sm font-bold">👨‍👩‍👧 لوحة ولي الأمر</span>
+                        <span class="text-blue-200 text-sm font-bold">👨‍‍👧 لوحة ولي الأمر</span>
                     </div>
                 </div>
                 <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">
@@ -365,7 +558,7 @@
 
         <div class="max-w-7xl mx-auto px-4 py-8">
             <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
-                <div class="text-6xl mb-4">👨‍👩‍</div>
+                <div class="text-6xl mb-4">👨‍👩👧</div>
                 <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
                 
                 <div id="childrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
@@ -385,7 +578,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-pink-200 text-sm font-bold"> مساحة البطل</span>
+                        <span class="text-pink-200 text-sm font-bold">🌟 مساحة البطل</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -393,7 +586,7 @@
                         ⭐ <span id="childStars">0</span>
                     </div>
                     <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">
-                         خروج
+                        🚪 خروج
                     </button>
                 </div>
             </div>
@@ -429,17 +622,25 @@
 
                 <button onclick="showChildStage('grade2')" 
                     class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-green-300 hover:border-green-500">
-                    <div class="text-7xl mb-4">✏️</div>
+                    <div class="text-7xl mb-4">️</div>
                     <h3 class="text-2xl font-black text-green-600 mb-2">الصف الثاني</h3>
                     <p id="childGrade2Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
 
                 <button onclick="showChildStage('grade3')" 
                     class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-purple-300 hover:border-purple-500">
-                    <div class="text-7xl mb-4"></div>
+                    <div class="text-7xl mb-4">🎓</div>
                     <h3 class="text-2xl font-black text-purple-600 mb-2">الصف الثالث</h3>
                     <p id="childGrade3Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
+            </div>
+
+            <!-- مكتبة أوراق العمل -->
+            <div class="glass-panel rounded-3xl p-8">
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2">
+                    <span class="text-3xl">📚</span> مكتبة أوراق العمل
+                </h2>
+                <div id="childPdfsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </div>
     </div>
@@ -449,7 +650,7 @@
         <nav class="bg-gradient-to-r from-pink-500 to-purple-600 sticky top-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <button onclick="backToChildDashboard()" class="bg-white text-purple-600 px-6 py-2 rounded-full font-bold magic-btn">
-                    ️ رجوع
+                    ⬅️ رجوع
                 </button>
                 <h2 id="stageTitle" class="text-2xl font-black text-white"></h2>
                 <div class="w-24"></div>
@@ -470,6 +671,18 @@
             <div class="pt-8">
                 <h2 id="modalLessonTitle" class="text-3xl font-black mb-6 text-center text-purple-700"></h2>
                 <div id="modalContent"></div>
+                
+                <!-- Quiz Section -->
+                <div id="quizSection" class="mt-8 hidden">
+                    <h3 class="text-2xl font-black mb-6 text-purple-700">📝 اختبر نفسك!</h3>
+                    <div id="quizQuestions"></div>
+                    <div id="quizResult" class="mt-6 text-center hidden">
+                        <div class="text-6xl mb-4"></div>
+                        <p class="text-2xl font-black text-green-600 mb-2">أحسنت يا بطل!</p>
+                        <p class="text-xl text-gray-700">حصلت على <span id="quizScore" class="font-bold text-purple-600"></span> من <span id="quizTotal"></span></p>
+                        <div class="star-rating mt-4" id="quizStars"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -501,10 +714,62 @@
         let currentChild = null;
         let selectedVideoFile = null;
         let selectedPdfFile = null;
+        let selectedStandalonePdfFile = null;
+        let whatsappNumber = '';
+        let assessmentQuestions = [];
+        let currentQuestionIndex = 0;
+        let assessmentScore = 0;
+        let currentLessonQuestions = [];
+
+        // Assessment Questions Data
+        const assessmentData = [
+            {
+                q: "إيه الحرف الأول في كلمة 'تفاحة'؟",
+                options: ["ت 🍎", "ب ", "م 🍇"],
+                correct: 0,
+                type: "letters"
+            },
+            {
+                q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟",
+                options: ["1 🍎", "2 🍎🍎", "3 🍎🍎"],
+                correct: 1,
+                type: "math"
+            },
+            {
+                q: "إيه الكلمة دي؟ 🏫",
+                options: ["بيت 🏠", "مدرسة 🏫", "حديقة 🌳"],
+                correct: 1,
+                type: "reading"
+            },
+            {
+                q: "كم لون في قوس قزح؟",
+                options: ["5 🌈", "7 🌈", "10 🌈"],
+                correct: 1,
+                type: "general"
+            },
+            {
+                q: "إيه الرقم اللي بعد 5؟",
+                options: ["4️⃣", "5️⃣", "6️⃣"],
+                correct: 2,
+                type: "math"
+            },
+            {
+                q: "إيه الحيوان اللي بيقول مياو؟",
+                options: ["🐶 كلب", "🐱 قط", " عصفور"],
+                correct: 1,
+                type: "animals"
+            },
+            {
+                q: "إيه الشهر ده؟",
+                options: ["يناير ❄️", "يوليو ☀️", "أكتوبر 🍂"],
+                correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2),
+                type: "general"
+            }
+        ];
 
         // Floating Background
         function createFloatingElements() {
-            const elements = ['📚', '✏️', '🎨', '🎵', '', '🍎', '🎪', '🎈'];
+            const elements = ['📚', '✏️', '🎨', '🎵', '🌟', '🍎', '🎪', '🎈'];
             const container = document.getElementById('floatingBg');
             elements.forEach((emoji) => {
                 const el = document.createElement('div');
@@ -517,6 +782,16 @@
             });
         }
         createFloatingElements();
+
+        // WhatsApp Functions
+        window.openWhatsApp = function() {
+            if (whatsappNumber) {
+                const url = `https://wa.me/${whatsappNumber}`;
+                window.open(url, '_blank');
+            } else {
+                alert('رقم الواتساب غير متوفر');
+            }
+        };
 
         // Navigation
         window.showRegister = function() {
@@ -548,7 +823,6 @@
             if (input.files && input.files[0]) {
                 selectedVideoFile = input.files[0];
                 document.getElementById('selectedVideoName').textContent = '✅ ' + selectedVideoFile.name;
-                // Clear YouTube URL if video file selected
                 document.getElementById('adminYoutubeUrl').value = '';
             }
         };
@@ -558,6 +832,41 @@
                 selectedPdfFile = input.files[0];
                 document.getElementById('selectedPdfName').textContent = '✅ ' + selectedPdfFile.name;
             }
+        };
+
+        window.handleStandalonePdfSelect = function(input) {
+            if (input.files && input.files[0]) {
+                selectedStandalonePdfFile = input.files[0];
+                document.getElementById('selectedStandalonePdfName').textContent = '✅ ' + selectedStandalonePdfFile.name;
+            }
+        };
+
+        // Question Fields
+        window.addQuestionField = function() {
+            const container = document.getElementById('questionsContainer');
+            const questionCount = container.children.length + 1;
+            
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200';
+            questionBlock.innerHTML = `
+                <div class="font-bold mb-3 text-purple-700">السؤال ${questionCount}:</div>
+                <input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1">
+                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2">
+                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3">
+                </div>
+                <div class="mt-3">
+                    <label class="font-bold text-sm">الإجابة الصحيحة: </label>
+                    <select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg">
+                        <option value="0">الإجابة الأولى</option>
+                        <option value="1">الإجابة الثانية</option>
+                        <option value="2">الإجابة الثالثة</option>
+                    </select>
+                </div>
+            `;
+            
+            container.appendChild(questionBlock);
         };
 
         // Register
@@ -603,7 +912,7 @@
             const password = document.getElementById('userPassword').value.trim();
 
             if (!email || !password) {
-                document.getElementById('loginError').textContent = '❌ أدخل الإيميل والباسورد';
+                document.getElementById('loginError').textContent = ' أدخل الإيميل والباسورد';
                 document.getElementById('loginError').classList.remove('hidden');
                 return;
             }
@@ -621,7 +930,7 @@
             const code = document.getElementById('childCode').value.trim();
 
             if (!code) {
-                document.getElementById('loginError').textContent = '❌ أدخل كود الطفل';
+                document.getElementById('loginError').textContent = ' أدخل كود الطفل';
                 document.getElementById('loginError').classList.remove('hidden');
                 return;
             }
@@ -630,7 +939,7 @@
                 const childrenDoc = await getDocs(query(collection(db, 'children'), where('code', '==', code)));
                 
                 if (childrenDoc.empty) {
-                    document.getElementById('loginError').textContent = ' كود الطفل غير صحيح';
+                    document.getElementById('loginError').textContent = '❌ كود الطفل غير صحيح';
                     document.getElementById('loginError').classList.remove('hidden');
                     return;
                 }
@@ -638,15 +947,108 @@
                 currentChild = childrenDoc.docs[0].data();
                 currentChild.id = childrenDoc.docs[0].id;
 
-                document.getElementById('loginPage').classList.add('hidden');
-                document.getElementById('childDashboard').classList.remove('hidden');
-                document.getElementById('loginError').classList.add('hidden');
-
-                await loadChildData();
+                // Check if child has completed assessment
+                if (!currentChild.assessmentCompleted) {
+                    document.getElementById('loginPage').classList.add('hidden');
+                    document.getElementById('assessmentPage').classList.remove('hidden');
+                    startAssessment();
+                } else {
+                    document.getElementById('loginPage').classList.add('hidden');
+                    document.getElementById('childDashboard').classList.remove('hidden');
+                    document.getElementById('loginError').classList.add('hidden');
+                    await loadChildData();
+                }
             } catch (error) {
                 document.getElementById('loginError').textContent = '❌ خطأ: ' + error.message;
                 document.getElementById('loginError').classList.remove('hidden');
             }
+        };
+
+        // Assessment Functions
+        window.startAssessment = function() {
+            currentQuestionIndex = 0;
+            assessmentScore = 0;
+            assessmentQuestions = [...assessmentData].sort(() => Math.random() - 0.5).slice(0, 7);
+            showAssessmentQuestion();
+        };
+
+        function showAssessmentQuestion() {
+            const question = assessmentQuestions[currentQuestionIndex];
+            document.getElementById('currentQNum').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.q;
+            document.getElementById('progressBar').style.width = ((currentQuestionIndex + 1) / 7 * 100) + '%';
+
+            const optionsContainer = document.getElementById('answerOptions');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const btn = document.createElement('div');
+                btn.className = 'assessment-option';
+                btn.textContent = option;
+                btn.onclick = () => selectAssessmentAnswer(index, question.correct, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAssessmentAnswer(selected, correct, element) {
+            // Disable all options
+            document.querySelectorAll('.assessment-option').forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (selected === correct) {
+                element.classList.add('correct');
+                assessmentScore++;
+            } else {
+                element.classList.add('wrong');
+                // Show correct answer
+                document.querySelectorAll('.assessment-option')[correct].classList.add('correct');
+            }
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < assessmentQuestions.length) {
+                    showAssessmentQuestion();
+                } else {
+                    showAssessmentResult();
+                }
+            }, 1500);
+        }
+
+        function showAssessmentResult() {
+            document.getElementById('assessmentContent').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+
+            let recommendedStage = '';
+            let stars = 0;
+
+            if (assessmentScore <= 2) {
+                recommendedStage = '🧸 رياض الأطفال';
+                stars = 1;
+            } else if (assessmentScore <= 5) {
+                recommendedStage = '📚 الصف الأول';
+                stars = 2;
+            } else {
+                recommendedStage = '✏️ الصف الثاني';
+                stars = 3;
+            }
+
+            document.getElementById('resultText').textContent = `أجبت على ${assessmentScore} من 7 أسئلة صحيحة`;
+            document.getElementById('recommendedStage').textContent = `ننصحك بالبدء من: ${recommendedStage}`;
+
+            // Save assessment result
+            if (currentChild) {
+                updateDoc(doc(db, 'children', currentChild.id), {
+                    assessmentCompleted: true,
+                    assessmentScore: assessmentScore,
+                    recommendedStage: recommendedStage,
+                    stars: stars
+                });
+            }
+        }
+
+        window.goToDashboard = function() {
+            document.getElementById('assessmentPage').classList.add('hidden');
+            document.getElementById('childDashboard').classList.remove('hidden');
+            loadChildData();
         };
 
         // Auth State Change
@@ -663,6 +1065,7 @@
                     if (userData.role === 'admin') {
                         document.getElementById('adminDashboard').classList.remove('hidden');
                         await loadAdminData();
+                        await loadWhatsAppNumber();
                     } else if (userData.role === 'parent') {
                         document.getElementById('parentDashboard').classList.remove('hidden');
                         await loadParentData();
@@ -679,7 +1082,7 @@
             currentUser = null;
             userData = null;
             currentChild = null;
-            document.querySelectorAll('[id$="Dashboard"], [id$="View"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id$="Dashboard"], [id$="View"], [id$="Page"]').forEach(el => el.classList.add('hidden'));
             document.getElementById('loginPage').classList.remove('hidden');
             document.getElementById('userEmail').value = '';
             document.getElementById('userPassword').value = '';
@@ -700,6 +1103,7 @@
                     stage: null,
                     stars: 0,
                     completedLessons: [],
+                    assessmentCompleted: false,
                     createdAt: new Date()
                 });
 
@@ -712,6 +1116,116 @@
                 await loadParentData();
             }
         };
+
+        // WhatsApp Number Management
+        async function loadWhatsAppNumber() {
+            try {
+                const settingsDoc = await getDocs(query(collection(db, 'settings'), where('type', '==', 'whatsapp')));
+                if (!settingsDoc.empty) {
+                    whatsappNumber = settingsDoc.docs[0].data().number;
+                    document.getElementById('whatsappNumber').value = whatsappNumber;
+                }
+            } catch (error) {
+                console.error('Error loading WhatsApp number:', error);
+            }
+        }
+
+        window.updateWhatsAppNumber = async function() {
+            const number = document.getElementById('whatsappNumber').value.trim();
+            if (!number) {
+                alert('❌ أدخل رقم الواتساب');
+                return;
+            }
+
+            try {
+                const settingsDoc = await getDocs(query(collection(db, 'settings'), where('type', '==', 'whatsapp')));
+                
+                if (settingsDoc.empty) {
+                    await addDoc(collection(db, 'settings'), {
+                        type: 'whatsapp',
+                        number: number,
+                        updatedAt: new Date()
+                    });
+                } else {
+                    await updateDoc(doc(db, 'settings', settingsDoc.docs[0].id), {
+                        number: number,
+                        updatedAt: new Date()
+                    });
+                }
+
+                whatsappNumber = number;
+                alert('✅ تم حفظ رقم الواتساب بنجاح!');
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            }
+        };
+
+        // Upload Standalone PDF
+        window.uploadStandalonePdf = async function() {
+            const title = document.getElementById('pdfTitle').value.trim();
+            const stage = document.getElementById('pdfStage').value;
+
+            if (!title || !selectedStandalonePdfFile) {
+                alert('❌ الرجاء إدخال العنوان واختيار ملف PDF');
+                return;
+            }
+
+            try {
+                const pdfRef = ref(storage, `pdfs/standalone/${Date.now()}_${selectedStandalonePdfFile.name}`);
+                await uploadBytes(pdfRef, selectedStandalonePdfFile);
+                const pdfUrl = await getDownloadURL(pdfRef);
+
+                await addDoc(collection(db, 'standalonePdfs'), {
+                    title: title,
+                    stage: stage,
+                    url: pdfUrl,
+                    uploadedBy: currentUser.uid,
+                    createdAt: new Date()
+                });
+
+                alert('✅ تم رفع الورقة بنجاح!');
+                document.getElementById('pdfTitle').value = '';
+                document.getElementById('standalonePdfFile').value = '';
+                document.getElementById('selectedStandalonePdfName').textContent = '';
+                selectedStandalonePdfFile = null;
+                
+                await loadStandalonePdfs();
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            }
+        };
+
+        async function loadStandalonePdfs() {
+            try {
+                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+                const container = document.getElementById('standalonePdfsList');
+                container.innerHTML = '';
+
+                if (pdfsSnapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>';
+                    return;
+                }
+
+                pdfsSnapshot.forEach(docSnap => {
+                    const pdf = docSnap.data();
+                    const stageNames = { kg: ' رياض الأطفال', grade1: ' الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: '🌟 جميع المراحل' };
+                    
+                    container.innerHTML += `
+                        <div class="bg-green-50 rounded-xl p-4 mb-3 flex justify-between items-center border-2 border-green-200">
+                            <div>
+                                <div class="font-bold text-lg">${pdf.title}</div>
+                                <div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div>
+                            </div>
+                            <a href="${pdf.url}" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-lg magic-btn">
+                                 تحميل
+                            </a>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error loading standalone PDFs:', error);
+            }
+        }
 
         // Admin Functions
         async function loadAdminData() {
@@ -740,6 +1254,7 @@
                 document.getElementById('adminTotalVideos').textContent = totalVideos;
 
                 displayAdminLessons();
+                await loadStandalonePdfs();
             } catch (error) {
                 console.error('Error loading admin data:', error);
             }
@@ -756,14 +1271,15 @@
 
                     lessonsData[stage].forEach(lesson => {
                         const lockIcon = lesson.isLocked ? '🔒' : '🔓';
-                        const pdfIcon = lesson.pdfUrl ? '' : '';
+                        const pdfIcon = lesson.pdfUrl ? '📄' : '';
+                        const questionsCount = lesson.questions ? lesson.questions.length : 0;
                         const videoType = lesson.videoUrl ? '📤 مرفوع' : (lesson.videoId ? '📺 يوتيوب' : '');
                         container.innerHTML += `
                             <div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4">
                                 <div class="flex-1">
                                     <div class="font-bold text-lg">${lesson.title}</div>
                                     <div class="text-sm text-gray-500">
-                                        ${lockIcon} ${videoType} ${pdfIcon}
+                                        ${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
@@ -813,12 +1329,33 @@
                 let videoId = null;
                 let videoUrl = null;
                 let pdfUrl = null;
+                let questions = [];
+
+                // Collect questions
+                const questionBlocks = document.querySelectorAll('.question-block');
+                questionBlocks.forEach(block => {
+                    const questionText = block.querySelector('.question-text').value.trim();
+                    const answerOptions = block.querySelectorAll('.answer-option');
+                    const correctAnswer = parseInt(block.querySelector('.correct-answer').value);
+
+                    if (questionText && answerOptions[0].value.trim() && answerOptions[1].value.trim()) {
+                        questions.push({
+                            text: questionText,
+                            options: [
+                                answerOptions[0].value.trim(),
+                                answerOptions[1].value.trim(),
+                                answerOptions[2].value.trim() || 'إجابة 3'
+                            ],
+                            correct: correctAnswer
+                        });
+                    }
+                });
 
                 // Handle YouTube URL
                 if (youtubeUrl) {
                     const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
                     if (!match) {
-                        alert('❌ رابط يوتيوب غير صحيح');
+                        alert(' رابط يوتيوب غير صحيح');
                         btn.disabled = false;
                         btn.textContent = '💾 حفظ الدرس';
                         return;
@@ -828,7 +1365,7 @@
 
                 // Handle Video Upload
                 if (selectedVideoFile) {
-                    status.textContent = '⏳ جاري رفع الفيديو...';
+                    status.textContent = ' جاري رفع الفيديو...';
                     const videoRef = ref(storage, `videos/${Date.now()}_${selectedVideoFile.name}`);
                     await uploadBytes(videoRef, selectedVideoFile);
                     videoUrl = await getDownloadURL(videoRef);
@@ -849,9 +1386,9 @@
                     videoId: videoId,
                     videoUrl: videoUrl,
                     pdfUrl: pdfUrl,
+                    questions: questions,
                     isLocked: isLocked,
-                    createdAt: new Date(),
-                    questions: []
+                    createdAt: new Date()
                 });
 
                 status.textContent = '✅ تم حفظ الدرس بنجاح!';
@@ -864,6 +1401,25 @@
                 document.getElementById('adminPdfFile').value = '';
                 document.getElementById('selectedVideoName').textContent = '';
                 document.getElementById('selectedPdfName').textContent = '';
+                document.getElementById('questionsContainer').innerHTML = `
+                    <div class="question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200">
+                        <div class="font-bold mb-3 text-purple-700">السؤال 1:</div>
+                        <input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1">
+                            <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2">
+                            <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3">
+                        </div>
+                        <div class="mt-3">
+                            <label class="font-bold text-sm">الإجابة الصحيحة: </label>
+                            <select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg">
+                                <option value="0">الإجابة الأولى</option>
+                                <option value="1">الإجابة الثانية</option>
+                                <option value="2">الإجابة الثالثة</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
                 selectedVideoFile = null;
                 selectedPdfFile = null;
 
@@ -871,7 +1427,7 @@
 
                 setTimeout(() => {
                     btn.disabled = false;
-                    btn.textContent = ' حفظ الدرس';
+                    btn.textContent = '💾 حفظ الدرس';
                     status.textContent = '';
                 }, 3000);
 
@@ -913,11 +1469,16 @@
                 childrenDoc.forEach(docSnap => {
                     const child = docSnap.data();
                     childrenList.innerHTML += `
-                        <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300">
+                        <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative">
+                            <button onclick="deleteChild('${docSnap.id}', '${child.name}')" 
+                                class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">
+                                🗑️
+                            </button>
                             <div class="text-4xl mb-2">👶</div>
                             <h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3>
                             <p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p>
                             <p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>
+                            ${child.assessmentCompleted ? `<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>` : '<p class="text-xs text-yellow-600 mt-2">⏳ لم يتم الاختبار بعد</p>'}
                         </div>
                     `;
                 });
@@ -929,6 +1490,21 @@
                 console.error('Error loading parent data:', error);
             }
         }
+
+        window.deleteChild = async function(childId, childName) {
+            if (!confirm(`⚠️ هل أنت متأكد من حذف الطفل "${childName}"؟\n\nكود الدخول هيتلغي ومش هيستخدمه تاني!`)) {
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'children', childId));
+                alert(`✅ تم حذف "${childName}" بنجاح`);
+                await loadParentData();
+            } catch (error) {
+                console.error('Error deleting child:', error);
+                alert('❌ حدث خطأ أثناء الحذف: ' + error.message);
+            }
+        };
 
         // Child Functions
         async function loadChildData() {
@@ -948,8 +1524,41 @@
                 document.getElementById('childGrade2Count').textContent = `${lessonsData.grade2.length} دروس`;
                 document.getElementById('childGrade3Count').textContent = `${lessonsData.grade3.length} دروس`;
                 document.getElementById('childStars').textContent = currentChild?.stars || 0;
+
+                // Load standalone PDFs for child
+                await loadChildPdfs();
             } catch (error) {
                 console.error('Error:', error);
+            }
+        }
+
+        async function loadChildPdfs() {
+            try {
+                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+                const container = document.getElementById('childPdfsList');
+                container.innerHTML = '';
+
+                if (pdfsSnapshot.empty) {
+                    container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>';
+                    return;
+                }
+
+                pdfsSnapshot.forEach(docSnap => {
+                    const pdf = docSnap.data();
+                    if (pdf.stage === 'all' || pdf.stage === currentChild.recommendedStage) {
+                        container.innerHTML += `
+                            <div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center">
+                                <div class="text-5xl mb-2">📄</div>
+                                <h3 class="font-bold text-lg mb-3">${pdf.title}</h3>
+                                <a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">
+                                     تحميل
+                                </a>
+                            </div>
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading child PDFs:', error);
             }
         }
 
@@ -968,10 +1577,12 @@
             container.innerHTML = '';
 
             if (lessonsData[stage].length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد </div>';
+                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد 📭</div>';
             } else {
                 lessonsData[stage].forEach(lesson => {
                     const pdfBadge = lesson.pdfUrl ? '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📄 PDF</span>' : '';
+                    const questionsBadge = lesson.questions && lesson.questions.length > 0 ? `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">📝 ${lesson.questions.length} أسئلة</span>` : '';
+                    
                     container.innerHTML += `
                         <div class="glass-panel rounded-2xl overflow-hidden bounce-card">
                             <div class="video-box">
@@ -982,7 +1593,10 @@
                             </div>
                             <div class="p-6">
                                 <h3 class="text-xl font-bold mb-2">${lesson.title}</h3>
-                                <div class="mb-4">${pdfBadge}</div>
+                                <div class="mb-4 space-x-2">
+                                    ${pdfBadge}
+                                    ${questionsBadge}
+                                </div>
                                 <button onclick="viewLesson('${lesson.id}')" 
                                     class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">
                                     ▶️ مشاهدة الدرس
@@ -990,7 +1604,7 @@
                                 ${lesson.pdfUrl ? `
                                     <a href="${lesson.pdfUrl}" target="_blank" 
                                         class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">
-                                         تحميل ورقة العمل
+                                        📥 تحميل ورقة العمل
                                     </a>
                                 ` : ''}
                             </div>
@@ -1025,14 +1639,98 @@
                 </a>`;
             }
 
-            content += `<div class="bg-green-100 rounded-xl p-6 text-center">
-                <div class="text-4xl mb-2">⭐</div>
-                <p class="font-bold text-green-700">أحسنت! حصلت على نجمة</p>
-            </div>`;
-
             document.getElementById('modalContent').innerHTML = content;
+
+            // Show quiz if questions exist
+            if (lesson.questions && lesson.questions.length > 0) {
+                currentLessonQuestions = lesson.questions;
+                document.getElementById('quizSection').classList.remove('hidden');
+                document.getElementById('quizResult').classList.add('hidden');
+                showQuizQuestions();
+            } else {
+                document.getElementById('quizSection').classList.add('hidden');
+            }
+
             document.getElementById('lessonModal').classList.remove('hidden');
         };
+
+        function showQuizQuestions() {
+            const container = document.getElementById('quizQuestions');
+            container.innerHTML = '';
+
+            currentLessonQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200';
+                questionDiv.innerHTML = `
+                    <p class="font-bold mb-3 text-lg">س${index + 1}: ${q.text}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="quiz-q-${index}">
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="assessment-option" onclick="selectQuizAnswer(${index}, ${optIndex}, ${q.correct})">
+                                ${opt}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        window.selectQuizAnswer = function(questionIndex, selectedIndex, correctIndex) {
+            const container = document.getElementById(`quiz-q-${questionIndex}`);
+            const options = container.querySelectorAll('.assessment-option');
+            
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === correctIndex) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedIndex && selectedIndex !== correctIndex) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            // Check if all questions answered
+            const allAnswered = currentLessonQuestions.every((q, idx) => {
+                const qContainer = document.getElementById(`quiz-q-${idx}`);
+                return qContainer && qContainer.querySelector('.correct');
+            });
+
+            if (allAnswered) {
+                setTimeout(() => {
+                    showQuizResult();
+                }, 1500);
+            }
+        };
+
+        function showQuizResult() {
+            let score = 0;
+            currentLessonQuestions.forEach((q, index) => {
+                const container = document.getElementById(`quiz-q-${index}`);
+                if (container && container.querySelector('.correct')) {
+                    score++;
+                }
+            });
+
+            document.getElementById('quizScore').textContent = score;
+            document.getElementById('quizTotal').textContent = currentLessonQuestions.length;
+            
+            let stars = '';
+            for (let i = 0; i < score; i++) {
+                stars += '⭐ ';
+            }
+            document.getElementById('quizStars').textContent = stars;
+
+            document.getElementById('quizResult').classList.remove('hidden');
+            document.getElementById('quizQuestions').classList.add('hidden');
+
+            // Update child stars
+            if (currentChild) {
+                const newStars = (currentChild.stars || 0) + score;
+                updateDoc(doc(db, 'children', currentChild.id), {
+                    stars: newStars
+                });
+                document.getElementById('childStars').textContent = newStars;
+            }
+        }
 
         window.closeLessonModal = function() {
             document.getElementById('lessonModal').classList.add('hidden');
