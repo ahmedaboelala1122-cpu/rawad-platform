@@ -10,51 +10,24 @@
         * { font-family: 'Tajawal', sans-serif; }
         body { margin: 0; overflow-x: hidden; }
         .hidden { display: none !important; }
-        
-        .floating-bg {
-            position: fixed; width: 100%; height: 100%; overflow: hidden; z-index: -1;
-            background: linear-gradient(135deg, #ffeef8 0%, #fff5e6 50%, #e6f3ff 100%);
-        }
-        .floating-element {
-            position: absolute; animation: float 20s infinite ease-in-out; opacity: 0.6; font-size: 3rem;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; } 90% { opacity: 0.6; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+        .floating-bg { position: fixed; width: 100%; height: 100%; overflow: hidden; z-index: -1; background: linear-gradient(135deg, #ffeef8 0%, #fff5e6 50%, #e6f3ff 100%); }
+        .floating-element { position: absolute; animation: float 20s infinite ease-in-out; opacity: 0.6; font-size: 3rem; }
+        @keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
         .bounce-card { transition: transform 0.3s; animation: bounce 2s infinite; }
         .bounce-card:hover { transform: scale(1.05) rotate(2deg); }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        
         .magic-btn { transition: all 0.3s; box-shadow: 0 8px 0 rgba(0,0,0,0.2); }
         .magic-btn:active { transform: translateY(8px); box-shadow: 0 0 0 rgba(0,0,0,0.2); }
-        
         .robot-wave { animation: wave 2s infinite; display: inline-block; }
         @keyframes wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
-        
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border: 3px solid rgba(255,255,255,0.5); box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 3px solid rgba(255,255,255,0.5); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; }
         .video-box iframe, .video-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
         .section-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 2px solid #e5e7eb; }
         .section-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white;
-            width: 60px; height: 60px; border-radius: 50%; text-align: center; font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; transition: all 0.3s;
-        }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
-
-        .assessment-option {
-            background: white; border: 3px solid #e5e7eb; border-radius: 12px; padding: 16px;
-            cursor: pointer; transition: all 0.3s; text-align: center; font-weight: bold;
-        }
+        .assessment-option { background: white; border: 3px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.3s; text-align: center; font-weight: bold; }
         .assessment-option:hover { border-color: #8b5cf6; background: #f3f0ff; transform: translateY(-2px); }
         .assessment-option.correct { background: #10b981; color: white; border-color: #10b981; }
         .assessment-option.wrong { background: #ef4444; color: white; border-color: #ef4444; }
@@ -62,9 +35,7 @@
     </style>
 </head>
 <body>
-
     <div class="floating-bg" id="floatingBg"></div>
-
     <div class="whatsapp-float" onclick="openWhatsApp()" title="تواصل عبر واتساب">💬</div>
 
     <!-- صفحة تسجيل الدخول -->
@@ -74,13 +45,11 @@
             <div class="text-7xl mb-4 robot-wave">🤖</div>
             <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">مدرستي في بيتي</h1>
             <p class="text-gray-600 mb-6 text-lg">نتعلم ونلعب معاً!</p>
-
             <div class="space-y-4">
                 <div class="flex gap-2 mb-4">
-                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍👩‍👧 ولي أمر/مدير</button>
+                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍👩‍ ولي أمر/مدير</button>
                     <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
                 </div>
-
                 <div id="userLoginForm">
                     <div class="bg-blue-50 rounded-2xl p-4 border-2 border-blue-200">
                         <label class="block text-blue-700 font-bold mb-2 text-lg">📧 الإيميل</label>
@@ -90,13 +59,12 @@
                         <label class="block text-purple-700 font-bold mb-2 text-lg">🔒 الباسورد</label>
                         <input type="password" id="userPassword" placeholder="••••••••" class="w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg text-center">
                     </div>
-                    <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">🚀 يلا ندخل!</button>
+                    <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl"> يلا ندخل!</button>
                     <div class="pt-4 border-t-2 border-gray-200">
                         <p class="text-sm text-gray-500 mb-2">مش عندك حساب؟</p>
                         <button onclick="showRegister()" class="text-purple-600 font-bold hover:underline">سجل دلوقتي! 📝</button>
                     </div>
                 </div>
-
                 <div id="childLoginForm" class="hidden">
                     <div class="bg-pink-50 rounded-2xl p-4 border-2 border-pink-200">
                         <label class="block text-pink-700 font-bold mb-2 text-lg">🔑 كود الطفل</label>
@@ -104,7 +72,6 @@
                     </div>
                     <button onclick="handleChildLogin()" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-black py-4 rounded-xl magic-btn text-xl">🎮 ادخل يا بطل!</button>
                 </div>
-
                 <div id="loginError" class="hidden bg-red-100 text-red-700 p-3 rounded-xl font-bold"></div>
             </div>
         </div>
@@ -120,12 +87,12 @@
                 <input type="email" id="regEmail" placeholder="الإيميل" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <input type="password" id="regPassword" placeholder="الباسورد (6 حروف على الأقل)" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">👨‍👩‍👧 ولي أمر</option>
+                    <option value="parent">👨‍‍👧 ولي أمر</option>
                     <option value="admin">👨‍💼 مدير (للمعلمين)</option>
                 </select>
                 <div class="flex gap-4">
                     <button onclick="handleRegister()" class="flex-1 bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">✅ تسجيل</button>
-                    <button onclick="showLogin()" class="flex-1 bg-gray-200 text-gray-700 font-black py-4 rounded-xl magic-btn text-xl">⬅️ رجوع</button>
+                    <button onclick="showLogin()" class="flex-1 bg-gray-200 text-gray-700 font-black py-4 rounded-xl magic-btn text-xl">️ رجوع</button>
                 </div>
             </div>
         </div>
@@ -154,10 +121,10 @@
                 <h2 class="text-3xl font-black mb-4 text-purple-700">ممتاز يا بطل!</h2>
                 <p id="resultText" class="text-xl mb-6 text-gray-700 font-bold"></p>
                 <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 border-4 border-yellow-400 mb-6">
-                    <div class="text-6xl mb-2">🌟</div>
+                    <div class="text-6xl mb-2"></div>
                     <p class="text-2xl font-black text-orange-700" id="recommendedStage"></p>
                 </div>
-                <button onclick="goToDashboard()" class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">🚀 يلا نبدأ!</button>
+                <button onclick="goToDashboard()" class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl"> يلا نبدأ!</button>
             </div>
         </div>
     </div>
@@ -173,19 +140,18 @@
                         <span class="text-yellow-300 text-sm font-bold">👨‍💼 لوحة المدير</span>
                     </div>
                 </div>
-                <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
+                <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn"> خروج</button>
             </div>
         </nav>
-
         <div class="max-w-7xl mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
-                    <div class="text-5xl mb-2">📚</div>
+                    <div class="text-5xl mb-2"></div>
                     <div class="text-3xl font-black text-purple-600" id="adminTotalLessons">0</div>
                     <div class="text-gray-600 font-bold">إجمالي الدروس</div>
                 </div>
                 <div class="glass-panel rounded-2xl p-6 text-center bounce-card">
-                    <div class="text-5xl mb-2">👨‍👩‍👧</div>
+                    <div class="text-5xl mb-2">👨‍👩‍</div>
                     <div class="text-3xl font-black text-pink-600" id="adminTotalUsers">0</div>
                     <div class="text-gray-600 font-bold">المستخدمين</div>
                 </div>
@@ -200,10 +166,8 @@
                     <div class="text-gray-600 font-bold">الفيديوهات</div>
                 </div>
             </div>
-
             <div class="glass-panel rounded-3xl p-8 mb-8">
                 <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">➕</span> إضافة درس جديد</h2>
-                
                 <div class="section-card">
                     <div class="section-title text-purple-700"><span>📋</span> معلومات الدرس</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -222,7 +186,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="section-card">
                     <div class="section-title text-red-600"><span>📺</span> الفيديو</div>
                     <div class="mb-4">
@@ -230,7 +193,6 @@
                         <input type="text" id="adminYoutubeUrl" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                     </div>
                 </div>
-
                 <div class="section-card">
                     <div class="section-title text-green-600"><span>📝</span> الأسئلة التفاعلية (اختياري)</div>
                     <p class="text-sm text-gray-500 mb-4">أضف من 1 إلى 5 أسئلة اختيار من متعدد للدرس</p>
@@ -255,26 +217,22 @@
                     </div>
                     <button onclick="addQuestionField()" class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg magic-btn font-bold">➕ إضافة سؤال آخر</button>
                 </div>
-
                 <div class="section-card">
                     <div class="section-title text-green-600"><span>📄</span> ورقة العمل PDF للدرس (اختياري)</div>
                     <p class="text-sm text-gray-500 mb-3">ارفع ملف PDF من جهازك</p>
                     <input type="file" id="adminPdfFile" accept=".pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-gray-50">
                 </div>
-
                 <div class="section-card bg-yellow-50 border-yellow-300">
                     <div class="flex items-center gap-4">
                         <input type="checkbox" id="adminIsLocked" class="w-6 h-6">
-                        <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg">🔒 قفل الدرس (لا يظهر للطلاب)</label>
+                        <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg"> قفل الدرس (لا يظهر للطلاب)</label>
                     </div>
                 </div>
-
                 <button onclick="addLesson()" id="addLessonBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">💾 حفظ الدرس</button>
                 <div id="adminStatus" class="mt-4 text-center font-bold text-lg"></div>
             </div>
-
             <div class="glass-panel rounded-3xl p-8 mb-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">💬</span> رقم الواتساب للتواصل</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> رقم الواتساب للتواصل</h2>
                 <div class="bg-green-50 rounded-xl p-6 border-2 border-green-300">
                     <label class="block font-bold mb-2 text-gray-700">رقم الواتساب (مع مفتاح الدولة):</label>
                     <div class="flex gap-4">
@@ -283,9 +241,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="glass-panel rounded-3xl p-8 mb-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📚</span> مكتبة أوراق العمل المستقلة</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> مكتبة أوراق العمل المستقلة</h2>
                 <div class="section-card">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
@@ -296,7 +253,7 @@
                             <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
                             <select id="pdfStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                                 <option value="kg">🧸 رياض الأطفال</option>
-                                <option value="grade1">📚 الصف الأول</option>
+                                <option value="grade1"> الصف الأول</option>
                                 <option value="grade2">✏️ الصف الثاني</option>
                                 <option value="grade3">🎓 الصف الثالث</option>
                                 <option value="all">🌟 جميع المراحل</option>
@@ -320,7 +277,6 @@
                 </div>
                 <div id="standalonePdfsList" class="mt-6"></div>
             </div>
-
             <div class="glass-panel rounded-3xl p-8">
                 <h2 class="text-2xl font-black mb-6 text-purple-700">📋 الدروس المضافة</h2>
                 <div id="adminLessonsList"></div>
@@ -336,7 +292,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-blue-200 text-sm font-bold">👨‍👩‍👧 لوحة ولي الأمر</span>
+                        <span class="text-blue-200 text-sm font-bold">👨‍‍👧 لوحة ولي الأمر</span>
                     </div>
                 </div>
                 <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
@@ -344,7 +300,7 @@
         </nav>
         <div class="max-w-7xl mx-auto px-4 py-8">
             <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
-                <div class="text-6xl mb-4">👨‍👩‍👧</div>
+                <div class="text-6xl mb-4">👨👩‍👧</div>
                 <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
                 <div id="childrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
                 <button onclick="addChild()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl magic-btn font-bold text-lg">➕ إضافة طفل جديد</button>
@@ -373,7 +329,7 @@
             <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-8 mb-8 text-white text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-full opacity-20">
                     <div class="absolute top-4 left-4 text-6xl animate-bounce">⭐</div>
-                    <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s">🎈</div>
+                    <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s"></div>
                     <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s">🎉</div>
                 </div>
                 <div class="relative z-10">
@@ -381,7 +337,6 @@
                     <p class="text-xl opacity-95">هيا نتعلم ونلعب معاً في مغامرة رائعة!</p>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <button onclick="showChildStage('kg')" class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-pink-300 hover:border-pink-500">
                     <div class="text-7xl mb-4">🧸</div>
@@ -404,7 +359,6 @@
                     <p id="childGrade3Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
             </div>
-
             <div class="glass-panel rounded-3xl p-8">
                 <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📚</span> مكتبة أوراق العمل</h2>
                 <div id="childPdfsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
@@ -416,7 +370,7 @@
     <div id="stageLessonsView" class="hidden min-h-screen">
         <nav class="bg-gradient-to-r from-pink-500 to-purple-600 sticky top-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <button onclick="backToChildDashboard()" class="bg-white text-purple-600 px-6 py-2 rounded-full font-bold magic-btn">⬅️ رجوع</button>
+                <button onclick="backToChildDashboard()" class="bg-white text-purple-600 px-6 py-2 rounded-full font-bold magic-btn">️ رجوع</button>
                 <h2 id="stageTitle" class="text-2xl font-black text-white"></h2>
                 <div class="w-24"></div>
             </div>
@@ -482,16 +436,16 @@
 
         const assessmentData = [
             { q: "إيه الحرف الأول في كلمة 'تفاحة'؟", options: ["ت 🍎", "ب 🍌", "م 🍇"], correct: 0 },
-            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 🍎", "2 🍎🍎", "3 🍎🍎🍎"], correct: 1 },
-            { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة 🏫", "حديقة 🌳"], correct: 1 },
+            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 🍎", "2 🍎", "3 🍎🍎"], correct: 1 },
+            { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة ", "حديقة 🌳"], correct: 1 },
             { q: "كم لون في قوس قزح؟", options: ["5 🌈", "7 🌈", "10 🌈"], correct: 1 },
-            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️⃣", "6️⃣"], correct: 2 },
-            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", "🐱 قط", "🐦 عصفور"], correct: 1 },
+            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️⃣", "6️"], correct: 2 },
+            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", "🐱 قط", " عصفور"], correct: 1 },
             { q: "إيه الشهر ده؟", options: ["يناير ❄️", "يوليو ☀️", "أكتوبر 🍂"], correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2) }
         ];
 
         function createFloatingElements() {
-            const elements = ['📚', '✏️', '🎨', '🎵', '🌟', '🍎', '🎪', '🎈'];
+            const elements = ['📚', '✏️', '', '🎵', '🌟', '🍎', '🎪', '🎈'];
             const container = document.getElementById('floatingBg');
             elements.forEach((emoji) => {
                 const el = document.createElement('div');
@@ -537,22 +491,7 @@
             const questionCount = container.children.length + 1;
             const questionBlock = document.createElement('div');
             questionBlock.className = 'question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200';
-            questionBlock.innerHTML = `
-                <div class="font-bold mb-3 text-purple-700">السؤال ${questionCount}:</div>
-                <input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1">
-                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2">
-                    <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3">
-                </div>
-                <div class="mt-3">
-                    <label class="font-bold text-sm">الإجابة الصحيحة: </label>
-                    <select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg">
-                        <option value="0">الإجابة الأولى</option>
-                        <option value="1">الإجابة الثانية</option>
-                        <option value="2">الإجابة الثالثة</option>
-                    </select>
-                </div>`;
+            questionBlock.innerHTML = `<div class="font-bold mb-3 text-purple-700">السؤال ${questionCount}:</div><input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال"><div class="grid grid-cols-1 md:grid-cols-3 gap-3"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3"></div><div class="mt-3"><label class="font-bold text-sm">الإجابة الصحيحة: </label><select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg"><option value="0">الإجابة الأولى</option><option value="1">الإجابة الثانية</option><option value="2">الإجابة الثالثة</option></select></div>`;
             container.appendChild(questionBlock);
         };
 
@@ -722,10 +661,8 @@
                 if (pdfsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>'; return; }
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
-                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: '🌟 جميع المراحل' };
-                    container.innerHTML += `<div class="bg-green-50 rounded-xl p-4 mb-3 flex justify-between items-center border-2 border-green-200">
-                        <div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div>
-                        <a href="${pdf.url}" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
+                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: ' جميع المراحل' };
+                    container.innerHTML += `<div class="bg-green-50 rounded-xl p-4 mb-3 flex justify-between items-center border-2 border-green-200"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><a href="${pdf.url}" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
                 });
             } catch (error) { console.error('Error loading standalone PDFs:', error); }
         }
@@ -761,15 +698,10 @@
                     container.innerHTML += `<h3 class="text-xl font-bold mb-4 mt-6">${names[stage]}</h3>`;
                     lessonsData[stage].forEach(lesson => {
                         const lockIcon = lesson.isLocked ? '🔒' : '🔓';
-                        const pdfIcon = lesson.pdfUrl ? '📄' : '';
+                        const pdfIcon = lesson.pdfUrl ? '' : '';
                         const questionsCount = lesson.questions ? lesson.questions.length : 0;
-                        const videoType = lesson.videoUrl ? '📤 مرفوع' : (lesson.videoId ? '📺 يوتيوب' : '');
-                        container.innerHTML += `<div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4">
-                            <div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}</div></div>
-                            <div class="flex gap-2">
-                                <button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="bg-yellow-500 text-white px-4 py-2 rounded-lg magic-btn">${lesson.isLocked ? '🔓 فتح' : '🔒 قفل'}</button>
-                                <button onclick="deleteLesson('${lesson.id}', '${stage}')" class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">🗑️</button>
-                            </div></div>`;
+                        const videoType = lesson.videoUrl ? '📤 مرفوع' : (lesson.videoId ? ' يوتيوب' : '');
+                        container.innerHTML += `<div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4"><div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}</div></div><div class="flex gap-2"><button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="bg-yellow-500 text-white px-4 py-2 rounded-lg magic-btn">${lesson.isLocked ? ' فتح' : '🔒 قفل'}</button><button onclick="deleteLesson('${lesson.id}', '${stage}')" class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">🗑️</button></div></div>`;
                     });
                 }
             });
@@ -783,12 +715,9 @@
             const isLocked = document.getElementById('adminIsLocked').checked;
             const btn = document.getElementById('addLessonBtn');
             const status = document.getElementById('adminStatus');
-
             if (!title) { alert('❌ الرجاء إدخال عنوان الدرس'); return; }
             if (!youtubeUrl && !selectedVideoFile) { alert('❌ الرجاء إضافة رابط يوتيوب أو رفع فيديو من الجهاز'); return; }
-
             btn.disabled = true; btn.textContent = '⏳ جاري الحفظ...'; status.textContent = '';
-
             try {
                 let videoId = null, videoUrl = null, pdfUrl = null, questions = [];
                 const questionBlocks = document.querySelectorAll('.question-block');
@@ -800,42 +729,28 @@
                         questions.push({ text: questionText, options: [answerOptions[0].value.trim(), answerOptions[1].value.trim(), answerOptions[2].value.trim() || 'إجابة 3'], correct: correctAnswer });
                     }
                 });
-
                 if (youtubeUrl) {
                     const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
                     if (!match) { alert('❌ رابط يوتيوب غير صحيح'); btn.disabled = false; btn.textContent = '💾 حفظ الدرس'; return; }
                     videoId = match[1];
                 }
-
                 if (selectedVideoFile) {
                     status.textContent = '⏳ جاري رفع الفيديو...';
                     const videoRef = ref(storage, `videos/${Date.now()}_${selectedVideoFile.name}`);
                     await uploadBytes(videoRef, selectedVideoFile);
                     videoUrl = await getDownloadURL(videoRef);
                 }
-
                 if (selectedPdfFile) {
                     status.textContent = '⏳ جاري رفع PDF...';
                     const pdfRef = ref(storage, `pdfs/${Date.now()}_${selectedPdfFile.name}`);
                     await uploadBytes(pdfRef, selectedPdfFile);
                     pdfUrl = await getDownloadURL(pdfRef);
                 }
-
                 await addDoc(collection(db, 'lessons'), { stage, title, videoType: videoUrl ? 'upload' : 'youtube', videoId, videoUrl, pdfUrl, questions, isLocked, createdAt: new Date() });
-
                 status.textContent = '✅ تم حفظ الدرس بنجاح!'; status.className = 'mt-4 text-center font-bold text-lg text-green-600';
                 document.getElementById('adminTitle').value = ''; document.getElementById('adminYoutubeUrl').value = '';
                 document.getElementById('adminPdfFile').value = ''; selectedPdfFile = null; selectedVideoFile = null;
-                document.getElementById('questionsContainer').innerHTML = `<div class="question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200">
-                    <div class="font-bold mb-3 text-purple-700">السؤال 1:</div>
-                    <input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1">
-                        <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2">
-                        <input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3">
-                    </div>
-                    <div class="mt-3"><label class="font-bold text-sm">الإجابة الصحيحة: </label><select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg"><option value="0">الإجابة الأولى</option><option value="1">الإجابة الثانية</option><option value="2">الإجابة الثالثة</option></select></div></div>`;
-
+                document.getElementById('questionsContainer').innerHTML = `<div class="question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200"><div class="font-bold mb-3 text-purple-700">السؤال 1:</div><input type="text" class="question-text w-full px-4 py-2 mb-3 border-2 border-gray-200 rounded-lg" placeholder="نص السؤال"><div class="grid grid-cols-1 md:grid-cols-3 gap-3"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 1"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 2"><input type="text" class="answer-option px-4 py-2 border-2 border-gray-200 rounded-lg" placeholder="الإجابة 3"></div><div class="mt-3"><label class="font-bold text-sm">الإجابة الصحيحة: </label><select class="correct-answer px-4 py-2 border-2 border-gray-200 rounded-lg"><option value="0">الإجابة الأولى</option><option value="1">الإجابة الثانية</option><option value="2">الإجابة الثالثة</option></select></div></div>`;
                 await loadAdminData();
                 setTimeout(() => { btn.disabled = false; btn.textContent = '💾 حفظ الدرس'; status.textContent = ''; }, 3000);
             } catch (error) {
@@ -863,14 +778,7 @@
                 childrenList.innerHTML = '';
                 childrenDoc.forEach(docSnap => {
                     const child = docSnap.data();
-                    childrenList.innerHTML += `<div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative">
-                        <button onclick="deleteChild('${docSnap.id}', '${child.name}')" class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">🗑️</button>
-                        <div class="text-4xl mb-2">👶</div>
-                        <h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3>
-                        <p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p>
-                        <p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>
-                        ${child.assessmentCompleted ? '<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>' : '<p class="text-xs text-yellow-600 mt-2">⏳ لم يتم الاختبار بعد</p>'}
-                    </div>`;
+                    childrenList.innerHTML += `<div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative"><button onclick="deleteChild('${docSnap.id}', '${child.name}')" class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">🗑️</button><div class="text-4xl mb-2">👶</div><h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3><p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p><p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>${child.assessmentCompleted ? '<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>' : '<p class="text-xs text-yellow-600 mt-2">⏳ لم يتم الاختبار بعد</p>'}</div>`;
                 });
                 if (childrenDoc.empty) childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين. اضغط "إضافة طفل جديد" للبدء.</div>';
             } catch (error) { console.error('Error loading parent data:', error); }
@@ -901,45 +809,32 @@
                 await loadChildPdfs();
             } catch (error) { console.error('Error:', error); }
         }
-async function loadChildPdfs() {
-    try {
-        const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
-        const container = document.getElementById('childPdfsList');
-        container.innerHTML = '';
 
-        if (pdfsSnapshot.empty) { 
-            container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; 
-            return; 
+        async function loadChildPdfs() {
+            try {
+                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+                const container = document.getElementById('childPdfsList');
+                container.innerHTML = '';
+                if (pdfsSnapshot.empty) { container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; return; }
+                
+                // تحويل المرحلة الموصى بها للطفل إلى كود
+                let childStageCode = '';
+                if (currentChild.recommendedStage) {
+                    if (currentChild.recommendedStage.includes('رياض الأطفال')) childStageCode = 'kg';
+                    else if (currentChild.recommendedStage.includes('الصف الأول')) childStageCode = 'grade1';
+                    else if (currentChild.recommendedStage.includes('الصف الثاني')) childStageCode = 'grade2';
+                    else if (currentChild.recommendedStage.includes('الصف الثالث')) childStageCode = 'grade3';
+                }
+
+                pdfsSnapshot.forEach(docSnap => {
+                    const pdf = docSnap.data();
+                    // عرض الـ PDF لو المرحلة مناسبة أو لو "جميع المراحل"
+                    if (pdf.stage === 'all' || pdf.stage === childStageCode) {
+                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2">📄</div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
+                    }
+                });
+            } catch (error) { console.error('Error loading child PDFs:', error); }
         }
-
-        // تحويل المرحلة الموصى بها للطفل إلى كود
-        let childStageCode = '';
-        if (currentChild.recommendedStage) {
-            if (currentChild.recommendedStage.includes('رياض الأطفال')) childStageCode = 'kg';
-            else if (currentChild.recommendedStage.includes('الصف الأول')) childStageCode = 'grade1';
-            else if (currentChild.recommendedStage.includes('الصف الثاني')) childStageCode = 'grade2';
-            else if (currentChild.recommendedStage.includes('الصف الثالث')) childStageCode = 'grade3';
-        }
-
-        pdfsSnapshot.forEach(docSnap => {
-            const pdf = docSnap.data();
-            // عرض الـ PDF لو المرحلة مناسبة أو لو "جميع المراحل"
-            if (pdf.stage === 'all' || pdf.stage === childStageCode) {
-                container.innerHTML += `
-                    <div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center">
-                        <div class="text-5xl mb-2">📄</div>
-                        <h3 class="font-bold text-lg mb-3">${pdf.title}</h3>
-                        <a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">
-                            📥 تحميل
-                        </a>
-                    </div>
-                `;
-            }
-        });
-    } catch (error) {
-        console.error('Error loading child PDFs:', error);
-    }
-}
 
         window.showChildStage = function(stage) {
             const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
@@ -948,19 +843,12 @@ async function loadChildPdfs() {
             document.getElementById('stageLessonsView').classList.remove('hidden');
             const container = document.getElementById('childLessonsContainer');
             container.innerHTML = '';
-            if (lessonsData[stage].length === 0) { container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد 📭</div>'; } 
+            if (lessonsData[stage].length === 0) { container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500 text-xl">لا توجد دروس متاحة بعد </div>'; } 
             else {
                 lessonsData[stage].forEach(lesson => {
                     const pdfBadge = lesson.pdfUrl ? '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📄 PDF</span>' : '';
                     const questionsBadge = lesson.questions && lesson.questions.length > 0 ? `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">📝 ${lesson.questions.length} أسئلة</span>` : '';
-                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card">
-                        <div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">${lesson.title}</h3>
-                            <div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div>
-                            <button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>
-                            ${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">📥 تحميل ورقة العمل</a>` : ''}
-                        </div></div>`;
+                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card"><div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div><div class="p-6"><h3 class="text-xl font-bold mb-2">${lesson.title}</h3><div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div><button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">📥 تحميل ورقة العمل</a>` : ''}</div></div>`;
                 });
             }
         };
@@ -995,10 +883,7 @@ async function loadChildPdfs() {
             currentLessonQuestions.forEach((q, index) => {
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200';
-                questionDiv.innerHTML = `<p class="font-bold mb-3 text-lg">س${index + 1}: ${q.text}</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="quiz-q-${index}">
-                        ${q.options.map((opt, optIndex) => `<div class="assessment-option" onclick="selectQuizAnswer(${index}, ${optIndex}, ${q.correct})">${opt}</div>`).join('')}
-                    </div>`;
+                questionDiv.innerHTML = `<p class="font-bold mb-3 text-lg">س${index + 1}: ${q.text}</p><div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="quiz-q-${index}">${q.options.map((opt, optIndex) => `<div class="assessment-option" onclick="selectQuizAnswer(${index}, ${optIndex}, ${q.correct})">${opt}</div>`).join('')}</div>`;
                 container.appendChild(questionDiv);
             });
         }
