@@ -679,30 +679,50 @@
                 }
             }
         });
-
-        async function addChildForParent() {
-            const childName = prompt('أدخل اسم طفلك:');
-            if (childName) {
-                const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
-                
-                await addDoc(collection(db, 'children'), {
-                    parentId: currentUser.uid,
-                    name: childName,
-                    code: childCode,
-                    stage: null,
-                    stars: 0,
-                    completedLessons: []
-                });
-
-                await updateDoc(doc(db, 'users', currentUser.uid), {
-                    children: [...(userData.children || []), { name: childName, code: childCode }]
-                });
-
-                alert(`✅ تم إضافة الطفل بنجاح!\nكود الدخول: ${childCode}`);
-                document.getElementById('parentDashboard').classList.remove('hidden');
-                loadParentData();
-            }
+async function addChildForParent() {
+    // Check if already added children
+    const userDoc = await getDocs(query(collection(db, 'users'), where('uid', '==', currentUser.uid)));
+    if (!userDoc.empty) {
+        const userData = userDoc.docs[0].data();
+        if (userData.children && userData.children.length > 0) {
+            // Already has children, go to parent dashboard
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('parentDashboard').classList.remove('hidden');
+            loadParentData();
+            return;
         }
+    }
+
+    // Only show prompt if no children
+    const childName = prompt('أدخل اسم طفلك:');
+    if (childName) {
+        const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
+        
+        await addDoc(collection(db, 'children'), {
+            parentId: currentUser.uid,
+            name: childName,
+            code: childCode,
+            stage: null,
+            stars: 0,
+            completedLessons: [],
+            createdAt: new Date()
+        });
+
+        await updateDoc(doc(db, 'users', currentUser.uid), {
+            children: [{ name: childName, code: childCode }]
+        });
+
+        alert(`✅ تم إضافة الطفل بنجاح!\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
+        
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('parentDashboard').classList.remove('hidden');
+        loadParentData();
+    } else {
+        // If user cancelled, logout
+        await signOut(auth);
+        location.reload();
+    }
+}
 
         window.logout = async function() {
             await signOut(auth);
