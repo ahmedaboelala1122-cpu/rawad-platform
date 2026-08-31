@@ -1167,30 +1167,35 @@
             }
         };
 
-        // Upload Standalone PDF
-        window.uploadStandalonePdf = async function() {
-            const title = document.getElementById('pdfTitle').value.trim();
-            const stage = document.getElementById('pdfStage').value;
+      window.addStandalonePdf = async function() {
+    const title = document.getElementById('pdfTitle').value.trim();
+    const stage = document.getElementById('pdfStage').value;
+    const url = document.getElementById('pdfUrl').value.trim();
 
-            if (!title || !selectedStandalonePdfFile) {
-                alert('❌ الرجاء إدخال العنوان واختيار ملف PDF');
-                return;
-            }
+    if (!title || !url) {
+        alert(' الرجاء إدخال العنوان والرابط');
+        return;
+    }
 
-            try {
-                const pdfRef = ref(storage, `pdfs/standalone/${Date.now()}_${selectedStandalonePdfFile.name}`);
-                await uploadBytes(pdfRef, selectedStandalonePdfFile);
-                const pdfUrl = await getDownloadURL(pdfRef);
+    try {
+        await addDoc(collection(db, 'standalonePdfs'), {
+            title: title,
+            stage: stage,
+            url: url,
+            uploadedBy: currentUser.uid,
+            createdAt: new Date()
+        });
 
-                await addDoc(collection(db, 'standalonePdfs'), {
-                    title: title,
-                    stage: stage,
-                    url: pdfUrl,
-                    uploadedBy: currentUser.uid,
-                    createdAt: new Date()
-                });
-
-                alert('✅ تم رفع الورقة بنجاح!');
+        alert('✅ تم إضافة الورقة بنجاح!');
+        document.getElementById('pdfTitle').value = '';
+        document.getElementById('pdfUrl').value = '';
+        selectedStandalonePdfFile = null;
+        
+        await loadStandalonePdfs();
+    } catch (error) {
+        alert('❌ خطأ: ' + error.message);
+    }
+};
                 document.getElementById('pdfTitle').value = '';
                 document.getElementById('standalonePdfFile').value = '';
                 document.getElementById('selectedStandalonePdfName').textContent = '';
