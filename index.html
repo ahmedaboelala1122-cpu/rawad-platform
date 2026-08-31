@@ -901,25 +901,45 @@
                 await loadChildPdfs();
             } catch (error) { console.error('Error:', error); }
         }
+async function loadChildPdfs() {
+    try {
+        const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
+        const container = document.getElementById('childPdfsList');
+        container.innerHTML = '';
 
-        async function loadChildPdfs() {
-            try {
-                const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
-                const container = document.getElementById('childPdfsList');
-                container.innerHTML = '';
-                if (pdfsSnapshot.empty) { container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; return; }
-                pdfsSnapshot.forEach(docSnap => {
-                    const pdf = docSnap.data();
-                    if (pdf.stage === 'all' || pdf.stage === currentChild.recommendedStage) {
-                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center">
-                            <div class="text-5xl mb-2">📄</div>
-                            <h3 class="font-bold text-lg mb-3">${pdf.title}</h3>
-                            <a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a>
-                        </div>`;
-                    }
-                });
-            } catch (error) { console.error('Error loading child PDFs:', error); }
+        if (pdfsSnapshot.empty) { 
+            container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; 
+            return; 
         }
+
+        // تحويل المرحلة الموصى بها للطفل إلى كود
+        let childStageCode = '';
+        if (currentChild.recommendedStage) {
+            if (currentChild.recommendedStage.includes('رياض الأطفال')) childStageCode = 'kg';
+            else if (currentChild.recommendedStage.includes('الصف الأول')) childStageCode = 'grade1';
+            else if (currentChild.recommendedStage.includes('الصف الثاني')) childStageCode = 'grade2';
+            else if (currentChild.recommendedStage.includes('الصف الثالث')) childStageCode = 'grade3';
+        }
+
+        pdfsSnapshot.forEach(docSnap => {
+            const pdf = docSnap.data();
+            // عرض الـ PDF لو المرحلة مناسبة أو لو "جميع المراحل"
+            if (pdf.stage === 'all' || pdf.stage === childStageCode) {
+                container.innerHTML += `
+                    <div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center">
+                        <div class="text-5xl mb-2">📄</div>
+                        <h3 class="font-bold text-lg mb-3">${pdf.title}</h3>
+                        <a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">
+                            📥 تحميل
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    } catch (error) {
+        console.error('Error loading child PDFs:', error);
+    }
+}
 
         window.showChildStage = function(stage) {
             const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
