@@ -48,7 +48,7 @@
             <div class="space-y-4">
                 <div class="flex gap-2 mb-4">
                     <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍👩‍ ولي أمر/مدير</button>
-                    <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
+                    <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold"> الطفل</button>
                 </div>
                 <div id="userLoginForm">
                     <div class="bg-blue-50 rounded-2xl p-4 border-2 border-blue-200">
@@ -87,7 +87,7 @@
                 <input type="email" id="regEmail" placeholder="الإيميل" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <input type="password" id="regPassword" placeholder="الباسورد (6 حروف على الأقل)" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">👨‍‍👧 ولي أمر</option>
+                    <option value="parent">👨‍ ولي أمر</option>
                     <option value="admin">👨‍💼 مدير (للمعلمين)</option>
                 </select>
                 <div class="flex gap-4">
@@ -137,7 +137,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-yellow-300 text-sm font-bold">👨‍💼 لوحة المدير</span>
+                        <span class="text-yellow-300 text-sm font-bold">‍💼 لوحة المدير</span>
                     </div>
                 </div>
                 <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn"> خروج</button>
@@ -174,7 +174,7 @@
                         <div>
                             <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
                             <select id="adminStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
-                                <option value="kg">🧸 رياض الأطفال</option>
+                                <option value="kg"> رياض الأطفال</option>
                                 <option value="grade1">📚 الصف الأول</option>
                                 <option value="grade2">✏️ الصف الثاني</option>
                                 <option value="grade3">🎓 الصف الثالث</option>
@@ -253,15 +253,15 @@
                             <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
                             <select id="pdfStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                                 <option value="kg">🧸 رياض الأطفال</option>
-                                <option value="grade1"> الصف الأول</option>
-                                <option value="grade2">✏️ الصف الثاني</option>
+                                <option value="grade1">📚 الصف الأول</option>
+                                <option value="grade2">️ الصف الثاني</option>
                                 <option value="grade3">🎓 الصف الثالث</option>
                                 <option value="all">🌟 جميع المراحل</option>
                             </select>
                         </div>
                     </div>
                     <div class="bg-purple-50 rounded-xl p-6 border-2 border-purple-300 mb-4">
-                        <label class="block font-bold mb-2 text-gray-700">🔗 رابط PDF المباشر:</label>
+                        <label class="block font-bold mb-2 text-gray-700"> رابط PDF المباشر:</label>
                         <input type="url" id="pdfUrl" placeholder="https://drive.google.com/... أو أي رابط مباشر" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none mb-3">
                         <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
                             <p class="font-bold text-blue-700 mb-2">💡 كيف تحصل على رابط مباشر من Google Drive:</p>
@@ -439,8 +439,8 @@
             { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 🍎", "2 🍎", "3 🍎🍎"], correct: 1 },
             { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة ", "حديقة 🌳"], correct: 1 },
             { q: "كم لون في قوس قزح؟", options: ["5 🌈", "7 🌈", "10 🌈"], correct: 1 },
-            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️⃣", "6️"], correct: 2 },
-            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", "🐱 قط", " عصفور"], correct: 1 },
+            { q: "إيه الرقم اللي بعد 5؟", options: ["4️", "5️⃣", "6️"], correct: 2 },
+            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", " قط", " عصفور"], correct: 1 },
             { q: "إيه الشهر ده؟", options: ["يناير ❄️", "يوليو ☀️", "أكتوبر 🍂"], correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2) }
         ];
 
@@ -694,14 +694,14 @@
             container.innerHTML = '';
             ['kg', 'grade1', 'grade2', 'grade3'].forEach(stage => {
                 if (lessonsData[stage].length > 0) {
-                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+                    const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث' };
                     container.innerHTML += `<h3 class="text-xl font-bold mb-4 mt-6">${names[stage]}</h3>`;
                     lessonsData[stage].forEach(lesson => {
                         const lockIcon = lesson.isLocked ? '🔒' : '🔓';
                         const pdfIcon = lesson.pdfUrl ? '' : '';
                         const questionsCount = lesson.questions ? lesson.questions.length : 0;
                         const videoType = lesson.videoUrl ? '📤 مرفوع' : (lesson.videoId ? ' يوتيوب' : '');
-                        container.innerHTML += `<div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4"><div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}</div></div><div class="flex gap-2"><button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="bg-yellow-500 text-white px-4 py-2 rounded-lg magic-btn">${lesson.isLocked ? ' فتح' : '🔒 قفل'}</button><button onclick="deleteLesson('${lesson.id}', '${stage}')" class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">🗑️</button></div></div>`;
+                        container.innerHTML += `<div class="bg-gray-50 rounded-xl p-4 mb-3 flex justify-between items-center flex-wrap gap-4"><div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? ` ${questionsCount} أسئلة` : ''}</div></div><div class="flex gap-2"><button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="bg-yellow-500 text-white px-4 py-2 rounded-lg magic-btn">${lesson.isLocked ? ' فتح' : '🔒 قفل'}</button><button onclick="deleteLesson('${lesson.id}', '${stage}')" class="bg-red-500 text-white px-4 py-2 rounded-lg magic-btn">🗑️</button></div></div>`;
                     });
                 }
             });
@@ -715,7 +715,7 @@
             const isLocked = document.getElementById('adminIsLocked').checked;
             const btn = document.getElementById('addLessonBtn');
             const status = document.getElementById('adminStatus');
-            if (!title) { alert('❌ الرجاء إدخال عنوان الدرس'); return; }
+            if (!title) { alert(' الرجاء إدخال عنوان الدرس'); return; }
             if (!youtubeUrl && !selectedVideoFile) { alert('❌ الرجاء إضافة رابط يوتيوب أو رفع فيديو من الجهاز'); return; }
             btn.disabled = true; btn.textContent = '⏳ جاري الحفظ...'; status.textContent = '';
             try {
@@ -817,27 +817,19 @@
                 container.innerHTML = '';
                 if (pdfsSnapshot.empty) { container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا توجد أوراق عمل متاحة</div>'; return; }
                 
-                // تحويل المرحلة الموصى بها للطفل إلى كود
-                let childStageCode = '';
-                if (currentChild.recommendedStage) {
-                    if (currentChild.recommendedStage.includes('رياض الأطفال')) childStageCode = 'kg';
-                    else if (currentChild.recommendedStage.includes('الصف الأول')) childStageCode = 'grade1';
-                    else if (currentChild.recommendedStage.includes('الصف الثاني')) childStageCode = 'grade2';
-                    else if (currentChild.recommendedStage.includes('الصف الثالث')) childStageCode = 'grade3';
-                }
-
+                // عرض جميع الـ PDFs لكل الأطفال (للتجربة)
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
-                    // عرض الـ PDF لو المرحلة مناسبة أو لو "جميع المراحل"
-                    if (pdf.stage === 'all' || pdf.stage === childStageCode) {
-                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2">📄</div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
+                    // عرض الـ PDF لو المرحلة "جميع المراحل"
+                    if (pdf.stage === 'all') {
+                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2"></div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn"> تحميل</a></div>`;
                     }
                 });
             } catch (error) { console.error('Error loading child PDFs:', error); }
         }
 
         window.showChildStage = function(stage) {
-            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+            const names = { kg: '🧸 رياض الأطفال', grade1: ' الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
             document.getElementById('stageTitle').textContent = names[stage];
             document.getElementById('childDashboard').classList.add('hidden');
             document.getElementById('stageLessonsView').classList.remove('hidden');
@@ -847,8 +839,8 @@
             else {
                 lessonsData[stage].forEach(lesson => {
                     const pdfBadge = lesson.pdfUrl ? '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📄 PDF</span>' : '';
-                    const questionsBadge = lesson.questions && lesson.questions.length > 0 ? `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">📝 ${lesson.questions.length} أسئلة</span>` : '';
-                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card"><div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div><div class="p-6"><h3 class="text-xl font-bold mb-2">${lesson.title}</h3><div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div><button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">📥 تحميل ورقة العمل</a>` : ''}</div></div>`;
+                    const questionsBadge = lesson.questions && lesson.questions.length > 0 ? `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs"> ${lesson.questions.length} أسئلة</span>` : '';
+                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card"><div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div><div class="p-6"><h3 class="text-xl font-bold mb-2">${lesson.title}</h3><div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div><button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn"> تحميل ورقة العمل</a>` : ''}</div></div>`;
                 });
             }
         };
@@ -866,7 +858,7 @@
             let content = '';
             if (lesson.videoType === 'youtube') content = `<div class="video-box mb-6"><iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0" allowfullscreen></iframe></div>`;
             else content = `<div class="video-box mb-6"><video controls src="${lesson.videoUrl}"></video></div>`;
-            if (lesson.pdfUrl) content += `<a href="${lesson.pdfUrl}" target="_blank" class="block bg-blue-500 text-white font-bold py-4 rounded-xl text-center magic-btn mb-4">📥 تحميل ورقة العمل PDF</a>`;
+            if (lesson.pdfUrl) content += `<a href="${lesson.pdfUrl}" target="_blank" class="block bg-blue-500 text-white font-bold py-4 rounded-xl text-center magic-btn mb-4"> تحميل ورقة العمل PDF</a>`;
             document.getElementById('modalContent').innerHTML = content;
             if (lesson.questions && lesson.questions.length > 0) {
                 currentLessonQuestions = lesson.questions;
