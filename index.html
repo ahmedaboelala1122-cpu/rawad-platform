@@ -629,12 +629,23 @@
                     createdAt: new Date()
                 });
 
-                alert('✅ تم التسجيل بنجاح!');
-                showLogin();
-            } catch (error) {
-                alert('❌ خطأ: ' + error.message);
-            }
-        };
+             alert(`✅ تم إضافة الطفل بنجاح!\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
+        
+        console.log('Child added successfully, redirecting to parent dashboard...');
+        
+        // Force redirect to parent dashboard
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('parentDashboard').classList.remove('hidden');
+        document.getElementById('stageLessonsView').classList.add('hidden');
+        document.getElementById('childDashboard').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.add('hidden');
+        
+        // Load parent data
+        if (typeof loadParentData === 'function') {
+            loadParentData();
+        } else {
+            console.error('loadParentData function not found!');
+        }
 
         window.handleLogin = async function() {
             const email = document.getElementById('userEmail').value.trim();
