@@ -34,58 +34,15 @@
         .star-rating { font-size: 2rem; color: #fbbf24; }
         
         /* User Management Styles */
-        .user-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border: 2px solid #e5e7eb;
-            transition: all 0.3s;
-        }
-        .user-card:hover {
-            border-color: #8b5cf6;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-        }
-        .tab-btn {
-            padding: 12px 24px;
-            border-radius: 12px 12px 0 0;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            border-bottom: none;
-        }
-        .tab-btn.active {
-            background: white;
-            border-color: #e5e7eb;
-            color: #7c3aed;
-        }
-        .tab-btn:not(.active) {
-            background: #f3f4f6;
-            color: #6b7280;
-        }
-        .tab-btn:not(.active):hover {
-            background: #e5e7eb;
-        }
-        .tab-content {
-            display: none;
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 0 16px 16px 16px;
-            padding: 24px;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .action-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.875rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
+        .user-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #e5e7eb; transition: all 0.3s; }
+        .user-card:hover { border-color: #8b5cf6; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2); }
+        .tab-btn { padding: 12px 24px; border-radius: 12px 12px 0 0; font-weight: bold; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; border-bottom: none; }
+        .tab-btn.active { background: white; border-color: #e5e7eb; color: #7c3aed; }
+        .tab-btn:not(.active) { background: #f3f4f6; color: #6b7280; }
+        .tab-btn:not(.active):hover { background: #e5e7eb; }
+        .tab-content { display: none; background: white; border: 2px solid #e5e7eb; border-radius: 0 16px 16px 16px; padding: 24px; }
+        .tab-content.active { display: block; }
+        .action-btn { padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 0.875rem; transition: all 0.3s; border: none; cursor: pointer; }
         .btn-edit { background: #3b82f6; color: white; }
         .btn-edit:hover { background: #2563eb; }
         .btn-password { background: #f59e0b; color: white; }
@@ -97,28 +54,22 @@
         .btn-add { background: #8b5cf6; color: white; }
         .btn-add:hover { background: #7c3aed; }
         
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
+        /* Notification Bell */
+        .notification-bell { position: relative; cursor: pointer; font-size: 1.5rem; }
+        .notification-badge { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .notification-dropdown { position: absolute; top: 100%; left: 0; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); min-width: 300px; max-height: 400px; overflow-y: auto; z-index: 1000; display: none; }
+        .notification-dropdown.active { display: block; }
+        .notification-item { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; cursor: pointer; transition: background 0.3s; }
+        .notification-item:hover { background: #f3f4f6; }
+        .notification-item.unread { background: #fef3c7; }
+        
+        /* Progress Bar */
+        .progress-bar-container { background: #e5e7eb; border-radius: 999px; height: 12px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+        
+        /* Report Card */
+        .report-card { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #bae6fd; }
+        .upload-card { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid #86efac; }
     </style>
 </head>
 <body>
@@ -134,7 +85,7 @@
             <p class="text-gray-600 mb-6 text-lg">نتعلم ونلعب معاً!</p>
             <div class="space-y-4">
                 <div class="flex gap-2 mb-4">
-                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍‍ ولي أمر/مدير</button>
+                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍👩‍ ولي أمر/مدير</button>
                     <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
                 </div>
                 <div id="userLoginForm">
@@ -157,7 +108,7 @@
                         <label class="block text-pink-700 font-bold mb-2 text-lg">🔑 كود الطفل</label>
                         <input type="text" id="childCode" placeholder="مثال: AHME-1234" class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-500 focus:outline-none text-lg text-center">
                     </div>
-                    <button onclick="handleChildLogin()" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-black py-4 rounded-xl magic-btn text-xl"> ادخل يا بطل!</button>
+                    <button onclick="handleChildLogin()" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-black py-4 rounded-xl magic-btn text-xl">🎮 ادخل يا بطل!</button>
                 </div>
                 <div id="loginError" class="hidden bg-red-100 text-red-700 p-3 rounded-xl font-bold"></div>
             </div>
@@ -174,7 +125,7 @@
                 <input type="email" id="regEmail" placeholder="الإيميل" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <input type="password" id="regPassword" placeholder="الباسورد (6 حروف على الأقل)" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">👨‍👩‍👧 ولي أمر</option>
+                    <option value="parent">👨‍‍👧 ولي أمر</option>
                     <option value="admin">👨‍💼 مدير (للمعلمين)</option>
                 </select>
                 <div class="flex gap-4">
@@ -188,7 +139,7 @@
     <!-- اختبار تحديد المستوى -->
     <div id="assessmentPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-2xl w-full text-center relative overflow-hidden">
-            <div class="text-8xl mb-4 robot-wave inline-block"></div>
+            <div class="text-8xl mb-4 robot-wave inline-block">🤖</div>
             <div id="assessmentContent">
                 <h2 class="text-3xl font-black mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">أهلاً يا بطل! أنا روبو!</h2>
                 <p class="text-gray-600 mb-6 text-lg">هسألك شوية أسئلة عشان أعرف مستواك ونبدأ معاً في المغامرة!</p>
@@ -204,7 +155,7 @@
                 </div>
             </div>
             <div id="resultScreen" class="hidden">
-                <div class="text-8xl mb-4 inline-block"></div>
+                <div class="text-8xl mb-4 inline-block">🏆</div>
                 <h2 class="text-3xl font-black mb-4 text-purple-700">ممتاز يا بطل!</h2>
                 <p id="resultText" class="text-xl mb-6 text-gray-700 font-bold"></p>
                 <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 border-4 border-yellow-400 mb-6">
@@ -224,10 +175,17 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-yellow-300 text-sm font-bold">👨‍💼 لوحة المدير</span>
+                        <span class="text-yellow-300 text-sm font-bold">‍💼 لوحة المدير</span>
                     </div>
                 </div>
-                <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
+                <div class="flex items-center gap-4">
+                    <div class="notification-bell" onclick="toggleNotifications()">
+                        🔔
+                        <span class="notification-badge" id="adminNotifBadge">0</span>
+                        <div class="notification-dropdown" id="adminNotifDropdown"></div>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
+                </div>
             </div>
         </nav>
         
@@ -240,7 +198,7 @@
                     <div class="text-gray-600 text-sm">الدروس</div>
                 </div>
                 <div class="glass-panel rounded-2xl p-4 text-center">
-                    <div class="text-3xl mb-2">👨‍‍👧</div>
+                    <div class="text-3xl mb-2">👨‍👩‍</div>
                     <div class="text-2xl font-black text-pink-600" id="adminTotalUsers">0</div>
                     <div class="text-gray-600 text-sm">المستخدمين</div>
                 </div>
@@ -260,10 +218,11 @@
             <div class="mb-8">
                 <div class="flex flex-wrap gap-2 border-b-2 border-gray-200">
                     <button onclick="switchUserTab('lessons')" class="tab-btn active" id="tabBtnLessons">📚 الدروس</button>
-                    <button onclick="switchUserTab('parents')" class="tab-btn" id="tabBtnParents">👨‍👩‍ أولياء الأمور</button>
-                    <button onclick="switchUserTab('children')" class="tab-btn" id="tabBtnChildren">👶 الأطفال</button>
+                    <button onclick="switchUserTab('parents')" class="tab-btn" id="tabBtnParents">👨‍👩‍👧 أولياء الأمور</button>
+                    <button onclick="switchUserTab('children')" class="tab-btn" id="tabBtnChildren"> الأطفال</button>
                     <button onclick="switchUserTab('admins')" class="tab-btn" id="tabBtnAdmins">👨‍💼 المديرين</button>
                     <button onclick="switchUserTab('pdfs')" class="tab-btn" id="tabBtnPdfs">📄 مكتبة PDF</button>
+                    <button onclick="switchUserTab('reports')" class="tab-btn" id="tabBtnReports">📊 تقارير الأطفال</button>
                     <button onclick="switchUserTab('whatsapp')" class="tab-btn" id="tabBtnWhatsapp">💬 واتساب</button>
                 </div>
 
@@ -279,7 +238,7 @@
                                     <option value="kg">🧸 رياض الأطفال</option>
                                     <option value="grade1">📚 الصف الأول</option>
                                     <option value="grade2">✏️ الصف الثاني</option>
-                                    <option value="grade3">🎓 الصف الثالث</option>
+                                    <option value="grade3"> الصف الثالث</option>
                                 </select>
                             </div>
                             <div>
@@ -296,7 +255,7 @@
                         </div>
                     </div>
                     <div class="section-card">
-                        <div class="section-title text-green-600"><span>📝</span> الأسئلة التفاعلية (اختياري)</div>
+                        <div class="section-title text-green-600"><span></span> الأسئلة التفاعلية (اختياري)</div>
                         <p class="text-sm text-gray-500 mb-4">أضف من 1 إلى 5 أسئلة اختيار من متعدد للدرس</p>
                         <div id="questionsContainer">
                             <div class="question-block bg-gray-50 rounded-xl p-4 mb-4 border-2 border-gray-200">
@@ -320,7 +279,7 @@
                         <button onclick="addQuestionField()" class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg magic-btn font-bold">➕ إضافة سؤال آخر</button>
                     </div>
                     <div class="section-card">
-                        <div class="section-title text-green-600"><span></span> ورقة العمل PDF للدرس (اختياري)</div>
+                        <div class="section-title text-green-600"><span>📄</span> ورقة العمل PDF للدرس (اختياري)</div>
                         <p class="text-sm text-gray-500 mb-3">ارفع ملف PDF من جهازك</p>
                         <input type="file" id="adminPdfFile" accept=".pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-gray-50">
                     </div>
@@ -330,51 +289,45 @@
                             <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg">🔒 قفل الدرس (لا يظهر للطلاب)</label>
                         </div>
                     </div>
-                    <button onclick="addLesson()" id="addLessonBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl"> حفظ الدرس</button>
+                    <button onclick="addLesson()" id="addLessonBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">💾 حفظ الدرس</button>
                     <div id="adminStatus" class="mt-4 text-center font-bold text-lg"></div>
                     
-                    <h3 class="text-xl font-bold mt-8 mb-4 text-purple-700"> الدروس المضافة</h3>
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-purple-700">📋 الدروس المضافة</h3>
                     <div id="adminLessonsList"></div>
                 </div>
 
                 <!-- تاب أولياء الأمور -->
                 <div id="tabParents" class="tab-content">
-                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍‍👧</span> إدارة أولياء الأمور</h2>
-                    
-                    <!-- البحث والفلترة -->
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍👩‍👧</span> إدارة أولياء الأمور</h2>
                     <div class="section-card">
                         <div class="flex flex-col md:flex-row gap-4">
-                            <input type="text" id="parentSearch" placeholder="🔍 ابحث بالاسم أو الإيميل..." oninput="filterParents()" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                            <input type="text" id="parentSearch" placeholder=" ابحث بالاسم أو الإيميل..." oninput="filterParents()" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                         </div>
                     </div>
-                    
                     <div id="parentsList"></div>
                 </div>
 
                 <!-- تاب الأطفال -->
                 <div id="tabChildren" class="tab-content">
                     <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👶</span> إدارة الأطفال</h2>
-                    
                     <div class="section-card">
                         <div class="flex flex-col md:flex-row gap-4">
                             <input type="text" id="childSearch" placeholder="🔍 ابحث بالاسم أو الكود..." oninput="filterChildren()" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                             <select id="childStageFilter" onchange="filterChildren()" class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                                 <option value="all">🌟 جميع المراحل</option>
-                                <option value="kg"> رياض الأطفال</option>
+                                <option value="kg">🧸 رياض الأطفال</option>
                                 <option value="grade1">📚 الصف الأول</option>
                                 <option value="grade2">✏️ الصف الثاني</option>
-                                <option value="grade3">🎓 الصف الثالث</option>
+                                <option value="grade3"> الصف الثالث</option>
                             </select>
                         </div>
                     </div>
-                    
                     <div id="childrenList"></div>
                 </div>
 
                 <!-- تاب المديرين -->
                 <div id="tabAdmins" class="tab-content">
-                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍</span> إدارة المديرين</h2>
-                    
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍💼</span> إدارة المديرين</h2>
                     <div class="section-card">
                         <h3 class="font-bold mb-4 text-purple-700">➕ إضافة مدير جديد</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -385,8 +338,7 @@
                         </div>
                         <div id="adminAddStatus" class="mt-4 text-center font-bold"></div>
                     </div>
-                    
-                    <h3 class="font-bold mt-8 mb-4 text-purple-700">👥 قائمة المديرين</h3>
+                    <h3 class="font-bold mt-8 mb-4 text-purple-700"> قائمة المديرين</h3>
                     <div id="adminsList"></div>
                 </div>
 
@@ -402,8 +354,8 @@
                             <div>
                                 <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
                                 <select id="pdfStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
-                                    <option value="kg"> رياض الأطفال</option>
-                                    <option value="grade1">📚 الصف الأول</option>
+                                    <option value="kg">🧸 رياض الأطفال</option>
+                                    <option value="grade1"> الصف الأول</option>
                                     <option value="grade2">✏️ الصف الثاني</option>
                                     <option value="grade3">🎓 الصف الثالث</option>
                                     <option value="all">🌟 جميع المراحل</option>
@@ -423,9 +375,41 @@
                                 </ol>
                             </div>
                         </div>
-                        <button onclick="addStandalonePdf()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl"> إضافة الورقة</button>
+                        <button onclick="addStandalonePdf()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">➕ إضافة الورقة</button>
                     </div>
                     <div id="standalonePdfsList" class="mt-6"></div>
+                </div>
+
+                <!-- تاب تقارير الأطفال -->
+                <div id="tabReports" class="tab-content">
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📊</span> تقارير الأطفال الخاصة</h2>
+                    <div class="section-card">
+                        <h3 class="font-bold mb-4 text-purple-700">➕ إضافة تقرير لطفل</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">اختر الطفل:</label>
+                                <select id="reportChildSelect" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                                    <option value="">-- اختر طفلاً --</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">عنوان التقرير:</label>
+                                <input type="text" id="reportTitle" placeholder="مثال: تقرير شهر سبتمبر" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">محتوى التقرير:</label>
+                                <textarea id="reportContent" rows="4" placeholder="اكتب تقريرك هنا..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">أو رابط PDF (اختياري):</label>
+                                <input type="url" id="reportPdfUrl" placeholder="https://drive.google.com/..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                            </div>
+                            <button onclick="addReportForChild()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">📤 إرسال التقرير</button>
+                        </div>
+                        <div id="reportStatus" class="mt-4 text-center font-bold"></div>
+                    </div>
+                    <h3 class="font-bold mt-8 mb-4 text-purple-700">📋 التقارير المرسلة</h3>
+                    <div id="adminReportsList"></div>
                 </div>
 
                 <!-- تاب واتساب -->
@@ -449,21 +433,97 @@
         <nav class="bg-gradient-to-r from-blue-500 to-purple-600 sticky top-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <span class="text-4xl">🏠</span>
+                    <span class="text-4xl"></span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-blue-200 text-sm font-bold">👨‍👩‍ لوحة ولي الأمر</span>
+                        <span class="text-blue-200 text-sm font-bold">👨‍👩‍👧 لوحة ولي الأمر</span>
                     </div>
                 </div>
-                <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
+                <div class="flex items-center gap-4">
+                    <div class="notification-bell" onclick="toggleParentNotifications()">
+                        🔔
+                        <span class="notification-badge" id="parentNotifBadge">0</span>
+                        <div class="notification-dropdown" id="parentNotifDropdown"></div>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold magic-btn">🚪 خروج</button>
+                </div>
             </div>
         </nav>
         <div class="max-w-7xl mx-auto px-4 py-8">
-            <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
-                <div class="text-6xl mb-4">👨‍👩‍</div>
-                <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
-                <div id="parentChildrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
-                <button onclick="addChild()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl magic-btn font-bold text-lg">➕ إضافة طفل جديد</button>
+            <!-- تابات ولي الأمر -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-2 border-b-2 border-gray-200">
+                    <button onclick="switchParentTab('children')" class="tab-btn active" id="parentTabBtnChildren">👶 أطفالي</button>
+                    <button onclick="switchParentTab('progress')" class="tab-btn" id="parentTabBtnProgress">📊 تقارير التقدم</button>
+                    <button onclick="switchParentTab('teacherReports')" class="tab-btn" id="parentTabBtnTeacherReports">📝 تقارير المعلم</button>
+                    <button onclick="switchParentTab('uploads')" class="tab-btn" id="parentTabBtnUploads"> رفع ملفات</button>
+                </div>
+
+                <!-- تاب أطفالي -->
+                <div id="parentTabChildren" class="tab-content active">
+                    <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
+                        <div class="text-6xl mb-4">👨‍👩‍</div>
+                        <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
+                        <div id="parentChildrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
+                        <button onclick="addChild()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl magic-btn font-bold text-lg">➕ إضافة طفل جديد</button>
+                    </div>
+                </div>
+
+                <!-- تاب تقارير التقدم -->
+                <div id="parentTabProgress" class="tab-content">
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📊</span> تقارير تقدم الطفل</h2>
+                    <div id="parentProgressReports"></div>
+                </div>
+
+                <!-- تاب تقارير المعلم -->
+                <div id="parentTabTeacherReports" class="tab-content">
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📝</span> تقارير المعلم الخاصة</h2>
+                    <div id="parentTeacherReports"></div>
+                </div>
+
+                <!-- تاب رفع ملفات -->
+                <div id="parentTabUploads" class="tab-content">
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> رفع ملفات الطفل</h2>
+                    <div class="section-card">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">اختر الطفل:</label>
+                                <select id="uploadChildSelect" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                                    <option value="">-- اختر طفلاً --</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">عنوان الملف:</label>
+                                <input type="text" id="uploadTitle" placeholder="مثال: واجب الرياضيات" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2 text-gray-700">نوع الملف:</label>
+                                <select id="uploadType" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
+                                    <option value="image">📸 صورة</option>
+                                    <option value="pdf">📄 PDF</option>
+                                    <option value="note"> ملاحظة</option>
+                                </select>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6 border-2 border-blue-300">
+                                <label class="block font-bold mb-2 text-gray-700">🔗 رابط الملف (Google Drive):</label>
+                                <input type="url" id="uploadUrl" placeholder="https://drive.google.com/..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none mb-3">
+                                <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
+                                    <p class="font-bold text-blue-700 mb-2"> كيفية الحصول على الرابط:</p>
+                                    <ol class="text-sm text-gray-700 space-y-1 mr-4">
+                                        <li>1. ارفع الملف/الصورة على Google Drive</li>
+                                        <li>2. اضغط كليك يمين → Share (مشاركة)</li>
+                                        <li>3. اختار "Anyone with the link"</li>
+                                        <li>4. انسخ الرابط والصقه هنا</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <button onclick="uploadParentFile()" class="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">📤 رفع الملف</button>
+                        </div>
+                        <div id="uploadStatus" class="mt-4 text-center font-bold"></div>
+                    </div>
+                    <h3 class="font-bold mt-8 mb-4 text-purple-700">📋 الملفات المرفوعة</h3>
+                    <div id="parentUploadsList"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -489,7 +549,7 @@
             <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-3xl p-8 mb-8 text-white text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-full opacity-20">
                     <div class="absolute top-4 left-4 text-6xl animate-bounce">⭐</div>
-                    <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s"></div>
+                    <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s">🎈</div>
                     <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s">🎉</div>
                 </div>
                 <div class="relative z-10">
@@ -504,7 +564,7 @@
                     <p id="childKgCount" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
                 <button onclick="showChildStage('grade1')" class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-blue-300 hover:border-blue-500">
-                    <div class="text-7xl mb-4"></div>
+                    <div class="text-7xl mb-4">📚</div>
                     <h3 class="text-2xl font-black text-blue-600 mb-2">الصف الأول</h3>
                     <p id="childGrade1Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
@@ -514,13 +574,13 @@
                     <p id="childGrade2Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
                 <button onclick="showChildStage('grade3')" class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-purple-300 hover:border-purple-500">
-                    <div class="text-7xl mb-4">🎓</div>
+                    <div class="text-7xl mb-4"></div>
                     <h3 class="text-2xl font-black text-purple-600 mb-2">الصف الثالث</h3>
                     <p id="childGrade3Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
             </div>
             <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> مكتبة أوراق العمل</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📚</span> مكتبة أوراق العمل</h2>
                 <div id="childPdfsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </div>
@@ -561,21 +621,10 @@
         </div>
     </div>
 
-    <!-- Modal للتعديلات -->
-    <div id="editModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h3 id="editModalTitle" class="text-2xl font-black text-purple-700"></h3>
-                <button onclick="closeEditModal()" class="text-3xl text-gray-400 hover:text-gray-600">❌</button>
-            </div>
-            <div id="editModalBody"></div>
-        </div>
-    </div>
-
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
         import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
@@ -604,24 +653,24 @@
         let currentQuestionIndex = 0;
         let assessmentScore = 0;
         let currentLessonQuestions = [];
-        
-        // Data for user management
         let allParents = [];
         let allChildren = [];
         let allAdmins = [];
+        let parentNotifications = [];
+        let adminNotifications = [];
 
         const assessmentData = [
             { q: "إيه الحرف الأول في كلمة 'تفاحة'؟", options: ["ت 🍎", "ب 🍌", "م 🍇"], correct: 0 },
-            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 ", "2 🍎", "3 🍎"], correct: 1 },
-            { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة 🏫", "حديقة 🌳"], correct: 1 },
-            { q: "كم لون في قوس قزح؟", options: ["5 🌈", "7 🌈", "10 🌈"], correct: 1 },
-            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️⃣", "6️⃣"], correct: 2 },
-            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", " قط", "🐦 عصفور"], correct: 1 },
-            { q: "إيه الشهر ده؟", options: ["يناير ❄️", "يوليو ☀️", "أكتوبر 🍂"], correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2) }
+            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 🍎", "2 🍎", "3 🍎🍎"], correct: 1 },
+            { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة ", "حديقة 🌳"], correct: 1 },
+            { q: "كم لون في قوس قزح؟", options: ["5 ", "7 🌈", "10 "], correct: 1 },
+            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️", "6️⃣"], correct: 2 },
+            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", "🐱 قط", "🐦 عصفور"], correct: 1 },
+            { q: "إيه الشهر ده؟", options: ["يناير ❄️", "يوليو ☀️", "أكتوبر "], correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2) }
         ];
 
         function createFloatingElements() {
-            const elements = ['📚', '️', '🎨', '🎵', '🌟', '🍎', '🎪', '🎈'];
+            const elements = ['📚', '✏️', '🎨', '🎵', '🌟', '🍎', '', '🎈'];
             const container = document.getElementById('floatingBg');
             elements.forEach((emoji) => {
                 const el = document.createElement('div');
@@ -642,7 +691,6 @@
 
         window.showRegister = () => { document.getElementById('loginPage').classList.add('hidden'); document.getElementById('registerPage').classList.remove('hidden'); };
         window.showLogin = () => { document.getElementById('registerPage').classList.add('hidden'); document.getElementById('loginPage').classList.remove('hidden'); };
-        
         window.showUserLogin = () => {
             document.getElementById('userLoginForm').classList.remove('hidden');
             document.getElementById('childLoginForm').classList.add('hidden');
@@ -656,11 +704,7 @@
             document.getElementById('btnChildLogin').className = 'flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold';
         };
 
-        window.handlePdfFileSelect = function(input) {
-            if (input.files && input.files[0]) {
-                selectedPdfFile = input.files[0];
-            }
-        };
+        window.handlePdfFileSelect = function(input) { if (input.files && input.files[0]) selectedPdfFile = input.files[0]; };
 
         window.addQuestionField = function() {
             const container = document.getElementById('questionsContainer');
@@ -745,14 +789,12 @@
             document.getElementById('assessmentContent').classList.add('hidden');
             document.getElementById('resultScreen').classList.remove('hidden');
             let recommendedStage = '', stars = 0;
-            if (assessmentScore <= 2) { recommendedStage = '🧸 رياض الأطفال'; stars = 1; } 
+            if (assessmentScore <= 2) { recommendedStage = ' رياض الأطفال'; stars = 1; } 
             else if (assessmentScore <= 5) { recommendedStage = '📚 الصف الأول'; stars = 2; } 
             else { recommendedStage = '✏️ الصف الثاني'; stars = 3; }
             document.getElementById('resultText').textContent = `أجبت على ${assessmentScore} من 7 أسئلة صحيحة`;
             document.getElementById('recommendedStage').textContent = `ننصحك بالبدء من: ${recommendedStage}`;
-            if (currentChild) {
-                updateDoc(doc(db, 'children', currentChild.id), { assessmentCompleted: true, assessmentScore, recommendedStage, stars });
-            }
+            if (currentChild) updateDoc(doc(db, 'children', currentChild.id), { assessmentCompleted: true, assessmentScore, recommendedStage, stars });
         }
 
         window.goToDashboard = function() {
@@ -774,10 +816,12 @@
                         await loadAdminData(); 
                         await loadWhatsAppNumber();
                         await loadAllUsers();
+                        await loadAdminNotifications();
                     } 
                     else if (userData.role === 'parent') { 
                         document.getElementById('parentDashboard').classList.remove('hidden'); 
-                        await loadParentData(); 
+                        await loadParentData();
+                        await loadParentNotifications();
                     }
                 }
             }
@@ -831,10 +875,9 @@
             try {
                 await addDoc(collection(db, 'standalonePdfs'), { title, stage, url, uploadedBy: currentUser.uid, createdAt: new Date() });
                 alert('✅ تم إضافة الورقة بنجاح!');
-                document.getElementById('pdfTitle').value = '';
-                document.getElementById('pdfUrl').value = '';
+                document.getElementById('pdfTitle').value = ''; document.getElementById('pdfUrl').value = '';
                 await loadStandalonePdfs();
-            } catch (error) { alert('❌ خطأ: ' + error.message); }
+            } catch (error) { alert(' خطأ: ' + error.message); }
         };
 
         async function loadStandalonePdfs() {
@@ -845,8 +888,8 @@
                 if (pdfsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>'; return; }
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
-                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '️ الصف الثاني', grade3: '🎓 الصف الثالث', all: '🌟 جميع المراحل' };
-                    container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><div class="flex gap-2"><a href="${pdf.url}" target="_blank" class="action-btn btn-view">️ عرض</a><button onclick="deleteStandalonePdf('${docSnap.id}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
+                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث', all: '🌟 جميع المراحل' };
+                    container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><div class="flex gap-2"><a href="${pdf.url}" target="_blank" class="action-btn btn-view">👁️ عرض</a><button onclick="deleteStandalonePdf('${docSnap.id}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
                 });
             } catch (error) { console.error('Error loading standalone PDFs:', error); }
         }
@@ -909,7 +952,7 @@
             const isLocked = document.getElementById('adminIsLocked').checked;
             const btn = document.getElementById('addLessonBtn');
             const status = document.getElementById('adminStatus');
-            if (!title) { alert(' الرجاء إدخال عنوان الدرس'); return; }
+            if (!title) { alert('❌ الرجاء إدخال عنوان الدرس'); return; }
             if (!youtubeUrl && !selectedVideoFile) { alert('❌ الرجاء إضافة رابط يوتيوب أو رفع فيديو من الجهاز'); return; }
             btn.disabled = true; btn.textContent = '⏳ جاري الحفظ...'; status.textContent = '';
             try {
@@ -935,7 +978,7 @@
                     videoUrl = await getDownloadURL(videoRef);
                 }
                 if (selectedPdfFile) {
-                    status.textContent = ' جاري رفع PDF...';
+                    status.textContent = '⏳ جاري رفع PDF...';
                     const pdfRef = ref(storage, `pdfs/${Date.now()}_${selectedPdfFile.name}`);
                     await uploadBytes(pdfRef, selectedPdfFile);
                     pdfUrl = await getDownloadURL(pdfRef);
@@ -1020,14 +1063,14 @@
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
                     if (pdf.stage === 'all' || pdf.stage === childStageCode) {
-                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2"></div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
+                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2">📄</div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
                     }
                 });
             } catch (error) { console.error('Error loading child PDFs:', error); }
         }
 
         window.showChildStage = function(stage) {
-            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث' };
             document.getElementById('stageTitle').textContent = names[stage];
             document.getElementById('childDashboard').classList.add('hidden');
             document.getElementById('stageLessonsView').classList.remove('hidden');
@@ -1038,7 +1081,7 @@
                 lessonsData[stage].forEach(lesson => {
                     const pdfBadge = lesson.pdfUrl ? '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">📄 PDF</span>' : '';
                     const questionsBadge = lesson.questions && lesson.questions.length > 0 ? `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs">📝 ${lesson.questions.length} أسئلة</span>` : '';
-                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card"><div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div><div class="p-6"><h3 class="text-xl font-bold mb-2">${lesson.title}</h3><div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div><button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn"> تحميل ورقة العمل</a>` : ''}</div></div>`;
+                    container.innerHTML += `<div class="glass-panel rounded-2xl overflow-hidden bounce-card"><div class="video-box">${lesson.videoType === 'youtube' ? `<iframe src="https://www.youtube.com/embed/${lesson.videoId}" frameborder="0"></iframe>` : `<video controls src="${lesson.videoUrl}"></video>`}</div><div class="p-6"><h3 class="text-xl font-bold mb-2">${lesson.title}</h3><div class="mb-4 space-x-2">${pdfBadge} ${questionsBadge}</div><button onclick="viewLesson('${lesson.id}')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl magic-btn">▶️ مشاهدة الدرس</button>${lesson.pdfUrl ? `<a href="${lesson.pdfUrl}" target="_blank" class="block mt-2 text-center bg-blue-500 text-white font-bold py-3 rounded-xl magic-btn">📥 تحميل ورقة العمل</a>` : ''}</div></div>`;
                 });
             }
         };
@@ -1116,9 +1159,8 @@
         window.closeLessonModal = function() { document.getElementById('lessonModal').classList.add('hidden'); };
 
         // ============ إدارة المستخدمين ============
-        
         window.switchUserTab = function(tabName) {
-            const tabs = ['lessons', 'parents', 'children', 'admins', 'pdfs', 'whatsapp'];
+            const tabs = ['lessons', 'parents', 'children', 'admins', 'pdfs', 'reports', 'whatsapp'];
             tabs.forEach(t => {
                 document.getElementById(`tab${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
                 document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
@@ -1129,142 +1171,76 @@
 
         async function loadAllUsers() {
             try {
-                // Load parents
                 const parentsSnapshot = await getDocs(query(collection(db, 'users'), where('role', '==', 'parent')));
                 allParents = [];
-                parentsSnapshot.forEach(docSnap => {
-                    allParents.push({ id: docSnap.id, ...docSnap.data() });
-                });
+                parentsSnapshot.forEach(docSnap => allParents.push({ id: docSnap.id, ...docSnap.data() }));
                 displayParents(allParents);
 
-                // Load children
                 const childrenSnapshot = await getDocs(collection(db, 'children'));
                 allChildren = [];
-                childrenSnapshot.forEach(docSnap => {
-                    allChildren.push({ id: docSnap.id, ...docSnap.data() });
-                });
+                childrenSnapshot.forEach(docSnap => allChildren.push({ id: docSnap.id, ...docSnap.data() }));
                 displayChildren(allChildren);
 
-                // Load admins
                 const adminsSnapshot = await getDocs(query(collection(db, 'users'), where('role', '==', 'admin')));
                 allAdmins = [];
-                adminsSnapshot.forEach(docSnap => {
-                    allAdmins.push({ id: docSnap.id, ...docSnap.data() });
-                });
+                adminsSnapshot.forEach(docSnap => allAdmins.push({ id: docSnap.id, ...docSnap.data() }));
                 displayAdmins(allAdmins);
-            } catch (error) {
-                console.error('Error loading users:', error);
-            }
+
+                // Populate report child select
+                const reportSelect = document.getElementById('reportChildSelect');
+                reportSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+                allChildren.forEach(child => {
+                    const parent = allParents.find(p => p.uid === child.parentId);
+                    const parentName = parent ? parent.name : 'غير معروف';
+                    reportSelect.innerHTML += `<option value="${child.id}">${child.name} (${parentName})</option>`;
+                });
+
+                // Load reports
+                await loadAdminReports();
+            } catch (error) { console.error('Error loading users:', error); }
         }
 
         function displayParents(parents) {
             const container = document.getElementById('parentsList');
             container.innerHTML = '';
-            
-            if (parents.length === 0) {
-                container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أولياء أمور</div>';
-                return;
-            }
-
+            if (parents.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أولياء أمور</div>'; return; }
             parents.forEach(parent => {
                 const childrenCount = parent.children ? parent.children.length : 0;
-                container.innerHTML += `
-                    <div class="user-card">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-5xl">👤</div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-black text-purple-700">${parent.name}</h3>
-                                <p class="text-gray-600">📧 ${parent.email}</p>
-                                <p class="text-sm text-gray-500">👶 ${childrenCount} أطفال</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="editParentName('${parent.id}', '${parent.name}')" class="action-btn btn-edit">️ تعديل الاسم</button>
-                            <button onclick="changeParentPassword('${parent.id}', '${parent.email}')" class="action-btn btn-password"> تغيير الباسورد</button>
-                            <button onclick="deleteParent('${parent.id}', '${parent.name}')" class="action-btn btn-delete">🗑️ حذف</button>
-                        </div>
-                    </div>
-                `;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">👤</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${parent.name}</h3><p class="text-gray-600">📧 ${parent.email}</p><p class="text-sm text-gray-500">👶 ${childrenCount} أطفال</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editParentName('${parent.id}', '${parent.name}')" class="action-btn btn-edit">✏️ تعديل الاسم</button><button onclick="changeParentPassword('${parent.id}', '${parent.email}')" class="action-btn btn-password">🔑 تغيير الباسورد</button><button onclick="deleteParent('${parent.id}', '${parent.name}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
             });
         }
 
         function displayChildren(children) {
             const container = document.getElementById('childrenList');
             container.innerHTML = '';
-            
-            if (children.length === 0) {
-                container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال</div>';
-                return;
-            }
-
-            const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
-
+            if (children.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال</div>'; return; }
+            const stageNames = { kg: '🧸 رياض الأطفال', grade1: ' الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
             children.forEach(child => {
                 const parent = allParents.find(p => p.uid === child.parentId);
                 const parentName = parent ? parent.name : 'غير معروف';
                 const stage = child.recommendedStage || 'لم يحدد';
-                
-                container.innerHTML += `
-                    <div class="user-card">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-5xl">👶</div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-black text-purple-700">${child.name}</h3>
-                                <p class="text-gray-600">🔑 ${child.code}</p>
-                                <p class="text-sm text-gray-500">👨‍‍👧 ولي الأمر: ${parentName}</p>
-                                <p class="text-sm text-gray-500"> المرحلة: ${stage}</p>
-                                <p class="text-sm text-gray-500">⭐ النجوم: ${child.stars || 0}</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="editChildStage('${child.id}', '${child.recommendedStage || ''}')" class="action-btn btn-edit"> تعديل المرحلة</button>
-                            <button onclick="editChildStars('${child.id}', ${child.stars || 0})" class="action-btn btn-password">⭐ تعديل النجوم</button>
-                            <button onclick="deleteChildAdmin('${child.id}', '${child.name}')" class="action-btn btn-delete">🗑️ حذف</button>
-                        </div>
-                    </div>
-                `;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">👶</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${child.name}</h3><p class="text-gray-600">🔑 ${child.code}</p><p class="text-sm text-gray-500">👨‍👩‍👧 ولي الأمر: ${parentName}</p><p class="text-sm text-gray-500">📚 المرحلة: ${stage}</p><p class="text-sm text-gray-500">⭐ النجوم: ${child.stars || 0}</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editChildStage('${child.id}', '${child.recommendedStage || ''}')" class="action-btn btn-edit">📚 تعديل المرحلة</button><button onclick="editChildStars('${child.id}', ${child.stars || 0})" class="action-btn btn-password">⭐ تعديل النجوم</button><button onclick="deleteChildAdmin('${child.id}', '${child.name}')" class="action-btn btn-delete">️ حذف</button></div></div>`;
             });
         }
 
         function displayAdmins(admins) {
             const container = document.getElementById('adminsList');
             container.innerHTML = '';
-            
-            if (admins.length === 0) {
-                container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد مديرين</div>';
-                return;
-            }
-
+            if (admins.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد مديرين</div>'; return; }
             admins.forEach(admin => {
                 const isMainAdmin = admin.uid === currentUser.uid;
-                container.innerHTML += `
-                    <div class="user-card">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-5xl">${isMainAdmin ? '👑' : '👨‍💼'}</div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-black text-purple-700">${admin.name} ${isMainAdmin ? '(المدير الأساسي)' : ''}</h3>
-                                <p class="text-gray-600">📧 ${admin.email}</p>
-                            </div>
-                        </div>
-                        ${!isMainAdmin ? `<button onclick="deleteAdmin('${admin.id}', '${admin.name}')" class="action-btn btn-delete">🗑️ حذف المدير</button>` : '<p class="text-sm text-gray-500">🔒 لا يمكن حذف المدير الأساسي</p>'}
-                    </div>
-                `;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">${isMainAdmin ? '' : '👨‍💼'}</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${admin.name} ${isMainAdmin ? '(المدير الأساسي)' : ''}</h3><p class="text-gray-600">📧 ${admin.email}</p></div></div>${!isMainAdmin ? `<button onclick="deleteAdmin('${admin.id}', '${admin.name}')" class="action-btn btn-delete">🗑️ حذف المدير</button>` : '<p class="text-sm text-gray-500">🔒 لا يمكن حذف المدير الأساسي</p>'}</div>`;
             });
         }
 
         window.filterParents = function() {
             const search = document.getElementById('parentSearch').value.toLowerCase();
-            const filtered = allParents.filter(p => 
-                p.name.toLowerCase().includes(search) || 
-                p.email.toLowerCase().includes(search)
-            );
-            displayParents(filtered);
+            displayParents(allParents.filter(p => p.name.toLowerCase().includes(search) || p.email.toLowerCase().includes(search)));
         };
 
         window.filterChildren = function() {
             const search = document.getElementById('childSearch').value.toLowerCase();
             const stageFilter = document.getElementById('childStageFilter').value;
-            
             const filtered = allChildren.filter(c => {
                 const matchSearch = c.name.toLowerCase().includes(search) || c.code.toLowerCase().includes(search);
                 const matchStage = stageFilter === 'all' || 
@@ -1280,9 +1256,7 @@
         window.editParentName = function(parentId, currentName) {
             const newName = prompt('أدخل الاسم الجديد:', currentName);
             if (newName && newName !== currentName) {
-                updateDoc(doc(db, 'users', parentId), { name: newName })
-                    .then(() => { alert('✅ تم تعديل الاسم بنجاح'); loadAllUsers(); })
-                    .catch(err => alert(' خطأ: ' + err.message));
+                updateDoc(doc(db, 'users', parentId), { name: newName }).then(() => { alert('✅ تم تعديل الاسم بنجاح'); loadAllUsers(); }).catch(err => alert('❌ خطأ: ' + err.message));
             }
         };
 
@@ -1290,105 +1264,56 @@
             const newPassword = prompt(`أدخل الباسورد الجديد لـ ${parentEmail}:\n(6 حروف على الأقل)`);
             if (!newPassword) return;
             if (newPassword.length < 6) { alert('❌ الباسورد لازم يكون 6 حروف على الأقل'); return; }
-            
             if (!confirm(`⚠️ هل أنت متأكد من تغيير باسورد ${parentEmail}؟`)) return;
-            
-            // Note: Firebase Auth doesn't allow changing another user's password directly from client
-            // We'll store it in Firestore and use a custom approach
             try {
-                await updateDoc(doc(db, 'users', parentId), { 
-                    passwordResetRequired: true,
-                    newPassword: newPassword,
-                    passwordResetAt: new Date()
-                });
-                alert(`✅ تم حفظ الباسورد الجديد لـ ${parentEmail}\n\nملاحظة: المستخدم سيحتاج لتسجيل الدخول بالباسورد الجديد في المرة القادمة.`);
-            } catch (error) {
-                alert('❌ خطأ: ' + error.message);
-            }
+                await updateDoc(doc(db, 'users', parentId), { passwordResetRequired: true, newPassword: newPassword, passwordResetAt: new Date() });
+                alert(`✅ تم حفظ الباسورد الجديد لـ ${parentEmail}`);
+            } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
         window.deleteParent = async function(parentId, parentName) {
-            if (!confirm(`⚠️ هل أنت متأكد من حذف ولي الأمر "${parentName}"؟\n\nسيتم نقل أطفاله أو حذفهم.`)) return;
-            
-            const transferOption = prompt(
-                `اختر إجراء للأطفال:\n\n1. اكتب إيميل ولي أمر آخر لنقل الأطفال إليه\n2. اكتب "حذف" لحذف الأطفال نهائياً\n\nإيميل ولي الأمر الحالي: ${allParents.find(p => p.id === parentId)?.email}`,
-                'حذف'
-            );
-            
+            if (!confirm(`⚠️ هل أنت متأكد من حذف ولي الأمر "${parentName}"؟`)) return;
+            const transferOption = prompt(`اختر إجراء للأطفال:\n\n1. اكتب إيميل ولي أمر آخر لنقل الأطفال إليه\n2. اكتب "حذف" لحذف الأطفال نهائياً`, 'حذف');
             if (!transferOption) return;
-            
             try {
                 if (transferOption.toLowerCase() === 'حذف') {
-                    // Delete all children of this parent
                     const childrenToDelete = allChildren.filter(c => c.parentId === allParents.find(p => p.id === parentId)?.uid);
-                    for (const child of childrenToDelete) {
-                        await deleteDoc(doc(db, 'children', child.id));
-                    }
+                    for (const child of childrenToDelete) await deleteDoc(doc(db, 'children', child.id));
                     alert(`✅ تم حذف ولي الأمر و${childrenToDelete.length} أطفال`);
                 } else {
-                    // Transfer children to another parent
                     const targetParent = allParents.find(p => p.email === transferOption);
-                    if (!targetParent) {
-                        alert('❌ لم يتم العثور على ولي الأمر بهذا الإيميل');
-                        return;
-                    }
-                    
+                    if (!targetParent) { alert('❌ لم يتم العثور على ولي الأمر بهذا الإيميل'); return; }
                     const childrenToTransfer = allChildren.filter(c => c.parentId === allParents.find(p => p.id === parentId)?.uid);
-                    for (const child of childrenToTransfer) {
-                        await updateDoc(doc(db, 'children', child.id), { parentId: targetParent.uid });
-                    }
-                    
-                    // Update target parent's children list
+                    for (const child of childrenToTransfer) await updateDoc(doc(db, 'children', child.id), { parentId: targetParent.uid });
                     const newChildrenList = [...(targetParent.children || []), ...childrenToTransfer.map(c => ({ name: c.name, code: c.code }))];
                     await updateDoc(doc(db, 'users', targetParent.id), { children: newChildrenList });
-                    
                     alert(`✅ تم نقل ${childrenToTransfer.length} أطفال إلى ${targetParent.name}`);
                 }
-                
                 await deleteDoc(doc(db, 'users', parentId));
                 await loadAllUsers();
                 await loadAdminData();
-            } catch (error) {
-                alert('❌ خطأ: ' + error.message);
-            }
+            } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
         window.editChildStage = function(childId, currentStage) {
-            const newStage = prompt(
-                'اختر المرحلة الجديدة:\n\n1 - رياض الأطفال\n2 - الصف الأول\n3 - الصف الثاني\n4 - الصف الثالث\n\nاكتب الرقم:',
-                currentStage.includes('رياض') ? '1' : currentStage.includes('الأول') ? '2' : currentStage.includes('الثاني') ? '3' : '4'
-            );
-            
-            const stageMap = {
-                '1': '🧸 رياض الأطفال',
-                '2': '📚 الصف الأول',
-                '3': '✏️ الصف الثاني',
-                '4': '🎓 الصف الثالث'
-            };
-            
+            const newStage = prompt('اختر المرحلة الجديدة:\n\n1 - رياض الأطفال\n2 - الصف الأول\n3 - الصف الثاني\n4 - الصف الثالث', currentStage.includes('رياض') ? '1' : currentStage.includes('الأول') ? '2' : currentStage.includes('الثاني') ? '3' : '4');
+            const stageMap = { '1': ' رياض الأطفال', '2': '📚 الصف الأول', '3': '✏️ الصف الثاني', '4': '🎓 الصف الثالث' };
             if (newStage && stageMap[newStage]) {
-                updateDoc(doc(db, 'children', childId), { recommendedStage: stageMap[newStage] })
-                    .then(() => { alert('✅ تم تعديل المرحلة بنجاح'); loadAllUsers(); })
-                    .catch(err => alert('❌ خطأ: ' + err.message));
+                updateDoc(doc(db, 'children', childId), { recommendedStage: stageMap[newStage] }).then(() => { alert('✅ تم تعديل المرحلة بنجاح'); loadAllUsers(); }).catch(err => alert('❌ خطأ: ' + err.message));
             }
         };
 
         window.editChildStars = function(childId, currentStars) {
             const newStars = prompt('أدخل عدد النجوم الجديد:', currentStars);
             if (newStars !== null && !isNaN(newStars)) {
-                updateDoc(doc(db, 'children', childId), { stars: parseInt(newStars) })
-                    .then(() => { alert('✅ تم تعديل النجوم بنجاح'); loadAllUsers(); })
-                    .catch(err => alert('❌ خطأ: ' + err.message));
+                updateDoc(doc(db, 'children', childId), { stars: parseInt(newStars) }).then(() => { alert('✅ تم تعديل النجوم بنجاح'); loadAllUsers(); }).catch(err => alert('❌ خطأ: ' + err.message));
             }
         };
 
         window.deleteChildAdmin = async function(childId, childName) {
             if (!confirm(`⚠️ هل أنت متأكد من حذف الطفل "${childName}"؟`)) return;
-            try {
-                await deleteDoc(doc(db, 'children', childId));
-                alert(`✅ تم حذف "${childName}" بنجاح`);
-                await loadAllUsers();
-            } catch (error) { alert('❌ خطأ: ' + error.message); }
+            try { await deleteDoc(doc(db, 'children', childId)); alert(`✅ تم حذف "${childName}" بنجاح`); await loadAllUsers(); } 
+            catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
         window.addNewAdmin = async function() {
@@ -1396,58 +1321,389 @@
             const email = document.getElementById('newAdminEmail').value.trim();
             const password = document.getElementById('newAdminPassword').value.trim();
             const status = document.getElementById('adminAddStatus');
-            
-            if (!name || !email || !password) {
-                alert('❌ الرجاء ملء جميع الحقول');
-                return;
-            }
-            if (password.length < 6) {
-                alert('❌ الباسورد لازم يكون 6 حروف على الأقل');
-                return;
-            }
-            
+            if (!name || !email || !password) { alert('❌ الرجاء ملء جميع الحقول'); return; }
+            if (password.length < 6) { alert('❌ الباسورد لازم يكون 6 حروف على الأقل'); return; }
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                await addDoc(collection(db, 'users'), {
-                    uid: userCredential.user.uid,
-                    email: email,
-                    name: name,
-                    role: 'admin',
-                    children: [],
-                    createdAt: new Date()
-                });
-                
+                await addDoc(collection(db, 'users'), { uid: userCredential.user.uid, email, name, role: 'admin', children: [], createdAt: new Date() });
                 alert('✅ تم إضافة المدير بنجاح!');
-                document.getElementById('newAdminName').value = '';
-                document.getElementById('newAdminEmail').value = '';
-                document.getElementById('newAdminPassword').value = '';
-                status.textContent = '✅ تم إضافة المدير بنجاح!';
-                status.className = 'mt-4 text-center font-bold text-green-600';
-                
-                await loadAllUsers();
-                await loadAdminData();
-                
+                document.getElementById('newAdminName').value = ''; document.getElementById('newAdminEmail').value = ''; document.getElementById('newAdminPassword').value = '';
+                status.textContent = '✅ تم إضافة المدير بنجاح!'; status.className = 'mt-4 text-center font-bold text-green-600';
+                await loadAllUsers(); await loadAdminData();
                 setTimeout(() => { status.textContent = ''; }, 3000);
-            } catch (error) {
-                alert('❌ خطأ: ' + error.message);
-                status.textContent = '❌ خطأ: ' + error.message;
-                status.className = 'mt-4 text-center font-bold text-red-600';
-            }
+            } catch (error) { alert('❌ خطأ: ' + error.message); status.textContent = '❌ خطأ: ' + error.message; status.className = 'mt-4 text-center font-bold text-red-600'; }
         };
 
         window.deleteAdmin = async function(adminId, adminName) {
             if (!confirm(`⚠️ هل أنت متأكد من حذف المدير "${adminName}"؟`)) return;
+            try { await deleteDoc(doc(db, 'users', adminId)); alert(`✅ تم حذف المدير "${adminName}" بنجاح`); await loadAllUsers(); await loadAdminData(); } 
+            catch (error) { alert('❌ خطأ: ' + error.message); }
+        };
+
+        // ============ تقارير الأطفال ============
+        window.addReportForChild = async function() {
+            const childId = document.getElementById('reportChildSelect').value;
+            const title = document.getElementById('reportTitle').value.trim();
+            const content = document.getElementById('reportContent').value.trim();
+            const pdfUrl = document.getElementById('reportPdfUrl').value.trim();
+            const status = document.getElementById('reportStatus');
+
+            if (!childId || !title || (!content && !pdfUrl)) {
+                alert(' الرجاء اختيار الطفل وإدخال العنوان والمحتوى أو رابط PDF');
+                return;
+            }
+
             try {
-                await deleteDoc(doc(db, 'users', adminId));
-                alert(`✅ تم حذف المدير "${adminName}" بنجاح`);
-                await loadAllUsers();
-                await loadAdminData();
+                const child = allChildren.find(c => c.id === childId);
+                if (!child) { alert('❌ الطفل غير موجود'); return; }
+
+                await addDoc(collection(db, 'reports'), {
+                    childId: childId,
+                    parentId: child.parentId,
+                    childName: child.name,
+                    title: title,
+                    content: content,
+                    pdfUrl: pdfUrl,
+                    read: false,
+                    createdAt: new Date()
+                });
+
+                // Add notification for parent
+                await addDoc(collection(db, 'notifications'), {
+                    userId: child.parentId,
+                    message: `تم إضافة تقرير جديد لطفلك "${child.name}": ${title}`,
+                    type: 'report',
+                    read: false,
+                    createdAt: new Date()
+                });
+
+                alert('✅ تم إرسال التقرير بنجاح!');
+                document.getElementById('reportTitle').value = '';
+                document.getElementById('reportContent').value = '';
+                document.getElementById('reportPdfUrl').value = '';
+                status.textContent = '✅ تم إرسال التقرير بنجاح!';
+                status.className = 'mt-4 text-center font-bold text-green-600';
+                await loadAdminReports();
+                setTimeout(() => { status.textContent = ''; }, 3000);
             } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
-        window.closeEditModal = function() {
-            document.getElementById('editModal').classList.remove('active');
+        async function loadAdminReports() {
+            try {
+                const reportsSnapshot = await getDocs(query(collection(db, 'reports'), orderBy('createdAt', 'desc')));
+                const container = document.getElementById('adminReportsList');
+                container.innerHTML = '';
+                if (reportsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد تقارير مرسلة</div>'; return; }
+                reportsSnapshot.forEach(docSnap => {
+                    const report = docSnap.data();
+                    const date = report.createdAt?.toDate ? report.createdAt.toDate().toLocaleDateString('ar-EG') : '';
+                    container.innerHTML += `<div class="report-card"><div class="flex justify-between items-start mb-2"><h3 class="font-bold text-lg text-blue-700">${report.title}</h3><span class="text-sm text-gray-500">${date}</span></div><p class="text-gray-600 mb-2"> الطفل: ${report.childName}</p>${report.content ? `<p class="text-gray-700 mb-2">${report.content}</p>` : ''}${report.pdfUrl ? `<a href="${report.pdfUrl}" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg magic-btn text-sm"> عرض PDF</a>` : ''}</div>`;
+                });
+            } catch (error) { console.error('Error loading reports:', error); }
+        }
+
+        // ============ صفحة ولي الأمر - تابات ============
+        window.switchParentTab = function(tabName) {
+            const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
+            tabs.forEach(t => {
+                document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
+                document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
+            });
+            document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+            document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+
+            if (tabName === 'progress') loadParentProgressReports();
+            if (tabName === 'teacherReports') loadParentTeacherReports();
+            if (tabName === 'uploads') loadParentUploads();
         };
+
+        // تقارير التقدم
+        async function loadParentProgressReports() {
+            try {
+                const container = document.getElementById('parentProgressReports');
+                container.innerHTML = '';
+                
+                const childrenSnapshot = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
+                if (childrenSnapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال لعرض تقاريرهم</div>';
+                    return;
+                }
+
+                const lessonsSnapshot = await getDocs(collection(db, 'lessons'));
+                const allLessons = {};
+                lessonsSnapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    if (!allLessons[data.stage]) allLessons[data.stage] = [];
+                    allLessons[data.stage].push(data);
+                });
+
+                const stageNames = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+
+                childrenSnapshot.forEach(docSnap => {
+                    const child = docSnap.data();
+                    const stage = child.recommendedStage || 'لم يحدد';
+                    let stageCode = '';
+                    if (stage.includes('رياض الأطفال')) stageCode = 'kg';
+                    else if (stage.includes('الصف الأول')) stageCode = 'grade1';
+                    else if (stage.includes('الصف الثاني')) stageCode = 'grade2';
+                    else if (stage.includes('الصف الثالث')) stageCode = 'grade3';
+
+                    const totalLessons = stageCode && allLessons[stageCode] ? allLessons[stageCode].filter(l => !l.isLocked).length : 0;
+                    const completedLessons = (child.completedLessons || []).length;
+                    const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
+                    container.innerHTML += `
+                        <div class="report-card mb-6">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="text-5xl">👶</div>
+                                <div>
+                                    <h3 class="text-xl font-black text-blue-700">${child.name}</h3>
+                                    <p class="text-gray-600">📚 المرحلة: ${stage}</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                                <div class="bg-white rounded-xl p-4 text-center">
+                                    <div class="text-2xl font-black text-purple-600">${totalLessons}</div>
+                                    <div class="text-sm text-gray-500">إجمالي الدروس</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 text-center">
+                                    <div class="text-2xl font-black text-green-600">${completedLessons}</div>
+                                    <div class="text-sm text-gray-500">الدروس المكتملة</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 text-center">
+                                    <div class="text-2xl font-black text-yellow-600">${child.stars || 0}</div>
+                                    <div class="text-sm text-gray-500">النجوم</div>
+                                </div>
+                                <div class="bg-white rounded-xl p-4 text-center">
+                                    <div class="text-2xl font-black text-blue-600">${progressPercent}%</div>
+                                    <div class="text-sm text-gray-500">نسبة الإنجاز</div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                    <span>التقدم في المرحلة</span>
+                                    <span>${progressPercent}%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${progressPercent}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) { console.error('Error loading progress reports:', error); }
+        }
+
+        // تقارير المعلم
+        async function loadParentTeacherReports() {
+            try {
+                const container = document.getElementById('parentTeacherReports');
+                container.innerHTML = '';
+                
+                const reportsSnapshot = await getDocs(query(collection(db, 'reports'), where('parentId', '==', currentUser.uid), orderBy('createdAt', 'desc')));
+                
+                if (reportsSnapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد تقارير من المعلم بعد</div>';
+                    return;
+                }
+
+                reportsSnapshot.forEach(docSnap => {
+                    const report = docSnap.data();
+                    const date = report.createdAt?.toDate ? report.createdAt.toDate().toLocaleDateString('ar-EG') : '';
+                    
+                    // Mark as read
+                    if (!report.read) {
+                        updateDoc(doc(db, 'reports', docSnap.id), { read: true });
+                    }
+
+                    container.innerHTML += `
+                        <div class="report-card">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-blue-700">${report.title}</h3>
+                                <span class="text-sm text-gray-500">${date}</span>
+                            </div>
+                            <p class="text-gray-600 mb-2">👶 الطفل: ${report.childName}</p>
+                            ${report.content ? `<p class="text-gray-700 mb-2">${report.content}</p>` : ''}
+                            ${report.pdfUrl ? `<a href="${report.pdfUrl}" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg magic-btn text-sm">📄 عرض PDF</a>` : ''}
+                        </div>
+                    `;
+                });
+            } catch (error) { console.error('Error loading teacher reports:', error); }
+        }
+
+        // رفع ملفات
+        window.uploadParentFile = async function() {
+            const childId = document.getElementById('uploadChildSelect').value;
+            const title = document.getElementById('uploadTitle').value.trim();
+            const type = document.getElementById('uploadType').value;
+            const url = document.getElementById('uploadUrl').value.trim();
+            const status = document.getElementById('uploadStatus');
+
+            if (!childId || !title || !url) {
+                alert('❌ الرجاء اختيار الطفل وإدخال العنوان والرابط');
+                return;
+            }
+
+            try {
+                const child = allChildren.find(c => c.id === childId);
+                if (!child) { alert('❌ الطفل غير موجود'); return; }
+
+                await addDoc(collection(db, 'parentUploads'), {
+                    childId: childId,
+                    parentId: currentUser.uid,
+                    childName: child.name,
+                    title: title,
+                    type: type,
+                    url: url,
+                    createdAt: new Date()
+                });
+
+                alert('✅ تم رفع الملف بنجاح!');
+                document.getElementById('uploadTitle').value = '';
+                document.getElementById('uploadUrl').value = '';
+                status.textContent = '✅ تم رفع الملف بنجاح!';
+                status.className = 'mt-4 text-center font-bold text-green-600';
+                await loadParentUploads();
+                setTimeout(() => { status.textContent = ''; }, 3000);
+            } catch (error) { alert('❌ خطأ: ' + error.message); }
+        };
+
+        async function loadParentUploads() {
+            try {
+                const container = document.getElementById('parentUploadsList');
+                container.innerHTML = '';
+                
+                const uploadsSnapshot = await getDocs(query(collection(db, 'parentUploads'), where('parentId', '==', currentUser.uid), orderBy('createdAt', 'desc')));
+                
+                if (uploadsSnapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد ملفات مرفوعة</div>';
+                    return;
+                }
+
+                const typeIcons = { image: '📸', pdf: '📄', note: '📝' };
+                const typeNames = { image: 'صورة', pdf: 'PDF', note: 'ملاحظة' };
+
+                uploadsSnapshot.forEach(docSnap => {
+                    const upload = docSnap.data();
+                    const date = upload.createdAt?.toDate ? upload.createdAt.toDate().toLocaleDateString('ar-EG') : '';
+                    
+                    container.innerHTML += `
+                        <div class="upload-card flex justify-between items-center flex-wrap gap-4">
+                            <div>
+                                <div class="font-bold text-lg">${typeIcons[upload.type] || '📎'} ${upload.title}</div>
+                                <div class="text-sm text-gray-500">👶 ${upload.childName} | ${typeNames[upload.type] || upload.type} | ${date}</div>
+                            </div>
+                            <a href="${upload.url}" target="_blank" class="action-btn btn-view">👁️ عرض</a>
+                        </div>
+                    `;
+                });
+            } catch (error) { console.error('Error loading uploads:', error); }
+        }
+
+        // Populate upload child select when tab is opened
+        const originalSwitchParentTab = window.switchParentTab;
+        window.switchParentTab = function(tabName) {
+            originalSwitchParentTab(tabName);
+            if (tabName === 'uploads') {
+                const uploadSelect = document.getElementById('uploadChildSelect');
+                uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+                allChildren.filter(c => c.parentId === currentUser.uid).forEach(child => {
+                    uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
+                });
+            }
+        };
+
+        // ============ الإشعارات ============
+        async function loadParentNotifications() {
+            try {
+                const notifSnapshot = await getDocs(query(collection(db, 'notifications'), where('userId', '==', currentUser.uid), orderBy('createdAt', 'desc')));
+                parentNotifications = [];
+                notifSnapshot.forEach(docSnap => parentNotifications.push({ id: docSnap.id, ...docSnap.data() }));
+                updateParentNotifBadge();
+            } catch (error) { console.error('Error loading notifications:', error); }
+        }
+
+        async function loadAdminNotifications() {
+            try {
+                const notifSnapshot = await getDocs(query(collection(db, 'notifications'), where('userId', '==', currentUser.uid), orderBy('createdAt', 'desc')));
+                adminNotifications = [];
+                notifSnapshot.forEach(docSnap => adminNotifications.push({ id: docSnap.id, ...docSnap.data() }));
+                updateAdminNotifBadge();
+            } catch (error) { console.error('Error loading notifications:', error); }
+        }
+
+        function updateParentNotifBadge() {
+            const unreadCount = parentNotifications.filter(n => !n.read).length;
+            const badge = document.getElementById('parentNotifBadge');
+            badge.textContent = unreadCount;
+            badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+        }
+
+        function updateAdminNotifBadge() {
+            const unreadCount = adminNotifications.filter(n => !n.read).length;
+            const badge = document.getElementById('adminNotifBadge');
+            badge.textContent = unreadCount;
+            badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+        }
+
+        window.toggleParentNotifications = function() {
+            const dropdown = document.getElementById('parentNotifDropdown');
+            dropdown.classList.toggle('active');
+            if (dropdown.classList.contains('active')) renderParentNotifications();
+        };
+
+        window.toggleNotifications = function() {
+            const dropdown = document.getElementById('adminNotifDropdown');
+            dropdown.classList.toggle('active');
+            if (dropdown.classList.contains('active')) renderAdminNotifications();
+        };
+
+        function renderParentNotifications() {
+            const dropdown = document.getElementById('parentNotifDropdown');
+            dropdown.innerHTML = '';
+            if (parentNotifications.length === 0) {
+                dropdown.innerHTML = '<div class="p-4 text-center text-gray-500">لا توجد إشعارات</div>';
+                return;
+            }
+            parentNotifications.forEach(notif => {
+                const date = notif.createdAt?.toDate ? notif.createdAt.toDate().toLocaleDateString('ar-EG') : '';
+                dropdown.innerHTML += `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="markNotifRead('${notif.id}', 'parent')"><p class="text-sm font-bold">${notif.message}</p><p class="text-xs text-gray-500 mt-1">${date}</p></div>`;
+            });
+        }
+
+        function renderAdminNotifications() {
+            const dropdown = document.getElementById('adminNotifDropdown');
+            dropdown.innerHTML = '';
+            if (adminNotifications.length === 0) {
+                dropdown.innerHTML = '<div class="p-4 text-center text-gray-500">لا توجد إشعارات</div>';
+                return;
+            }
+            adminNotifications.forEach(notif => {
+                const date = notif.createdAt?.toDate ? notif.createdAt.toDate().toLocaleDateString('ar-EG') : '';
+                dropdown.innerHTML += `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="markNotifRead('${notif.id}', 'admin')"><p class="text-sm font-bold">${notif.message}</p><p class="text-xs text-gray-500 mt-1">${date}</p></div>`;
+            });
+        }
+
+        window.markNotifRead = async function(notifId, userType) {
+            try {
+                await updateDoc(doc(db, 'notifications', notifId), { read: true });
+                if (userType === 'parent') {
+                    await loadParentNotifications();
+                    renderParentNotifications();
+                } else {
+                    await loadAdminNotifications();
+                    renderAdminNotifications();
+                }
+            } catch (error) { console.error('Error marking notification as read:', error); }
+        };
+
+        // Close notification dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.notification-bell')) {
+                document.getElementById('parentNotifDropdown')?.classList.remove('active');
+                document.getElementById('adminNotifDropdown')?.classList.remove('active');
+            }
+        });
 
         window.loadAdminData = loadAdminData;
         window.loadParentData = loadParentData;
