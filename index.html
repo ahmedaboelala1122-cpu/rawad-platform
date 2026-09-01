@@ -1194,7 +1194,7 @@ let currentLessonId = null;
         
         // تسجيل الدرس كمكتمل
         const completedLessons = currentChild.completedLessons || [];
-        const currentLessonId = currentLessonQuestions[0]?.lessonId;
+        
         
         if (currentLessonId && !completedLessons.includes(currentLessonId)) {
             completedLessons.push(currentLessonId);
