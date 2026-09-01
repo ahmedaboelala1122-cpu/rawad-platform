@@ -653,8 +653,7 @@
         let assessmentQuestions = [];
         let currentQuestionIndex = 0;
         let assessmentScore = 0;
-       let currentLessonQuestions = [];
-let currentLessonId = null;
+        let currentLessonQuestions = [];
         let allParents = [];
         let allChildren = [];
         let allAdmins = [];
@@ -1120,7 +1119,6 @@ let currentLessonId = null;
         };
 
         window.viewLesson = function(lessonId) {
-                currentLessonId = lessonId;
             const allLessons = [...lessonsData.kg, ...lessonsData.grade1, ...lessonsData.grade2, ...lessonsData.grade3];
             const lesson = allLessons.find(l => l.id === lessonId);
             if (!lesson) return;
