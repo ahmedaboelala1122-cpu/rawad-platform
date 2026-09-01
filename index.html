@@ -491,7 +491,7 @@
                     <div id="parentTeacherReports"></div>
                 </div>
 
-                <!-- تاب رفع ملفات -->
+                           <!-- تاب رفع ملفات -->
                 <div id="parentTabUploads" class="tab-content">
                     <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📤</span> رفع ملفات الطفل</h2>
                     <div class="section-card">
@@ -506,27 +506,28 @@
                                 <label class="block font-bold mb-2 text-gray-700">عنوان الملف:</label>
                                 <input type="text" id="uploadTitle" placeholder="مثال: واجب الرياضيات" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                             </div>
-                            <div>
-                                <label class="block font-bold mb-2 text-gray-700">نوع الملف:</label>
-                                <select id="uploadType" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
-                                    <option value="image"> صورة</option>
-                                    <option value="pdf">📄 PDF</option>
-                                    <option value="note">📝 ملاحظة</option>
-                                </select>
-                            </div>
+                            
+                            <!-- الجزء الجديد: رفع مباشر من الجهاز -->
                             <div class="bg-blue-50 rounded-xl p-6 border-2 border-blue-300">
-                                <label class="block font-bold mb-2 text-gray-700">🔗 رابط الملف (Google Drive):</label>
-                                <input type="url" id="uploadUrl" placeholder="https://drive.google.com/..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none mb-3">
+                                <label class="block font-bold mb-2 text-gray-700">📁 اختر ملف من جهازك:</label>
+                                <input type="file" id="uploadFile" accept="image/*,.pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-white mb-3">
+                                
+                                <div id="uploadPreview" class="hidden mb-3">
+                                    <p class="font-bold text-sm text-gray-600 mb-2">معاينة:</p>
+                                    <img id="uploadPreviewImg" class="max-h-48 rounded-lg border-2 border-gray-200">
+                                </div>
+                                
                                 <div class="bg-white rounded-lg p-4 border-2 border-blue-200">
-                                    <p class="font-bold text-blue-700 mb-2">💡 كيفية الحصول على الرابط:</p>
-                                    <ol class="text-sm text-gray-700 space-y-1 mr-4">
-                                        <li>1. ارفع الملف/الصورة على Google Drive</li>
-                                        <li>2. اضغط كليك يمين → Share (مشاركة)</li>
-                                        <li>3. اختار "Anyone with the link"</li>
-                                        <li>4. انسخ الرابط والصقه هنا</li>
-                                    </ol>
+                                    <p class="font-bold text-blue-700 mb-1">💡 ملاحظات:</p>
+                                    <ul class="text-sm text-gray-700 space-y-1 mr-4">
+                                        <li>• الصور: JPG, PNG, GIF</li>
+                                        <li>• الملفات: PDF فقط</li>
+                                        <li>• الحد الأقصى: 5MB</li>
+                                    </ul>
                                 </div>
                             </div>
+                            <!-- نهاية الجزء الجديد -->
+
                             <button onclick="uploadParentFile()" class="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">📤 رفع الملف</button>
                         </div>
                         <div id="uploadStatus" class="mt-4 text-center font-bold"></div>
@@ -534,10 +535,6 @@
                     <h3 class="font-bold mt-8 mb-4 text-purple-700">📋 الملفات المرفوعة</h3>
                     <div id="parentUploadsList"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
     <!-- واجهة الطفل -->
     <div id="childDashboard" class="hidden min-h-screen">
         <nav class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 sticky top-0 z-50 shadow-lg">
