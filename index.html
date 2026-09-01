@@ -1118,8 +1118,9 @@
             document.getElementById('childDashboard').classList.remove('hidden');
         };
 
-        window.viewLesson = function(lessonId) {
-            const allLessons = [...lessonsData.kg, ...lessonsData.grade1, ...lessonsData.grade2, ...lessonsData.grade3];
+       window.viewLesson = function(lessonId) {
+    currentLessonId = lessonId;
+    const allLessons = [...lessonsData.kg, ...lessonsData.grade1, ...lessonsData.grade2, ...lessonsData.grade3];
             const lesson = allLessons.find(l => l.id === lessonId);
             if (!lesson) return;
             document.getElementById('modalLessonTitle').textContent = lesson.title;
