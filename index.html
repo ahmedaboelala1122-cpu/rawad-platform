@@ -1182,7 +1182,7 @@
     if (currentChild) {
         const newStars = (currentChild.stars || 0) + score;
         
-        // تحديث النجوم
+        // 1. تحديث النجوم وبيانات الدخول
         updateDoc(doc(db, 'children', currentChild.id), { 
             stars: newStars,
             lastLogin: new Date(),
@@ -1191,24 +1191,29 @@
         
         document.getElementById('childStars').textContent = newStars;
         
-        // تسجيل الدرس كمكتمل
-        const completedLessons = currentChild.completedLessons || [];
-        const currentLessonId = currentLessonQuestions[0]?.lessonId;
-        
-        if (currentLessonId && !completedLessons.includes(currentLessonId)) {
-            completedLessons.push(currentLessonId);
-            updateDoc(doc(db, 'children', currentChild.id), { 
-                completedLessons: completedLessons,
-                quizResults: [
-                    ...(currentChild.quizResults || []),
-                    {
-                        lessonId: currentLessonId,
-                        score: score,
-                        total: currentLessonQuestions.length,
-                        date: new Date().toISOString()
-                    }
-                ]
-            });
+        // 2. === الجزء اللي كان ناقص: تسجيل الدرس كمكتمل ===
+        if (currentLessonId) {
+            const completedLessons = currentChild.completedLessons || [];
+            
+            // لو الدرس مش مسجل قبل كده، سجله
+            if (!completedLessons.includes(currentLessonId)) {
+                completedLessons.push(currentLessonId);
+                
+                // حفظ نتيجة الكويز كمان
+                const quizResults = currentChild.quizResults || [];
+                quizResults.push({
+                    lessonId: currentLessonId,
+                    score: score,
+                    total: currentLessonQuestions.length,
+                    date: new Date().toISOString()
+                });
+
+                // تحديث قاعدة البيانات
+                updateDoc(doc(db, 'children', currentChild.id), { 
+                    completedLessons: completedLessons,
+                    quizResults: quizResults
+                });
+            }
         }
     }
 }
