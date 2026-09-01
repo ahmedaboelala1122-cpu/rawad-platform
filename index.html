@@ -740,19 +740,45 @@
         };
 
         window.handleChildLogin = async function() {
-            const code = document.getElementById('childCode').value.trim();
-            if (!code) { document.getElementById('loginError').textContent = '❌ أدخل كود الطفل'; document.getElementById('loginError').classList.remove('hidden'); return; }
-            try {
-                const childrenDoc = await getDocs(query(collection(db, 'children'), where('code', '==', code)));
-                if (childrenDoc.empty) { document.getElementById('loginError').textContent = '❌ كود الطفل غير صحيح'; document.getElementById('loginError').classList.remove('hidden'); return; }
-                currentChild = { ...childrenDoc.docs[0].data(), id: childrenDoc.docs[0].id };
-                document.getElementById('loginPage').classList.add('hidden');
-                document.getElementById('loginError').classList.add('hidden');
-                if (!currentChild.assessmentCompleted) { document.getElementById('assessmentPage').classList.remove('hidden'); startAssessment(); } 
-                else { document.getElementById('childDashboard').classList.remove('hidden'); await loadChildData(); }
-            } catch (error) { document.getElementById('loginError').textContent = '❌ خطأ: ' + error.message; document.getElementById('loginError').classList.remove('hidden'); }
-        };
-
+    const code = document.getElementById('childCode').value.trim();
+    if (!code) { 
+        document.getElementById('loginError').textContent = '❌ أدخل كود الطفل'; 
+        document.getElementById('loginError').classList.remove('hidden'); 
+        return; 
+    }
+    try {
+        const childrenDoc = await getDocs(query(collection(db, 'children'), where('code', '==', code)));
+        if (childrenDoc.empty) { 
+            document.getElementById('loginError').textContent = '❌ كود الطفل غير صحيح'; 
+            document.getElementById('loginError').classList.remove('hidden'); 
+            return; 
+        }
+        currentChild = { ...childrenDoc.docs[0].data(), id: childrenDoc.docs[0].id };
+        
+        // تحديث آخر دخول وأيام النشاط
+        const today = new Date().toISOString().split('T')[0];
+        await updateDoc(doc(db, 'children', currentChild.id), {
+            lastLogin: new Date(),
+            [`activeDays.${today}`]: true
+        });
+        currentChild.lastLogin = new Date();
+        currentChild.activeDays = { ...(currentChild.activeDays || {}), [today]: true };
+        
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('loginError').classList.add('hidden');
+        
+        if (!currentChild.assessmentCompleted) { 
+            document.getElementById('assessmentPage').classList.remove('hidden'); 
+            startAssessment(); 
+        } else { 
+            document.getElementById('childDashboard').classList.remove('hidden'); 
+            await loadChildData(); 
+        }
+    } catch (error) { 
+        document.getElementById('loginError').textContent = '❌ خطأ: ' + error.message; 
+        document.getElementById('loginError').classList.remove('hidden'); 
+    }
+};
         window.startAssessment = function() {
             currentQuestionIndex = 0; assessmentScore = 0;
             assessmentQuestions = [...assessmentData].sort(() => Math.random() - 0.5).slice(0, 7);
@@ -1138,24 +1164,53 @@
         };
 
         function showQuizResult() {
-            let score = 0;
-            currentLessonQuestions.forEach((q, index) => {
-                const container = document.getElementById(`quiz-q-${index}`);
-                if (container && container.querySelector('.correct')) score++;
+    let score = 0;
+    currentLessonQuestions.forEach((q, index) => {
+        const container = document.getElementById(`quiz-q-${index}`);
+        if (container && container.querySelector('.correct')) score++;
+    });
+    
+    document.getElementById('quizScore').textContent = score;
+    document.getElementById('quizTotal').textContent = currentLessonQuestions.length;
+    let stars = '';
+    for (let i = 0; i < score; i++) stars += '⭐ ';
+    document.getElementById('quizStars').textContent = stars;
+    document.getElementById('quizResult').classList.remove('hidden');
+    document.getElementById('quizQuestions').classList.add('hidden');
+    
+    if (currentChild) {
+        const newStars = (currentChild.stars || 0) + score;
+        
+        // تحديث النجوم
+        updateDoc(doc(db, 'children', currentChild.id), { 
+            stars: newStars,
+            lastLogin: new Date(),
+            [`activeDays.${new Date().toISOString().split('T')[0]}`]: true
+        });
+        
+        document.getElementById('childStars').textContent = newStars;
+        
+        // تسجيل الدرس كمكتمل
+        const completedLessons = currentChild.completedLessons || [];
+        const currentLessonId = currentLessonQuestions[0]?.lessonId;
+        
+        if (currentLessonId && !completedLessons.includes(currentLessonId)) {
+            completedLessons.push(currentLessonId);
+            updateDoc(doc(db, 'children', currentChild.id), { 
+                completedLessons: completedLessons,
+                quizResults: [
+                    ...(currentChild.quizResults || []),
+                    {
+                        lessonId: currentLessonId,
+                        score: score,
+                        total: currentLessonQuestions.length,
+                        date: new Date().toISOString()
+                    }
+                ]
             });
-            document.getElementById('quizScore').textContent = score;
-            document.getElementById('quizTotal').textContent = currentLessonQuestions.length;
-            let stars = '';
-            for (let i = 0; i < score; i++) stars += '⭐ ';
-            document.getElementById('quizStars').textContent = stars;
-            document.getElementById('quizResult').classList.remove('hidden');
-            document.getElementById('quizQuestions').classList.add('hidden');
-            if (currentChild) {
-                const newStars = (currentChild.stars || 0) + score;
-                updateDoc(doc(db, 'children', currentChild.id), { stars: newStars });
-                document.getElementById('childStars').textContent = newStars;
-            }
         }
+    }
+}
 
         window.closeLessonModal = function() { document.getElementById('lessonModal').classList.add('hidden'); };
 
@@ -1483,80 +1538,133 @@
 
         // تقارير التقدم
         async function loadParentProgressReports() {
-            try {
-                const container = document.getElementById('parentProgressReports');
-                container.innerHTML = '';
-                
-                const childrenSnapshot = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
-                if (childrenSnapshot.empty) {
-                    container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال لعرض تقاريرهم</div>';
-                    return;
-                }
+    try {
+        const container = document.getElementById('parentProgressReports');
+        container.innerHTML = '';
+        
+        const childrenSnapshot = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
+        if (childrenSnapshot.empty) {
+            container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال لعرض تقاريرهم</div>';
+            return;
+        }
 
-                const lessonsSnapshot = await getDocs(collection(db, 'lessons'));
-                const allLessons = {};
-                lessonsSnapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    if (!allLessons[data.stage]) allLessons[data.stage] = [];
-                    allLessons[data.stage].push(data);
-                });
+        const lessonsSnapshot = await getDocs(collection(db, 'lessons'));
+        const allLessons = {};
+        lessonsSnapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (!allLessons[data.stage]) allLessons[data.stage] = [];
+            allLessons[data.stage].push(data);
+        });
 
-                const stageNames = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+        childrenSnapshot.forEach(docSnap => {
+            const child = docSnap.data();
+            const stage = child.recommendedStage || 'لم يحدد';
+            let stageCode = '';
+            if (stage.includes('رياض الأطفال')) stageCode = 'kg';
+            else if (stage.includes('الصف الأول')) stageCode = 'grade1';
+            else if (stage.includes('الصف الثاني')) stageCode = 'grade2';
+            else if (stage.includes('الصف الثالث')) stageCode = 'grade3';
 
-                childrenSnapshot.forEach(docSnap => {
-                    const child = docSnap.data();
-                    const stage = child.recommendedStage || 'لم يحدد';
-                    let stageCode = '';
-                    if (stage.includes('رياض الأطفال')) stageCode = 'kg';
-                    else if (stage.includes('الصف الأول')) stageCode = 'grade1';
-                    else if (stage.includes('الصف الثاني')) stageCode = 'grade2';
-                    else if (stage.includes('الصف الثالث')) stageCode = 'grade3';
+            const totalLessons = stageCode && allLessons[stageCode] ? allLessons[stageCode].filter(l => !l.isLocked).length : 0;
+            const completedLessons = (child.completedLessons || []).length;
+            const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+            
+            // حساب آخر دخول
+            let lastLoginText = 'لم يدخل بعد';
+            if (child.lastLogin) {
+                const lastLoginDate = child.lastLogin.toDate ? child.lastLogin.toDate() : new Date(child.lastLogin);
+                const now = new Date();
+                const diffTime = Math.abs(now - lastLoginDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                if (diffDays === 0) lastLoginText = 'اليوم';
+                else if (diffDays === 1) lastLoginText = 'أمس';
+                else if (diffDays < 7) lastLoginText = `منذ ${diffDays} أيام`;
+                else lastLoginText = lastLoginDate.toLocaleDateString('ar-EG');
+            }
+            
+            // حساب أيام النشاط هذا الأسبوع
+            const today = new Date();
+            const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const activeDays = child.activeDays || {};
+            let activeDaysThisWeek = 0;
+            Object.keys(activeDays).forEach(day => {
+                const dayDate = new Date(day);
+                if (dayDate >= weekAgo) activeDaysThisWeek++;
+            });
+            
+            // حساب أفضل وأضعف نتيجة
+            const quizResults = child.quizResults || [];
+            let bestScore = null;
+            let worstScore = null;
+            if (quizResults.length > 0) {
+                bestScore = quizResults.reduce((best, current) => 
+                    (current.score / current.total) > (best.score / best.total) ? current : best
+                );
+                worstScore = quizResults.reduce((worst, current) => 
+                    (current.score / current.total) < (worst.score / worst.total) ? current : worst
+                );
+            }
 
-                    const totalLessons = stageCode && allLessons[stageCode] ? allLessons[stageCode].filter(l => !l.isLocked).length : 0;
-                    const completedLessons = (child.completedLessons || []).length;
-                    const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-
-                    container.innerHTML += `
-                        <div class="report-card mb-6">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="text-5xl">👶</div>
-                                <div>
-                                    <h3 class="text-xl font-black text-blue-700">${child.name}</h3>
-                                    <p class="text-gray-600">📚 المرحلة: ${stage}</p>
-                                </div>
+            container.innerHTML += `
+                <div class="report-card mb-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="text-5xl">👶</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-black text-blue-700">${child.name}</h3>
+                            <p class="text-gray-600">📚 المرحلة: ${stage}</p>
+                            <p class="text-sm text-gray-500">🕐 آخر دخول: ${lastLoginText}</p>
+                            <p class="text-sm text-gray-500">📅 أيام النشاط هذا الأسبوع: ${activeDaysThisWeek} أيام</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-purple-600">${totalLessons}</div>
+                            <div class="text-sm text-gray-500">إجمالي الدروس</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-green-600">${completedLessons}</div>
+                            <div class="text-sm text-gray-500">الدروس المكتملة</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-yellow-600">${child.stars || 0}</div>
+                            <div class="text-sm text-gray-500">النجوم</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-blue-600">${progressPercent}%</div>
+                            <div class="text-sm text-gray-500">نسبة الإنجاز</div>
+                        </div>
+                    </div>
+                    
+                    ${quizResults.length > 0 ? `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-green-50 rounded-xl p-4 border-2 border-green-200">
+                                <div class="font-bold text-green-700 mb-2">🏆 أفضل نتيجة</div>
+                                <div class="text-lg">${bestScore.score}/${bestScore.total} (${Math.round((bestScore.score/bestScore.total)*100)}%)</div>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                                <div class="bg-white rounded-xl p-4 text-center">
-                                    <div class="text-2xl font-black text-purple-600">${totalLessons}</div>
-                                    <div class="text-sm text-gray-500">إجمالي الدروس</div>
-                                </div>
-                                <div class="bg-white rounded-xl p-4 text-center">
-                                    <div class="text-2xl font-black text-green-600">${completedLessons}</div>
-                                    <div class="text-sm text-gray-500">الدروس المكتملة</div>
-                                </div>
-                                <div class="bg-white rounded-xl p-4 text-center">
-                                    <div class="text-2xl font-black text-yellow-600">${child.stars || 0}</div>
-                                    <div class="text-sm text-gray-500">النجوم</div>
-                                </div>
-                                <div class="bg-white rounded-xl p-4 text-center">
-                                    <div class="text-2xl font-black text-blue-600">${progressPercent}%</div>
-                                    <div class="text-sm text-gray-500">نسبة الإنجاز</div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                    <span>التقدم في المرحلة</span>
-                                    <span>${progressPercent}%</span>
-                                </div>
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar-fill bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${progressPercent}%"></div>
-                                </div>
+                            <div class="bg-orange-50 rounded-xl p-4 border-2 border-orange-200">
+                                <div class="font-bold text-orange-700 mb-2"> يحتاج تحسين</div>
+                                <div class="text-lg">${worstScore.score}/${worstScore.total} (${Math.round((worstScore.score/worstScore.total)*100)}%)</div>
                             </div>
                         </div>
-                    `;
-                });
-            } catch (error) { console.error('Error loading progress reports:', error); }
-        }
+                    ` : ''}
+                    
+                    <div class="mb-2">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>التقدم في المرحلة</span>
+                            <span>${progressPercent}%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${progressPercent}%"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) { 
+        console.error('Error loading progress reports:', error); 
+    }
+}
 
         // تقارير المعلم (معدل)
         async function loadParentTeacherReports() {
