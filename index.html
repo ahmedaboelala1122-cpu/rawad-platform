@@ -1154,15 +1154,7 @@
         }
         
         // ملء قائمة الأطفال في تاب رفع الملفات
-        const uploadSelect = document.getElementById('uploadChildSelect');
-        if (uploadSelect) {
-            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
-            childrenDoc.forEach(docSnap => {
-                const child = docSnap.data();
-                uploadSelect.innerHTML += `<option value="${docSnap.id}">${child.name}</option>`;
-            });
-            console.log('تم ملء قائمة الأطفال في رفع الملفات');
-        }
+       
         
     } catch (error) { 
         console.error('Error loading parent data:', error); 
@@ -1658,19 +1650,37 @@
         };
 
         // ============ صفحة ولي الأمر ============
-        window.switchParentTab = function(tabName) {
-            const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
-            tabs.forEach(t => {
-                document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
-                document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.remove('active');
-            });
-            document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
-            document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).classList.add('active');
+     window.switchParentTab = function(tabName) {
+    const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
+    tabs.forEach(t => {
+        document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`)?.classList.remove('active');
+        document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`)?.classList.remove('active');
+    });
+    document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`)?.classList.add('active');
+    document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`)?.classList.add('active');
 
-            if (tabName === 'progress') loadParentProgressReports();
-            if (tabName === 'teacherReports') loadParentTeacherReports();
-            if (tabName === 'uploads') loadParentUploads();
-        };
+    if (tabName === 'progress') loadParentProgressReports();
+    if (tabName === 'teacherReports') loadParentTeacherReports();
+    if (tabName === 'uploads') {
+        const uploadSelect = document.getElementById('uploadChildSelect');
+        if (uploadSelect) {
+            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+            
+            getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
+                .then(snapshot => {
+                    console.log('📥 تم تحميل', snapshot.size, 'أطفال');
+                    snapshot.forEach(docSnap => {
+                        const child = docSnap.data();
+                        console.log(' طفل:', child.name);
+                        uploadSelect.innerHTML += `<option value="${docSnap.id}">${child.name}</option>`;
+                    });
+                })
+                .catch(error => {
+                    console.error('❌ خطأ في تحميل الأطفال:', error);
+                });
+        }
+    }
+};
 
         async function loadParentProgressReports() {
             try {
