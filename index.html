@@ -1670,12 +1670,12 @@
                 .then(snapshot => {
                     // فلتر المكرر - كل ولي أمر يشوف أبنائه بس بدون تكرار
                     const uniqueChildren = [];
-                    const seenCodes = new Set();
-                    
+                    const seenNames = new Set();                    
                     snapshot.forEach(docSnap => {
                         const child = docSnap.data();
-                        if (!seenCodes.has(child.code)) {
-                            seenCodes.add(child.code);
+                        const normalizedName = child.name.trim().toLowerCase();
+                        if (!seenNames.has(normalizedName)) {
+                            seenNames.add(normalizedName);
                             uniqueChildren.push({ id: docSnap.id, ...child });
                         }
                     });
