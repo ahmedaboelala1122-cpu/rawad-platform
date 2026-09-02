@@ -1931,17 +1931,29 @@
             } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
-        const originalSwitchParentTab = window.switchParentTab;
-        window.switchParentTab = function(tabName) {
-            originalSwitchParentTab(tabName);
-            if (tabName === 'uploads') {
-                const uploadSelect = document.getElementById('uploadChildSelect');
-                uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
-                allChildren.filter(c => c.parentId === currentUser.uid).forEach(child => {
-                    uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
+      const originalSwitchParentTab = window.switchParentTab;
+window.switchParentTab = function(tabName) {
+    originalSwitchParentTab(tabName);
+    if (tabName === 'uploads') {
+        const uploadSelect = document.getElementById('uploadChildSelect');
+        if (uploadSelect) {
+            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+            
+            // نجيب الأطفال مباشرة من Firebase
+            getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
+                .then(snapshot => {
+                    snapshot.forEach(docSnap => {
+                        const child = docSnap.data();
+                        uploadSelect.innerHTML += `<option value="${docSnap.id}">${child.name}</option>`;
+                    });
+                    console.log('✅ تم تحميل', snapshot.size, 'أطفال في قائمة الرفع');
+                })
+                .catch(error => {
+                    console.error('❌ خطأ في تحميل الأطفال:', error);
                 });
-            }
-        };
+        }
+    }
+};
 
         // ============ الإشعارات ============
         async function loadParentNotifications() {
