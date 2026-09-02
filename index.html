@@ -1093,18 +1093,28 @@
             catch (error) { console.error('Error:', error); }
         };
 
-        async function loadParentData() {
-            try {
-                const childrenDoc = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
-                const childrenList = document.getElementById('parentChildrenList');
-                childrenList.innerHTML = '';
-                childrenDoc.forEach(docSnap => {
-                    const child = docSnap.data();
-                    childrenList.innerHTML += `<div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative"><button onclick="deleteChild('${docSnap.id}', '${child.name}')" class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">🗑️</button><div class="text-4xl mb-2"></div><h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3><p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p><p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>${child.assessmentCompleted ? '<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>' : '<p class="text-xs text-yellow-600 mt-2">️ لم يتم الاختبار بعد</p>'}</div>`;
-                });
-                if (childrenDoc.empty) childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين. اضغط "إضافة طفل جديد" للبدء.</div>';
-            } catch (error) { console.error('Error loading parent data:', error); }
+      async function loadParentData() {
+    try {
+        const childrenDoc = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
+        const childrenList = document.getElementById('parentChildrenList');
+        childrenList.innerHTML = '';
+        childrenDoc.forEach(docSnap => {
+            const child = docSnap.data();
+            childrenList.innerHTML += `<div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative">...</div>`;
+        });
+        if (childrenDoc.empty) childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين.</div>';
+        
+        // ✅ إضافة الكود ده في آخر الدالة
+        const uploadSelect = document.getElementById('uploadChildSelect');
+        if (uploadSelect) {
+            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+            childrenDoc.forEach(docSnap => {
+                const child = docSnap.data();
+                uploadSelect.innerHTML += `<option value="${docSnap.id}">${child.name}</option>`;
+            });
         }
+    } catch (error) { console.error('Error loading parent data:', error); }
+}
 
         window.deleteChild = async function(childId, childName) {
             if (!confirm(`⚠️ هل أنت متأكد من حذف الطفل "${childName}"؟\n\nكود الدخول هيتلغي ومش هيستخدمه تاني!`)) return;
