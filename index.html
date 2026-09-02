@@ -72,13 +72,13 @@
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400"></div>
-            <div class="text-7xl mb-4 robot-wave">🤖</div>
+            <div class="text-7xl mb-4 robot-wave"></div>
             <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">مدرستي في بيتي</h1>
             <p class="text-gray-600 mb-6 text-lg">نتعلم ونلعب معاً!</p>
             <div class="space-y-4">
                 <div class="flex gap-2 mb-4">
-                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨👩‍👧 ولي أمر/مدير</button>
-                    <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold"> الطفل</button>
+                    <button onclick="showUserLogin()" id="btnUserLogin" class="flex-1 bg-purple-600 text-white py-2 rounded-lg font-bold">👨‍👩‍👧 ولي أمر/مدير</button>
+                    <button onclick="showChildLogin()" id="btnChildLogin" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">👶 الطفل</button>
                 </div>
                 <div id="userLoginForm">
                     <div class="bg-blue-50 rounded-2xl p-4 border-2 border-blue-200">
@@ -110,15 +110,15 @@
     <!-- صفحة التسجيل -->
     <div id="registerPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
-            <div class="text-6xl mb-4"></div>
+            <div class="text-6xl mb-4">📝</div>
             <h2 class="text-3xl font-black mb-4 text-purple-700">إنشاء حساب جديد</h2>
             <div class="space-y-4">
                 <input type="text" id="regName" placeholder="الاسم الكامل" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <input type="email" id="regEmail" placeholder="الإيميل" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <input type="password" id="regPassword" placeholder="الباسورد (6 حروف على الأقل)" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
                 <select id="regRole" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-lg">
-                    <option value="parent">👨‍👩👧 ولي أمر</option>
-                    <option value="admin">‍💼 مدير (للمعلمين)</option>
+                    <option value="parent">👨‍‍👧 ولي أمر</option>
+                    <option value="admin">💼 مدير (للمعلمين)</option>
                 </select>
                 <div class="flex gap-4">
                     <button onclick="handleRegister()" class="flex-1 bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">✅ تسجيل</button>
@@ -131,7 +131,7 @@
     <!-- اختبار تحديد المستوى -->
     <div id="assessmentPage" class="hidden min-h-screen flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl shadow-2xl p-8 max-w-2xl w-full text-center relative overflow-hidden">
-            <div class="text-8xl mb-4 robot-wave inline-block"></div>
+            <div class="text-8xl mb-4 robot-wave inline-block">🤖</div>
             <div id="assessmentContent">
                 <h2 class="text-3xl font-black mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">أهلاً يا بطل! أنا روبو!</h2>
                 <p class="text-gray-600 mb-6 text-lg">هسألك شوية أسئلة عشان أعرف مستواك ونبدأ معاً في المغامرة!</p>
@@ -151,7 +151,7 @@
                 <h2 class="text-3xl font-black mb-4 text-purple-700">ممتاز يا بطل!</h2>
                 <p id="resultText" class="text-xl mb-6 text-gray-700 font-bold"></p>
                 <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 border-4 border-yellow-400 mb-6">
-                    <div class="text-6xl mb-2"></div>
+                    <div class="text-6xl mb-2">🌟</div>
                     <p class="text-2xl font-black text-orange-700" id="recommendedStage"></p>
                 </div>
                 <button onclick="goToDashboard()" class="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-black py-4 rounded-xl magic-btn text-xl">🚀 يلا نبدأ!</button>
@@ -167,7 +167,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-yellow-300 text-sm font-bold">👨‍💼 لوحة المدير</span>
+                        <span class="text-yellow-300 text-sm font-bold">‍💼 لوحة المدير</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -195,7 +195,7 @@
                     <div class="text-gray-600 text-sm">المستخدمين</div>
                 </div>
                 <div class="glass-panel rounded-2xl p-4 text-center">
-                    <div class="text-3xl mb-2"></div>
+                    <div class="text-3xl mb-2">📄</div>
                     <div class="text-2xl font-black text-blue-600" id="adminTotalPDFs">0</div>
                     <div class="text-gray-600 text-sm">أوراق العمل</div>
                 </div>
@@ -210,9 +210,9 @@
             <div class="mb-8">
                 <div class="flex flex-wrap gap-2 border-b-2 border-gray-200">
                     <button onclick="switchUserTab('lessons')" class="tab-btn active" id="tabBtnLessons">📚 الدروس</button>
-                    <button onclick="switchUserTab('parents')" class="tab-btn" id="tabBtnParents">👨👩‍👧 أولياء الأمور</button>
+                    <button onclick="switchUserTab('parents')" class="tab-btn" id="tabBtnParents">👨‍👩‍ أولياء الأمور</button>
                     <button onclick="switchUserTab('children')" class="tab-btn" id="tabBtnChildren">👶 الأطفال</button>
-                    <button onclick="switchUserTab('admins')" class="tab-btn" id="tabBtnAdmins">‍💼 المديرين</button>
+                    <button onclick="switchUserTab('admins')" class="tab-btn" id="tabBtnAdmins">👨‍💼 المديرين</button>
                     <button onclick="switchUserTab('pdfs')" class="tab-btn" id="tabBtnPdfs">📄 مكتبة PDF</button>
                     <button onclick="switchUserTab('reports')" class="tab-btn" id="tabBtnReports">📝 تقارير الأطفال</button>
                     <button onclick="switchUserTab('whatsapp')" class="tab-btn" id="tabBtnWhatsapp">💬 واتساب</button>
@@ -228,8 +228,8 @@
                                 <label class="block font-bold mb-2 text-gray-700">المرحلة:</label>
                                 <select id="adminStage" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                                     <option value="kg">🧸 رياض الأطفال</option>
-                                    <option value="grade1">📚 الصف الأول</option>
-                                    <option value="grade2">️ الصف الثاني</option>
+                                    <option value="grade1"> الصف الأول</option>
+                                    <option value="grade2">✏️ الصف الثاني</option>
                                     <option value="grade3">🎓 الصف الثالث</option>
                                 </select>
                             </div>
@@ -271,14 +271,14 @@
                         <button onclick="addQuestionField()" class="bg-purple-100 text-purple-700 px-6 py-2 rounded-lg magic-btn font-bold">➕ إضافة سؤال آخر</button>
                     </div>
                     <div class="section-card">
-                        <div class="section-title text-green-600"><span>📄</span> ورقة العمل PDF للدرس (اختياري)</div>
+                        <div class="section-title text-green-600"><span></span> ورقة العمل PDF للدرس (اختياري)</div>
                         <p class="text-sm text-gray-500 mb-3">ارفع ملف PDF من جهازك</p>
                         <input type="file" id="adminPdfFile" accept=".pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-gray-50">
                     </div>
                     <div class="section-card bg-yellow-50 border-yellow-300">
                         <div class="flex items-center gap-4">
                             <input type="checkbox" id="adminIsLocked" class="w-6 h-6">
-                            <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg"> قفل الدرس (لا يظهر للطلاب)</label>
+                            <label for="adminIsLocked" class="font-bold text-gray-700 cursor-pointer text-lg">🔒 قفل الدرس (لا يظهر للطلاب)</label>
                         </div>
                     </div>
                     <button onclick="addLesson()" id="addLessonBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">💾 حفظ الدرس</button>
@@ -290,7 +290,7 @@
 
                 <!-- تاب أولياء الأمور -->
                 <div id="tabParents" class="tab-content">
-                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">‍👩‍👧</span> إدارة أولياء الأمور</h2>
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍👩‍</span> إدارة أولياء الأمور</h2>
                     <div class="section-card">
                         <div class="flex flex-col md:flex-row gap-4">
                             <input type="text" id="parentSearch" placeholder="🔍 ابحث بالاسم أو الإيميل..." oninput="filterParents()" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
@@ -301,14 +301,14 @@
 
                 <!-- تاب الأطفال -->
                 <div id="tabChildren" class="tab-content">
-                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> إدارة الأطفال</h2>
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👶</span> إدارة الأطفال</h2>
                     <div class="section-card">
                         <div class="flex flex-col md:flex-row gap-4">
                             <input type="text" id="childSearch" placeholder="🔍 ابحث بالاسم أو الكود..." oninput="filterChildren()" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                             <select id="childStageFilter" onchange="filterChildren()" class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                                 <option value="all">🌟 جميع المراحل</option>
                                 <option value="kg">🧸 رياض الأطفال</option>
-                                <option value="grade1"> الصف الأول</option>
+                                <option value="grade1">📚 الصف الأول</option>
                                 <option value="grade2">✏️ الصف الثاني</option>
                                 <option value="grade3">🎓 الصف الثالث</option>
                             </select>
@@ -319,7 +319,7 @@
 
                 <!-- تاب المديرين -->
                 <div id="tabAdmins" class="tab-content">
-                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">👨‍</span> إدارة المديرين</h2>
+                    <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">‍💼</span> إدارة المديرين</h2>
                     <div class="section-card">
                         <h3 class="font-bold mb-4 text-purple-700">➕ إضافة مدير جديد</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -355,9 +355,9 @@
                             </div>
                         </div>
                         
-                        <!-- ✅ الجزء الجديد: رفع PDF من الجهاز -->
+                        <!-- ✅ رفع PDF من الجهاز باستخدام Cloudinary -->
                         <div class="bg-purple-50 rounded-xl p-6 border-2 border-purple-300 mb-4">
-                            <label class="block font-bold mb-2 text-gray-700"> اختر ملف PDF من جهازك:</label>
+                            <label class="block font-bold mb-2 text-gray-700">📁 اختر ملف PDF من جهازك:</label>
                             <input type="file" id="standalonePdfFile" accept=".pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-white mb-3">
                             <div id="standalonePdfPreview" class="hidden mb-3">
                                 <p class="font-bold text-sm text-gray-600 mb-2">الملف المحدد:</p>
@@ -370,7 +370,7 @@
                                 <p class="font-bold text-blue-700 mb-1">💡 ملاحظات:</p>
                                 <ul class="text-sm text-gray-700 space-y-1 mr-4">
                                     <li>• الحد الأقصى: 10MB</li>
-                                    <li>• سيتم رفع الملف تلقائياً</li>
+                                    <li>• سيتم رفع الملف تلقائياً على Cloudinary</li>
                                 </ul>
                             </div>
                         </div>
@@ -401,7 +401,7 @@
                                 <textarea id="reportContent" rows="4" placeholder="اكتب تقريرك هنا..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none"></textarea>
                             </div>
                             
-                            <!-- ✅ الجزء الجديد: رفع PDF وصور من الجهاز -->
+                            <!-- ✅ رفع PDF وصور من الجهاز باستخدام Cloudinary -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
                                     <label class="block font-bold mb-2 text-blue-700">📄 PDF التقرير (اختياري):</label>
@@ -409,7 +409,7 @@
                                     <div id="reportPdfPreview" class="hidden">
                                         <p class="font-bold text-sm text-gray-600 mb-2">الملف المحدد:</p>
                                         <div class="bg-white rounded-lg p-3 border-2 border-blue-200 flex items-center gap-2">
-                                            <span class="text-2xl"></span>
+                                            <span class="text-2xl">📄</span>
                                             <span id="reportPdfName" class="text-sm text-gray-700"></span>
                                         </div>
                                     </div>
@@ -424,7 +424,7 @@
                                 </div>
                             </div>
                             
-                            <button onclick="addReportForChild()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl"> إرسال التقرير</button>
+                            <button onclick="addReportForChild()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black py-4 rounded-xl magic-btn text-xl">📤 إرسال التقرير</button>
                         </div>
                         <div id="reportStatus" class="mt-4 text-center font-bold"></div>
                     </div>
@@ -456,7 +456,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-blue-200 text-sm font-bold">👨‍👩👧 لوحة ولي الأمر</span>
+                        <span class="text-blue-200 text-sm font-bold">👨‍👩‍ لوحة ولي الأمر</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -473,8 +473,8 @@
             <!-- تابات ولي الأمر -->
             <div class="mb-8">
                 <div class="flex flex-wrap gap-2 border-b-2 border-gray-200">
-                    <button onclick="switchParentTab('children')" class="tab-btn active" id="parentTabBtnChildren">👶 أطفالي</button>
-                    <button onclick="switchParentTab('progress')" class="tab-btn" id="parentTabBtnProgress"> تقارير التقدم</button>
+                    <button onclick="switchParentTab('children')" class="tab-btn active" id="parentTabBtnChildren"> أطفالي</button>
+                    <button onclick="switchParentTab('progress')" class="tab-btn" id="parentTabBtnProgress">📊 تقارير التقدم</button>
                     <button onclick="switchParentTab('teacherReports')" class="tab-btn" id="parentTabBtnTeacherReports">📝 تقارير المعلم</button>
                     <button onclick="switchParentTab('uploads')" class="tab-btn" id="parentTabBtnUploads">📤 رفع ملفات</button>
                 </div>
@@ -482,7 +482,7 @@
                 <!-- تاب أطفالي -->
                 <div id="parentTabChildren" class="tab-content active">
                     <div class="glass-panel rounded-3xl p-8 mb-8 text-center">
-                        <div class="text-6xl mb-4">‍👩‍👧</div>
+                        <div class="text-6xl mb-4">👨‍‍👧</div>
                         <h2 class="text-3xl font-black mb-4 text-purple-700">متابعة تقدم الطفل</h2>
                         <div id="parentChildrenList" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"></div>
                         <button onclick="addChild()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-xl magic-btn font-bold text-lg">➕ إضافة طفل جديد</button>
@@ -517,7 +517,7 @@
                                 <input type="text" id="uploadTitle" placeholder="مثال: واجب الرياضيات" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none">
                             </div>
                             
-                            <!-- ✅ الجزء الجديد: رفع مباشر من الجهاز -->
+                            <!-- ✅ رفع مباشر من الجهاز باستخدام Cloudinary -->
                             <div class="bg-blue-50 rounded-xl p-6 border-2 border-blue-300">
                                 <label class="block font-bold mb-2 text-gray-700">📁 اختر ملف من جهازك:</label>
                                 <input type="file" id="uploadFile" accept="image/*,.pdf" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none bg-white mb-3">
@@ -533,6 +533,7 @@
                                         <li>• الصور: JPG, PNG, GIF</li>
                                         <li>• الملفات: PDF فقط</li>
                                         <li>• الحد الأقصى: 5MB</li>
+                                        <li>• سيتم رفع الملف تلقائياً على Cloudinary</li>
                                     </ul>
                                 </div>
                             </div>
@@ -541,7 +542,7 @@
                         </div>
                         <div id="uploadStatus" class="mt-4 text-center font-bold"></div>
                     </div>
-                    <h3 class="font-bold mt-8 mb-4 text-purple-700"> الملفات المرفوعة</h3>
+                    <h3 class="font-bold mt-8 mb-4 text-purple-700">📋 الملفات المرفوعة</h3>
                     <div id="parentUploadsList"></div>
                 </div>
             </div>
@@ -556,7 +557,7 @@
                     <span class="text-4xl">🏠</span>
                     <div>
                         <h1 class="text-2xl font-black text-white">مدرستي في بيتي</h1>
-                        <span class="text-pink-200 text-sm font-bold">🌟 مساحة البطل</span>
+                        <span class="text-pink-200 text-sm font-bold"> مساحة البطل</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -570,7 +571,7 @@
                 <div class="absolute top-0 left-0 w-full h-full opacity-20">
                     <div class="absolute top-4 left-4 text-6xl animate-bounce">⭐</div>
                     <div class="absolute top-4 right-4 text-6xl animate-bounce" style="animation-delay: 0.5s">🎈</div>
-                    <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s"></div>
+                    <div class="absolute bottom-4 left-1/2 text-6xl animate-bounce" style="animation-delay: 1s">🎪</div>
                 </div>
                 <div class="relative z-10">
                     <h2 class="text-4xl font-black mb-2">مرحباً بك يا بطل! 🎉</h2>
@@ -584,7 +585,7 @@
                     <p id="childKgCount" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
                 <button onclick="showChildStage('grade1')" class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-blue-300 hover:border-blue-500">
-                    <div class="text-7xl mb-4"></div>
+                    <div class="text-7xl mb-4">📚</div>
                     <h3 class="text-2xl font-black text-blue-600 mb-2">الصف الأول</h3>
                     <p id="childGrade1Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
@@ -594,13 +595,13 @@
                     <p id="childGrade2Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
                 <button onclick="showChildStage('grade3')" class="glass-panel rounded-3xl p-8 text-center bounce-card border-4 border-purple-300 hover:border-purple-500">
-                    <div class="text-7xl mb-4">🎓</div>
+                    <div class="text-7xl mb-4"></div>
                     <h3 class="text-2xl font-black text-purple-600 mb-2">الصف الثالث</h3>
                     <p id="childGrade3Count" class="text-gray-600 font-bold">0 دروس</p>
                 </button>
             </div>
             <div class="glass-panel rounded-3xl p-8">
-                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl">📚</span> مكتبة أوراق العمل</h2>
+                <h2 class="text-2xl font-black mb-6 text-purple-700 flex items-center gap-2"><span class="text-3xl"></span> مكتبة أوراق العمل</h2>
                 <div id="childPdfsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </div>
@@ -623,7 +624,7 @@
     <!-- نافذة الدرس -->
     <div id="lessonModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
         <div class="glass-panel rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button onclick="closeLessonModal()" class="absolute top-4 left-4 text-4xl text-gray-400 hover:text-gray-600 magic-btn">×</button>
+            <button onclick="closeLessonModal()" class="absolute top-4 left-4 text-4xl text-gray-400 hover:text-gray-600 magic-btn">❌</button>
             <div class="pt-8">
                 <h2 id="modalLessonTitle" class="text-3xl font-black mb-6 text-center text-purple-700"></h2>
                 <div id="modalContent"></div>
@@ -640,11 +641,11 @@
             </div>
         </div>
     </div>
+
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
         const firebaseConfig = {
@@ -658,8 +659,13 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
         const auth = getAuth(app);
+
+        // Cloudinary Configuration
+        const CLOUDINARY_CONFIG = {
+            cloudName: 'msb5rwzw',
+            uploadPreset: 'myapp.com'
+        };
 
         let lessonsData = { kg: [], grade1: [], grade2: [], grade3: [] };
         let currentUser = null;
@@ -679,24 +685,24 @@
         let parentNotifications = [];
         let adminNotifications = [];
 
-        // ✅ متغيرات الرفع المباشر
+        // متغيرات الرفع المباشر
         let selectedUploadFile = null;
         let selectedReportPdf = null;
         let selectedReportImage = null;
         let selectedStandalonePdf = null;
 
         const assessmentData = [
-            { q: "إيه الحرف الأول في كلمة 'تفاحة'؟", options: ["ت 🍎", "ب ", "م 🍇"], correct: 0 },
-            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 ", "2 🍎🍎", "3 🍎🍎🍎"], correct: 1 },
-            { q: "إيه الكلمة دي؟ 🏫", options: ["بيت 🏠", "مدرسة ", "حديقة 🌳"], correct: 1 },
-            { q: "كم لون في قوس قزح؟", options: ["5 🌈", "7 🌈", "10 🌈"], correct: 1 },
-            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️⃣", "6️⃣"], correct: 2 },
-            { q: "إيه الحيوان اللي بيقول مياو؟", options: [" كلب", " قط", " عصفور"], correct: 1 },
+            { q: "إيه الحرف الأول في كلمة 'تفاحة'؟", options: ["ت 🍎", "ب ️", "م 🍇"], correct: 0 },
+            { q: "لو عندك 3 تفاحات وأكلت واحدة، كام هيفضل معاك؟", options: ["1 🍎", "2 🍎🍎", "3 🍎🍎🍎"], correct: 1 },
+            { q: "إيه الكلمة دي؟ ", options: ["بيت 🏠", "مدرسة 🏫", "حديقة 🌳"], correct: 1 },
+            { q: "كم لون في قوس قزح؟", options: ["5 🌈", "7 🌈", "10 "], correct: 1 },
+            { q: "إيه الرقم اللي بعد 5؟", options: ["4️⃣", "5️", "6️⃣"], correct: 2 },
+            { q: "إيه الحيوان اللي بيقول مياو؟", options: ["🐶 كلب", "🐱 قط", "🐦 عصفور"], correct: 1 },
             { q: "إيه الشهر ده؟", options: ["يناير ❄️", "يوليو ☀️", "أكتوبر 🍂"], correct: new Date().getMonth() === 6 ? 1 : (new Date().getMonth() === 0 ? 0 : 2) }
         ];
 
         function createFloatingElements() {
-            const elements = ['', '✏️', '🎨', '🎵', '🌟', '', '🎪', '🎈'];
+            const elements = ['📚', '✏️', '🎨', '🎵', '🌟', '', '🎪', ''];
             const container = document.getElementById('floatingBg');
             elements.forEach((emoji) => {
                 const el = document.createElement('div');
@@ -841,9 +847,9 @@
             document.getElementById('assessmentContent').classList.add('hidden');
             document.getElementById('resultScreen').classList.remove('hidden');
             let recommendedStage = '', stars = 0;
-            if (assessmentScore <= 2) { recommendedStage = ' رياض الأطفال'; stars = 1; } 
-            else if (assessmentScore <= 5) { recommendedStage = '📚 الصف الأول'; stars = 2; } 
-            else { recommendedStage = '️ الصف الثاني'; stars = 3; }
+            if (assessmentScore <= 2) { recommendedStage = '🧸 رياض الأطفال'; stars = 1; } 
+            else if (assessmentScore <= 5) { recommendedStage = ' الصف الأول'; stars = 2; } 
+            else { recommendedStage = '✏️ الصف الثاني'; stars = 3; }
             document.getElementById('resultText').textContent = `أجبت على ${assessmentScore} من 7 أسئلة صحيحة`;
             document.getElementById('recommendedStage').textContent = `ننصحك بالبدء من: ${recommendedStage}`;
             if (currentChild) updateDoc(doc(db, 'children', currentChild.id), { assessmentCompleted: true, assessmentScore, recommendedStage, stars });
@@ -888,49 +894,47 @@
             document.getElementById('loginError').classList.add('hidden');
         };
 
-      window.addChild = async function() {
-    const childName = prompt('أدخل اسم الطفل:');
-    if (childName) {
-        const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
-        
-        // إضافة الطفل في Firestore
-        await addDoc(collection(db, 'children'), { 
-            parentId: currentUser.uid, 
-            name: childName, 
-            code: childCode, 
-            stage: null, 
-            stars: 0, 
-            completedLessons: [], 
-            assessmentCompleted: false, 
-            createdAt: new Date() 
-        });
-        
-        // التحقق من وجود المستخدم وتحديثه
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        
-        const newChildren = [{ name: childName, code: childCode }];
-        
-        if (userDocSnap.exists()) {
-            const currentChildren = userDocSnap.data().children || [];
-            await updateDoc(userDocRef, { 
-                children: [...currentChildren, ...newChildren] 
-            });
-        } else {
-            await setDoc(userDocRef, { 
-                uid: currentUser.uid,
-                email: currentUser.email,
-                name: currentUser.displayName || 'ولي أمر',
-                role: 'parent',
-                children: newChildren,
-                createdAt: new Date()
-            });
-        }
-        
-        alert(`✅ تم إضافة الطفل بنجاح!\n\nالاسم: ${childName}\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
-        await loadParentData();
-    }
-};
+        window.addChild = async function() {
+            const childName = prompt('أدخل اسم الطفل:');
+            if (childName) {
+                const childCode = childName.toUpperCase().substring(0, 4) + '-' + Math.floor(Math.random() * 9000 + 1000);
+                
+                await addDoc(collection(db, 'children'), { 
+                    parentId: currentUser.uid, 
+                    name: childName, 
+                    code: childCode, 
+                    stage: null, 
+                    stars: 0, 
+                    completedLessons: [], 
+                    assessmentCompleted: false, 
+                    createdAt: new Date() 
+                });
+                
+                const userDocRef = doc(db, 'users', currentUser.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                
+                const newChildren = [{ name: childName, code: childCode }];
+                
+                if (userDocSnap.exists()) {
+                    const currentChildren = userDocSnap.data().children || [];
+                    await updateDoc(userDocRef, { 
+                        children: [...currentChildren, ...newChildren] 
+                    });
+                } else {
+                    await setDoc(userDocRef, { 
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        name: currentUser.displayName || 'ولي أمر',
+                        role: 'parent',
+                        children: newChildren,
+                        createdAt: new Date()
+                    });
+                }
+                
+                alert(`✅ تم إضافة الطفل بنجاح!\n\nالاسم: ${childName}\nكود الدخول: ${childCode}\n\nاحفظ الكود عشان الطفل يدخل بيه`);
+                await loadParentData();
+            }
+        };
 
         async function loadWhatsAppNumber() {
             try {
@@ -951,66 +955,72 @@
             } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
+        // ✅ دالة رفع على Cloudinary
+        async function uploadToCloudinary(file, resourceType = 'image') {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
+            
+            const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/${resourceType}/upload`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.secure_url) {
+                return data.secure_url;
+            } else {
+                throw new Error(data.error?.message || 'فشل رفع الملف');
+            }
+        }
+
         // ✅ دالة إضافة PDF من الجهاز (مكتبة أوراق العمل)
         window.addStandalonePdf = async function() {
-    const title = document.getElementById('pdfTitle').value.trim();
-    const stage = document.getElementById('pdfStage').value;
+            const title = document.getElementById('pdfTitle').value.trim();
+            const stage = document.getElementById('pdfStage').value;
+            
+            if (!title || !selectedStandalonePdf) { 
+                alert('❌ الرجاء إدخال العنوان واختيار ملف PDF'); 
+                return; 
+            }
+            
+            try {
+                let statusDiv = document.getElementById('adminStatus');
+                if (!statusDiv) {
+                    statusDiv = document.createElement('div');
+                    statusDiv.id = 'adminStatus';
+                    statusDiv.className = 'mt-4 text-center font-bold';
+                    document.getElementById('tabPdfs').appendChild(statusDiv);
+                }
+                
+                statusDiv.textContent = '⏳ جاري رفع PDF...';
+                statusDiv.className = 'mt-4 text-center font-bold text-lg text-blue-600';
+                
+                const url = await uploadToCloudinary(selectedStandalonePdf, 'raw');
+                
+                await addDoc(collection(db, 'standalonePdfs'), { 
+                    title, 
+                    stage, 
+                    url, 
+                    uploadedBy: currentUser.uid, 
+                    createdAt: new Date() 
+                });
+                
+                alert('✅ تم إضافة الورقة بنجاح!');
+                document.getElementById('pdfTitle').value = '';
+                document.getElementById('standalonePdfFile').value = '';
+                document.getElementById('standalonePdfPreview')?.classList.add('hidden');
+                selectedStandalonePdf = null;
+                statusDiv.textContent = '';
+                await loadStandalonePdfs();
+            } catch (error) { 
+                alert('❌ خطأ: ' + error.message);
+            }
+        };
 
-    const CLOUD_NAME = 'msb5rwzw';
-    const UPLOAD_PRESET = 'myapp.com';
-
-    if (!title || !selectedStandalonePdf) {
-        alert('❌ الرجاء إدخال العنوان واختيار ملف PDF');
-        return;
-    }
-
-    try {
-        let statusDiv = document.getElementById('adminStatus');
-        if (!statusDiv) {
-            statusDiv = document.createElement('div');
-            statusDiv.id = 'adminStatus';
-            statusDiv.className = 'mt-4 text-center font-bold';
-            document.getElementById('tabPdfs').appendChild(statusDiv);
-        }
-
-        statusDiv.textContent = '⏳ جاري رفع PDF...';
-        statusDiv.className = 'mt-4 text-center font-bold text-lg text-blue-600';
-
-        const formData = new FormData();
-        formData.append('file', selectedStandalonePdf);
-        formData.append('upload_preset', UPLOAD_PRESET);
-
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
-            method: 'POST',
-            body: formData
-        });
-        const data = await response.json();
-
-        if (!data.secure_url) {
-            throw new Error(data.error?.message || 'فشل رفع PDF');
-        }
-
-        const url = data.secure_url;
-        console.log('✅ تم رفع PDF:', url);
-
-        await addDoc(collection(db, 'standalonePdfs'), {
-            title, stage, url, uploadedBy: currentUser.uid, createdAt: new Date()
-        });
-
-        alert('✅ تم إضافة الورقة بنجاح!');
-
-        document.getElementById('pdfTitle').value = '';
-        document.getElementById('standalonePdfFile').value = '';
-        document.getElementById('standalonePdfPreview')?.classList.add('hidden');
-        selectedStandalonePdf = null;
-        statusDiv.textContent = '';
-
-        await loadStandalonePdfs();
-
-    } catch (error) {
-        alert(' خطأ: ' + error.message);
-    }
-};
         async function loadStandalonePdfs() {
             try {
                 const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
@@ -1019,8 +1029,8 @@
                 if (pdfsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد أوراق عمل مضافة بعد</div>'; return; }
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
-                    const stageNames = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: '🌟 جميع المراحل' };
-                    container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><div class="flex gap-2"><a href="${pdf.url}" target="_blank" class="action-btn btn-view">️ عرض</a><button onclick="deleteStandalonePdf('${docSnap.id}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
+                    const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث', all: ' جميع المراحل' };
+                    container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div><div class="font-bold text-lg">${pdf.title}</div><div class="text-sm text-gray-500">${stageNames[pdf.stage]}</div></div><div class="flex gap-2"><a href="${pdf.url}" target="_blank" class="action-btn btn-view">👁️ عرض</a><button onclick="deleteStandalonePdf('${docSnap.id}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
                 });
             } catch (error) { console.error('Error loading standalone PDFs:', error); }
         }
@@ -1065,11 +1075,11 @@
                     const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث' };
                     container.innerHTML += `<h3 class="text-xl font-bold mb-4 mt-6">${names[stage]}</h3>`;
                     lessonsData[stage].forEach(lesson => {
-                        const lockIcon = lesson.isLocked ? '' : '🔓';
-                        const pdfIcon = lesson.pdfUrl ? '📄' : '';
+                        const lockIcon = lesson.isLocked ? '🔒' : '🔓';
+                        const pdfIcon = lesson.pdfUrl ? '' : '';
                         const questionsCount = lesson.questions ? lesson.questions.length : 0;
-                        const videoType = lesson.videoUrl ? '📹 مرفوع' : (lesson.videoId ? '📺 يوتيوب' : '');
-                        container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}</div></div><div class="flex gap-2"><button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="action-btn btn-edit">${lesson.isLocked ? '🔓 فتح' : ' قفل'}</button><button onclick="deleteLesson('${lesson.id}', '${stage}')" class="action-btn btn-delete">🗑️</button></div></div>`;
+                        const videoType = lesson.videoUrl ? '📹 مرفوع' : (lesson.videoId ? ' يوتيوب' : '');
+                        container.innerHTML += `<div class="user-card flex justify-between items-center flex-wrap gap-4"><div class="flex-1"><div class="font-bold text-lg">${lesson.title}</div><div class="text-sm text-gray-500">${lockIcon} ${videoType} ${pdfIcon} ${questionsCount > 0 ? `📝 ${questionsCount} أسئلة` : ''}</div></div><div class="flex gap-2"><button onclick="toggleLessonLock('${lesson.id}', '${stage}', ${lesson.isLocked})" class="action-btn btn-edit">${lesson.isLocked ? '🔓 فتح' : '🔒 قفل'}</button><button onclick="deleteLesson('${lesson.id}', '${stage}')" class="action-btn btn-delete">🗑️</button></div></div>`;
                     });
                 }
             });
@@ -1104,15 +1114,11 @@
                 }
                 if (selectedVideoFile) {
                     status.textContent = '⏳ جاري رفع الفيديو...';
-                    const videoRef = ref(storage, `videos/${Date.now()}_${selectedVideoFile.name}`);
-                    await uploadBytes(videoRef, selectedVideoFile);
-                    videoUrl = await getDownloadURL(videoRef);
+                    videoUrl = await uploadToCloudinary(selectedVideoFile, 'video');
                 }
                 if (selectedPdfFile) {
                     status.textContent = '⏳ جاري رفع PDF...';
-                    const pdfRef = ref(storage, `pdfs/${Date.now()}_${selectedPdfFile.name}`);
-                    await uploadBytes(pdfRef, selectedPdfFile);
-                    pdfUrl = await getDownloadURL(pdfRef);
+                    pdfUrl = await uploadToCloudinary(selectedPdfFile, 'raw');
                 }
                 await addDoc(collection(db, 'lessons'), { stage, title, videoType: videoUrl ? 'upload' : 'youtube', videoId, videoUrl, pdfUrl, questions, isLocked, createdAt: new Date() });
                 status.textContent = '✅ تم حفظ الدرس بنجاح!'; status.className = 'mt-4 text-center font-bold text-lg text-green-600';
@@ -1139,45 +1145,38 @@
             catch (error) { console.error('Error:', error); }
         };
 
-    async function loadParentData() {
-    try {
-        const childrenDoc = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
-        const childrenList = document.getElementById('parentChildrenList');
-        childrenList.innerHTML = '';
-        
-        console.log('عدد الأطفال:', childrenDoc.size);
-        
-        if (childrenDoc.empty) {
-            childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين. اضغط "إضافة طفل جديد" للبدء.</div>';
-        } else {
-            childrenDoc.forEach(docSnap => {
-                const child = docSnap.data();
-                console.log('طفل:', child.name, 'كود:', child.code);
-                
-                childrenList.innerHTML += `
-                    <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative">
-                        <button onclick="deleteChild('${docSnap.id}', '${child.name}')" class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">🗑️</button>
-                        <div class="text-4xl mb-2"></div>
-                        <h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3>
-                        <p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p>
-                        <p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>
-                        ${child.assessmentCompleted ? '<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>' : '<p class="text-xs text-yellow-600 mt-2">⚠️ لم يتم الاختبار بعد</p>'}
-                    </div>
-                `;
-            });
+        async function loadParentData() {
+            try {
+                const childrenDoc = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)));
+                const childrenList = document.getElementById('parentChildrenList');
+                childrenList.innerHTML = '';
+                console.log('عدد الأطفال:', childrenDoc.size);
+                if (childrenDoc.empty) {
+                    childrenList.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8">لا يوجد أطفال مضافين. اضغط "إضافة طفل جديد" للبدء.</div>';
+                } else {
+                    childrenDoc.forEach(docSnap => {
+                        const child = docSnap.data();
+                        console.log('طفل:', child.name, 'كود:', child.code);
+                        childrenList.innerHTML += `
+                            <div class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 border-2 border-blue-300 relative">
+                                <button onclick="deleteChild('${docSnap.id}', '${child.name}')" class="absolute top-2 left-2 bg-red-500 text-white w-8 h-8 rounded-full magic-btn text-sm">🗑️</button>
+                                <div class="text-4xl mb-2">👶</div>
+                                <h3 class="text-xl font-black text-blue-700 mb-2">${child.name}</h3>
+                                <p class="text-gray-600 mb-2">كود الدخول: <span class="font-bold text-purple-600">${child.code}</span></p>
+                                <p class="text-sm text-gray-500">النجوم: ⭐ ${child.stars || 0}</p>
+                                ${child.assessmentCompleted ? '<p class="text-xs text-green-600 mt-2">✅ أتم اختبار تحديد المستوى</p>' : '<p class="text-xs text-yellow-600 mt-2">⚠️ لم يتم الاختبار بعد</p>'}
+                            </div>
+                        `;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading parent data:', error);
+                alert('حدث خطأ في تحميل البيانات: ' + error.message);
+            }
         }
-        
-        // ملء قائمة الأطفال في تاب رفع الملفات
-       
-        
-    } catch (error) { 
-        console.error('Error loading parent data:', error); 
-        alert('حدث خطأ في تحميل البيانات: ' + error.message);
-    }
-}
 
         window.deleteChild = async function(childId, childName) {
-            if (!confirm(`⚠️ هل أنت متأكد من حذف الطفل "${childName}"؟\n\nكود الدخول هيتلغي ومش هيستخدمه تاني!`)) return;
+            if (!confirm(`⚠️ هل أنت متأكد من حذف الطفل "${childName}"?\n\nكود الدخول هيتلغي ومش هيستخدمه تاني!`)) return;
             try {
                 await deleteDoc(doc(db, 'children', childId));
                 alert(`✅ تم حذف "${childName}" بنجاح`);
@@ -1218,14 +1217,14 @@
                 pdfsSnapshot.forEach(docSnap => {
                     const pdf = docSnap.data();
                     if (pdf.stage === 'all' || pdf.stage === childStageCode) {
-                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2">📄</div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn"> تحميل</a></div>`;
+                        container.innerHTML += `<div class="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-6 border-2 border-green-300 text-center"><div class="text-5xl mb-2">📄</div><h3 class="font-bold text-lg mb-3">${pdf.title}</h3><a href="${pdf.url}" target="_blank" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg magic-btn">📥 تحميل</a></div>`;
                     }
                 });
             } catch (error) { console.error('Error loading child PDFs:', error); }
         }
 
         window.showChildStage = function(stage) {
-            const names = { kg: ' رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
+            const names = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث' };
             document.getElementById('stageTitle').textContent = names[stage];
             document.getElementById('childDashboard').classList.add('hidden');
             document.getElementById('stageLessonsView').classList.remove('hidden');
@@ -1393,7 +1392,7 @@
             if (parents.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أولياء أمور</div>'; return; }
             parents.forEach(parent => {
                 const childrenCount = parent.children ? parent.children.length : 0;
-                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">👤</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${parent.name}</h3><p class="text-gray-600"> ${parent.email}</p><p class="text-sm text-gray-500">👶 ${childrenCount} أطفال</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editParentName('${parent.id}', '${parent.name}')" class="action-btn btn-edit">✏️ تعديل الاسم</button><button onclick="changeParentPassword('${parent.id}', '${parent.email}')" class="action-btn btn-password">🔑 تغيير الباسورد</button><button onclick="deleteParent('${parent.id}', '${parent.name}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl"></div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${parent.name}</h3><p class="text-gray-600">📧 ${parent.email}</p><p class="text-sm text-gray-500"> ${childrenCount} أطفال</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editParentName('${parent.id}', '${parent.name}')" class="action-btn btn-edit">✏️ تعديل الاسم</button><button onclick="changeParentPassword('${parent.id}', '${parent.email}')" class="action-btn btn-password">🔑 تغيير الباسورد</button><button onclick="deleteParent('${parent.id}', '${parent.name}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
             });
         }
 
@@ -1401,12 +1400,12 @@
             const container = document.getElementById('childrenList');
             container.innerHTML = '';
             if (children.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال</div>'; return; }
-            const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: ' الصف الثالث' };
+            const stageNames = { kg: '🧸 رياض الأطفال', grade1: '📚 الصف الأول', grade2: '✏️ الصف الثاني', grade3: '🎓 الصف الثالث' };
             children.forEach(child => {
                 const parent = allParents.find(p => p.uid === child.parentId);
                 const parentName = parent ? parent.name : 'غير معروف';
                 const stage = child.recommendedStage || 'لم يحدد';
-                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl"></div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${child.name}</h3><p class="text-gray-600">🔑 ${child.code}</p><p class="text-sm text-gray-500">👨‍‍👧 ولي الأمر: ${parentName}</p><p class="text-sm text-gray-500">📚 المرحلة: ${stage}</p><p class="text-sm text-gray-500">⭐ النجوم: ${child.stars || 0}</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editChildStage('${child.id}', '${child.recommendedStage || ''}')" class="action-btn btn-edit">📚 تعديل المرحلة</button><button onclick="editChildStars('${child.id}', ${child.stars || 0})" class="action-btn btn-password">⭐ تعديل النجوم</button><button onclick="deleteChildAdmin('${child.id}', '${child.name}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">👶</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${child.name}</h3><p class="text-gray-600">🔑 ${child.code}</p><p class="text-sm text-gray-500">👨‍‍👧 ولي الأمر: ${parentName}</p><p class="text-sm text-gray-500">📚 المرحلة: ${stage}</p><p class="text-sm text-gray-500">⭐ النجوم: ${child.stars || 0}</p></div></div><div class="flex flex-wrap gap-2"><button onclick="editChildStage('${child.id}', '${child.recommendedStage || ''}')" class="action-btn btn-edit">📚 تعديل المرحلة</button><button onclick="editChildStars('${child.id}', ${child.stars || 0})" class="action-btn btn-password">⭐ تعديل النجوم</button><button onclick="deleteChildAdmin('${child.id}', '${child.name}')" class="action-btn btn-delete">🗑️ حذف</button></div></div>`;
             });
         }
 
@@ -1416,7 +1415,7 @@
             if (admins.length === 0) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد مديرين</div>'; return; }
             admins.forEach(admin => {
                 const isMainAdmin = admin.uid === currentUser.uid;
-                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">${isMainAdmin ? '👑' : '👨💼'}</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${admin.name} ${isMainAdmin ? '(المدير الأساسي)' : ''}</h3><p class="text-gray-600">📧 ${admin.email}</p></div></div>${!isMainAdmin ? `<button onclick="deleteAdmin('${admin.id}', '${admin.name}')" class="action-btn btn-delete">🗑️ حذف المدير</button>` : '<p class="text-sm text-gray-500">🔒 لا يمكن حذف المدير الأساسي</p>'}</div>`;
+                container.innerHTML += `<div class="user-card"><div class="flex items-start gap-4 mb-4"><div class="text-5xl">${isMainAdmin ? '👑' : '👨‍💼'}</div><div class="flex-1"><h3 class="text-xl font-black text-purple-700">${admin.name} ${isMainAdmin ? '(المدير الأساسي)' : ''}</h3><p class="text-gray-600">📧 ${admin.email}</p></div></div>${!isMainAdmin ? `<button onclick="deleteAdmin('${admin.id}', '${admin.name}')" class="action-btn btn-delete">🗑️ حذف المدير</button>` : '<p class="text-sm text-gray-500">🔒 لا يمكن حذف المدير الأساسي</p>'}</div>`;
             });
         }
 
@@ -1459,7 +1458,7 @@
         };
 
         window.deleteParent = async function(parentId, parentName) {
-            if (!confirm(`️ هل أنت متأكد من حذف ولي الأمر "${parentName}"؟`)) return;
+            if (!confirm(`⚠️ هل أنت متأكد من حذف ولي الأمر "${parentName}"؟`)) return;
             const transferOption = prompt(`اختر إجراء للأطفال:\n\n1. اكتب إيميل ولي أمر آخر لنقل الأطفال إليه\n2. اكتب "حذف" لحذف الأطفال نهائياً`, 'حذف');
             if (!transferOption) return;
             try {
@@ -1518,7 +1517,7 @@
                 status.textContent = '✅ تم إضافة المدير بنجاح!'; status.className = 'mt-4 text-center font-bold text-green-600';
                 await loadAllUsers(); await loadAdminData();
                 setTimeout(() => { status.textContent = ''; }, 3000);
-            } catch (error) { alert('❌ خطأ: ' + error.message); status.textContent = '❌ خطأ: ' + error.message; status.className = 'mt-4 text-center font-bold text-red-600'; }
+            } catch (error) { alert('❌ خطأ: ' + error.message); status.textContent = ' خطأ: ' + error.message; status.className = 'mt-4 text-center font-bold text-red-600'; }
         };
 
         window.deleteAdmin = async function(adminId, adminName) {
@@ -1527,110 +1526,91 @@
             catch (error) { alert('❌ خطأ: ' + error.message); }
         };
 
-        // ✅ دالة إضافة تقرير (مع رفع PDF وصور من الجهاز)
+        // ✅ دالة إضافة تقرير (مع رفع PDF وصور من الجهاز باستخدام Cloudinary)
         window.addReportForChild = async function() {
-    const childId = document.getElementById('reportChildSelect').value;
-    const title = document.getElementById('reportTitle').value.trim();
-    const content = document.getElementById('reportContent').value.trim();
-    const status = document.getElementById('reportStatus');
+            const childId = document.getElementById('reportChildSelect').value;
+            const title = document.getElementById('reportTitle').value.trim();
+            const content = document.getElementById('reportContent').value.trim();
+            const status = document.getElementById('reportStatus');
 
-    const CLOUD_NAME = 'msb5rwzw';
-    const UPLOAD_PRESET = 'myapp.com';
-
-    if (!childId || !title || (!content && !selectedReportPdf && !selectedReportImage)) {
-        alert('❌ الرجاء اختيار الطفل وإدخال العنوان ومحتوى واحد على الأقل');
-        return;
-    }
-
-    try {
-        const child = allChildren.find(c => c.id === childId);
-        if (!child) { alert('❌ الطفل غير موجود'); return; }
-
-        let imageUrl = '';
-        let pdfUrl = '';
-
-        // رفع الصورة على Cloudinary
-        if (selectedReportImage) {
-            status.textContent = '⏳ جاري رفع الصورة...';
-            status.className = 'mt-4 text-center font-bold text-blue-600';
-            try {
-                const formData = new FormData();
-                formData.append('file', selectedReportImage);
-                formData.append('upload_preset', UPLOAD_PRESET);
-                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (data.secure_url) {
-                    imageUrl = data.secure_url;
-                    console.log('✅ تم رفع الصورة:', imageUrl);
-                } else {
-                    throw new Error(data.error?.message || 'فشل رفع الصورة');
-                }
-            } catch (err) {
-                alert('❌ خطأ في رفع الصورة: ' + err.message);
+            if (!childId || !title || (!content && !selectedReportPdf && !selectedReportImage)) {
+                alert('❌ الرجاء اختيار الطفل وإدخال العنوان ومحتوى واحد على الأقل (نص أو PDF أو صورة)');
                 return;
             }
-        }
 
-        // رفع PDF على Cloudinary
-        if (selectedReportPdf) {
-            status.textContent = ' جاري رفع PDF...';
-            status.className = 'mt-4 text-center font-bold text-blue-600';
             try {
-                const formData = new FormData();
-                formData.append('file', selectedReportPdf);
-                formData.append('upload_preset', UPLOAD_PRESET);
-                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (data.secure_url) {
-                    pdfUrl = data.secure_url;
-                    console.log('✅ تم رفع PDF:', pdfUrl);
-                } else {
-                    throw new Error(data.error?.message || 'فشل رفع PDF');
+                const child = allChildren.find(c => c.id === childId);
+                if (!child) { alert('❌ الطفل غير موجود'); return; }
+
+                let imageUrl = '';
+                let pdfUrl = '';
+                
+                // رفع PDF على Cloudinary
+                if (selectedReportPdf) {
+                    status.textContent = '⏳ جاري رفع PDF...';
+                    status.className = 'mt-4 text-center font-bold text-blue-600';
+                    try {
+                        pdfUrl = await uploadToCloudinary(selectedReportPdf, 'raw');
+                        console.log('✅ تم رفع PDF:', pdfUrl);
+                    } catch (err) {
+                        alert('❌ خطأ في رفع PDF: ' + err.message);
+                        return;
+                    }
                 }
-            } catch (err) {
-                alert('❌ خطأ في رفع PDF: ' + err.message);
-                return;
+                
+                // رفع الصورة على Cloudinary
+                if (selectedReportImage) {
+                    status.textContent = selectedReportPdf ? '⏳ جاري رفع الصورة...' : '⏳ جاري رفع الصورة...';
+                    status.className = 'mt-4 text-center font-bold text-blue-600';
+                    try {
+                        imageUrl = await uploadToCloudinary(selectedReportImage, 'image');
+                        console.log('✅ تم رفع الصورة:', imageUrl);
+                    } catch (err) {
+                        alert('❌ خطأ في رفع الصورة: ' + err.message);
+                        return;
+                    }
+                }
+
+                await addDoc(collection(db, 'reports'), {
+                    childId: childId,
+                    parentId: child.parentId,
+                    childName: child.name,
+                    title: title,
+                    content: content,
+                    pdfUrl: pdfUrl,
+                    imageUrl: imageUrl,
+                    read: false,
+                    createdAt: new Date()
+                });
+
+                await addDoc(collection(db, 'notifications'), {
+                    userId: child.parentId,
+                    message: ` تم إضافة تقرير جديد لطفلك "${child.name}": ${title}`,
+                    type: 'report',
+                    read: false,
+                    createdAt: new Date()
+                });
+
+                alert('✅ تم إرسال التقرير بنجاح!');
+                
+                document.getElementById('reportTitle').value = '';
+                document.getElementById('reportContent').value = '';
+                document.getElementById('reportPdfFile').value = '';
+                document.getElementById('reportPdfPreview')?.classList.add('hidden');
+                selectedReportPdf = null;
+                document.getElementById('reportImageFile').value = '';
+                document.getElementById('reportImagePreview')?.classList.add('hidden');
+                selectedReportImage = null;
+                
+                status.textContent = '✅ تم إرسال التقرير بنجاح!';
+                status.className = 'mt-4 text-center font-bold text-green-600';
+                await loadAdminReports();
+                setTimeout(() => { status.textContent = ''; }, 3000);
+            } catch (error) { 
+                alert(' خطأ: ' + error.message);
+                status.textContent = '';
             }
-        }
-
-        await addDoc(collection(db, 'reports'), {
-            childId, parentId: child.parentId, childName: child.name,
-            title, content, pdfUrl, imageUrl, read: false, createdAt: new Date()
-        });
-
-        await addDoc(collection(db, 'notifications'), {
-            userId: child.parentId,
-            message: ` تم إضافة تقرير جديد لطفلك "${child.name}": ${title}`,
-            type: 'report', read: false, createdAt: new Date()
-        });
-
-        alert('✅ تم إرسال التقرير بنجاح!');
-
-        document.getElementById('reportTitle').value = '';
-        document.getElementById('reportContent').value = '';
-        document.getElementById('reportPdfFile').value = '';
-        document.getElementById('reportPdfPreview')?.classList.add('hidden');
-        selectedReportPdf = null;
-        document.getElementById('reportImageFile').value = '';
-        document.getElementById('reportImagePreview')?.classList.add('hidden');
-        selectedReportImage = null;
-
-        status.textContent = '✅ تم إرسال التقرير بنجاح!';
-        status.className = 'mt-4 text-center font-bold text-green-600';
-        await loadAdminReports();
-        setTimeout(() => { status.textContent = ''; }, 3000);
-
-    } catch (error) {
-        alert(' خطأ: ' + error.message);
-        status.textContent = '';
-    }
-};
+        };
 
         async function loadAdminReports() {
             try {
@@ -1649,7 +1629,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-bold text-lg text-blue-700">${report.title}</h3>
                                     <p class="text-gray-600 mb-1">👶 الطفل: ${report.childName}</p>
-                                    <p class="text-sm text-gray-500"> ${date}</p>
+                                    <p class="text-sm text-gray-500">📅 ${date}</p>
                                 </div>
                                 <div class="flex gap-2 flex-wrap">
                                     <button onclick="editReport('${docSnap.id}', '${report.title}', '${report.content || ''}', '${report.pdfUrl || ''}', '${report.imageUrl || ''}')" class="action-btn btn-edit">✏️ تعديل</button>
@@ -1686,7 +1666,7 @@
         };
 
         window.deleteReport = async function(reportId, reportTitle) {
-            if (!confirm(`⚠️ هل أنت متأكد من حذف التقرير "${reportTitle}"؟`)) return;
+            if (!confirm(`️ هل أنت متأكد من حذف التقرير "${reportTitle}"؟`)) return;
             try {
                 await deleteDoc(doc(db, 'reports', reportId));
                 alert('✅ تم حذف التقرير بنجاح!');
@@ -1695,57 +1675,59 @@
         };
 
         // ============ صفحة ولي الأمر ============
-    window.switchParentTab = function(tabName) {
-    const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
-    tabs.forEach(t => {
-        const tabEl = document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
-        const tabBtnEl = document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
-        if (tabEl) tabEl.classList.remove('active');
-        if (tabBtnEl) tabBtnEl.classList.remove('active');
-    });
-    
-    const activeTab = document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-    const activeTabBtn = document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-    if (activeTab) activeTab.classList.add('active');
-    if (activeTabBtn) activeTabBtn.classList.add('active');
-
-    if (tabName === 'progress') loadParentProgressReports();
-    if (tabName === 'teacherReports') loadParentTeacherReports();
-    
-    if (tabName === 'uploads') {
-        const uploadSelect = document.getElementById('uploadChildSelect');
-        if (uploadSelect && currentUser) {
-            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+        window.switchParentTab = function(tabName) {
+            const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
+            tabs.forEach(t => {
+                const tabEl = document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const tabBtnEl = document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (tabEl) tabEl.classList.remove('active');
+                if (tabBtnEl) tabBtnEl.classList.remove('active');
+            });
             
-            getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
-                .then(snapshot => {
-                    const uniqueChildren = [];
-                    const seenNames = new Set();
+            const activeTab = document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+            const activeTabBtn = document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+            if (activeTab) activeTab.classList.add('active');
+            if (activeTabBtn) activeTabBtn.classList.add('active');
+
+            if (tabName === 'progress') loadParentProgressReports();
+            if (tabName === 'teacherReports') loadParentTeacherReports();
+            
+            if (tabName === 'uploads') {
+                const uploadSelect = document.getElementById('uploadChildSelect');
+                if (uploadSelect && currentUser) {
+                    uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
                     
-                    snapshot.forEach(docSnap => {
-                        const child = docSnap.data();
-                        const normalizedName = child.name.trim().toLowerCase();
-                        
-                        if (!seenNames.has(normalizedName)) {
-                            seenNames.add(normalizedName);
-                            uniqueChildren.push({ id: docSnap.id, ...child });
-                        }
-                    });
-                    
-                    console.log('📥 ولي الأمر:', currentUser.uid);
-                    console.log(' عدد الأطفال (بدون مكرر):', uniqueChildren.length);
-                    
-                    uniqueChildren.forEach(child => {
-                        console.log(' -', child.name, '(', child.code, ')');
-                        uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
-                    });
-                })
-                .catch(error => {
-                    console.error('❌ خطأ في تحميل الأطفال:', error);
-                });
-        }
-    }
-};
+                    getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
+                        .then(snapshot => {
+                            // فلتر المكرر بالاسم
+                            const uniqueChildren = [];
+                            const seenNames = new Set();
+                            
+                            snapshot.forEach(docSnap => {
+                                const child = docSnap.data();
+                                const normalizedName = child.name.trim().toLowerCase();
+                                
+                                if (!seenNames.has(normalizedName)) {
+                                    seenNames.add(normalizedName);
+                                    uniqueChildren.push({ id: docSnap.id, ...child });
+                                }
+                            });
+                            
+                            console.log('📥 ولي الأمر:', currentUser.uid);
+                            console.log('👶 عدد الأطفال (بدون مكرر):', uniqueChildren.length);
+                            
+                            uniqueChildren.forEach(child => {
+                                console.log(' -', child.name, '(', child.code, ')');
+                                uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('❌ خطأ في تحميل الأطفال:', error);
+                        });
+                }
+            }
+        };
+
         async function loadParentProgressReports() {
             try {
                 const container = document.getElementById('parentProgressReports');
@@ -1818,8 +1800,8 @@
                                 <div class="flex-1">
                                     <h3 class="text-xl font-black text-blue-700">${child.name}</h3>
                                     <p class="text-gray-600">📚 المرحلة: ${stage}</p>
-                                    <p class="text-sm text-gray-500"> آخر دخول: ${lastLoginText}</p>
-                                    <p class="text-sm text-gray-500">📅 أيام النشاط هذا الأسبوع: ${activeDaysThisWeek} أيام</p>
+                                    <p class="text-sm text-gray-500">🕐 آخر دخول: ${lastLoginText}</p>
+                                    <p class="text-sm text-gray-500"> أيام النشاط هذا الأسبوع: ${activeDaysThisWeek} أيام</p>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
@@ -1843,11 +1825,11 @@
                             ${quizResults.length > 0 ? `
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                     <div class="bg-green-50 rounded-xl p-4 border-2 border-green-200">
-                                        <div class="font-bold text-green-700 mb-2"> أفضل نتيجة</div>
+                                        <div class="font-bold text-green-700 mb-2">🏆 أفضل نتيجة</div>
                                         <div class="text-lg">${bestScore.score}/${bestScore.total} (${Math.round((bestScore.score/bestScore.total)*100)}%)</div>
                                     </div>
                                     <div class="bg-orange-50 rounded-xl p-4 border-2 border-orange-200">
-                                        <div class="font-bold text-orange-700 mb-2">️ يحتاج تحسين</div>
+                                        <div class="font-bold text-orange-700 mb-2">⚠️ يحتاج تحسين</div>
                                         <div class="text-lg">${worstScore.score}/${worstScore.total} (${Math.round((worstScore.score/worstScore.total)*100)}%)</div>
                                     </div>
                                 </div>
@@ -1890,9 +1872,9 @@
                             ${report.content ? `<p class="text-gray-700 mb-3 bg-white p-3 rounded-lg">${report.content}</p>` : ''}
                             ${report.imageUrl ? `
                                 <div class="mb-3">
-                                    <p class="font-bold text-sm text-gray-600 mb-2">️ الصورة المرفقة:</p>
+                                    <p class="font-bold text-sm text-gray-600 mb-2">🖼️ الصورة المرفقة:</p>
                                     <img src="${report.imageUrl}" alt="${report.title}" class="w-full max-h-96 object-contain rounded-xl border-2 border-gray-200 bg-gray-50">
-                                    <a href="${report.imageUrl}" target="_blank" class="inline-block mt-2 bg-pink-600 text-white px-4 py-2 rounded-lg magic-btn text-sm"> تكبير الصورة</a>
+                                    <a href="${report.imageUrl}" target="_blank" class="inline-block mt-2 bg-pink-600 text-white px-4 py-2 rounded-lg magic-btn text-sm">🔍 تكبير الصورة</a>
                                 </div>
                             ` : ''}
                             ${report.pdfUrl ? `<a href="${report.pdfUrl}" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg magic-btn text-sm">📄 عرض PDF</a>` : ''}
@@ -1902,71 +1884,61 @@
             } catch (error) { console.error('Error loading teacher reports:', error); }
         }
 
-        // ✅ دالة رفع الملفات من الجهاز (ولي الأمر)
+        // ✅ دالة رفع الملفات من الجهاز (ولي الأمر) باستخدام Cloudinary
         window.uploadParentFile = async function() {
-    const childId = document.getElementById('uploadChildSelect').value;
-    const title = document.getElementById('uploadTitle').value.trim();
-    const status = document.getElementById('uploadStatus');
+            const childId = document.getElementById('uploadChildSelect').value;
+            const title = document.getElementById('uploadTitle').value.trim();
+            const status = document.getElementById('uploadStatus');
 
-    const CLOUD_NAME = 'msb5rwzw';
-    const UPLOAD_PRESET = 'myapp.com';
+            if (!childId || !title || !selectedUploadFile) {
+                alert('❌ الرجاء اختيار الطفل وإدخال العنوان واختيار ملف');
+                return;
+            }
 
-    if (!childId || !title || !selectedUploadFile) {
-        alert('❌ الرجاء اختيار الطفل وإدخال العنوان واختيار ملف');
-        return;
-    }
+            try {
+                const child = allChildren.find(c => c.id === childId);
+                if (!child) { alert('❌ الطفل غير موجود'); return; }
 
-    try {
-        const child = allChildren.find(c => c.id === childId);
-        if (!child) { alert(' الطفل غير موجود'); return; }
+                status.textContent = '⏳ جاري رفع الملف...';
+                status.className = 'mt-4 text-center font-bold text-blue-600';
 
-        status.textContent = '⏳ جاري رفع الملف...';
-        status.className = 'mt-4 text-center font-bold text-blue-600';
+                let type = 'note';
+                if (selectedUploadFile.type.startsWith('image/')) type = 'image';
+                else if (selectedUploadFile.type === 'application/pdf') type = 'pdf';
 
-        let type = 'note';
-        if (selectedUploadFile.type.startsWith('image/')) type = 'image';
-        else if (selectedUploadFile.type === 'application/pdf') type = 'pdf';
+                const resourceType = type === 'image' ? 'image' : 'raw';
+                const url = await uploadToCloudinary(selectedUploadFile, resourceType);
+                
+                console.log('✅ تم رفع الملف:', url);
 
-        const formData = new FormData();
-        formData.append('file', selectedUploadFile);
-        formData.append('upload_preset', UPLOAD_PRESET);
+                await addDoc(collection(db, 'parentUploads'), {
+                    childId: childId,
+                    parentId: currentUser.uid,
+                    childName: child.name,
+                    title: title,
+                    type: type,
+                    url: url,
+                    createdAt: new Date()
+                });
 
-        const uploadType = type === 'image' ? 'image/upload' : 'raw/upload';
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${uploadType}`, {
-            method: 'POST',
-            body: formData
-        });
-        const data = await response.json();
+                alert('✅ تم رفع الملف بنجاح!');
+                
+                document.getElementById('uploadTitle').value = '';
+                document.getElementById('uploadFile').value = '';
+                document.getElementById('uploadPreview')?.classList.add('hidden');
+                selectedUploadFile = null;
+                
+                status.textContent = '✅ تم رفع الملف بنجاح!';
+                status.className = 'mt-4 text-center font-bold text-green-600';
+                await loadParentUploads();
+                setTimeout(() => { status.textContent = ''; }, 3000);
+                
+            } catch (error) { 
+                alert('❌ خطأ: ' + error.message);
+                status.textContent = '';
+            }
+        };
 
-        if (!data.secure_url) {
-            throw new Error(data.error?.message || 'فشل رفع الملف');
-        }
-
-        const url = data.secure_url;
-        console.log('✅ تم رفع الملف:', url);
-
-        await addDoc(collection(db, 'parentUploads'), {
-            childId, parentId: currentUser.uid, childName: child.name,
-            title, type, url, createdAt: new Date()
-        });
-
-        alert('✅ تم رفع الملف بنجاح!');
-
-        document.getElementById('uploadTitle').value = '';
-        document.getElementById('uploadFile').value = '';
-        document.getElementById('uploadPreview')?.classList.add('hidden');
-        selectedUploadFile = null;
-
-        status.textContent = '✅ تم رفع الملف بنجاح!';
-        status.className = 'mt-4 text-center font-bold text-green-600';
-        await loadParentUploads();
-        setTimeout(() => { status.textContent = ''; }, 3000);
-
-    } catch (error) {
-        alert('❌ خطأ: ' + error.message);
-        status.textContent = '';
-    }
-};
         async function loadParentUploads() {
             try {
                 const container = document.getElementById('parentUploadsList');
@@ -1976,7 +1948,7 @@
                     container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد ملفات مرفوعة</div>';
                     return;
                 }
-                const typeIcons = { image: '📸', pdf: '', note: '📝' };
+                const typeIcons = { image: '', pdf: '📄', note: '📝' };
                 const typeNames = { image: 'صورة', pdf: 'PDF', note: 'ملاحظة' };
                 uploadsSnapshot.forEach(docSnap => {
                     const upload = docSnap.data();
@@ -1985,7 +1957,7 @@
                         <div class="upload-card flex justify-between items-center flex-wrap gap-4">
                             <div>
                                 <div class="font-bold text-lg">${typeIcons[upload.type] || '📎'} ${upload.title}</div>
-                                <div class="text-sm text-gray-500"> ${upload.childName} | ${typeNames[upload.type] || upload.type} | ${date}</div>
+                                <div class="text-sm text-gray-500">👶 ${upload.childName} | ${typeNames[upload.type] || upload.type} | ${date}</div>
                             </div>
                             <div class="flex gap-2">
                                 <button onclick="editParentUpload('${docSnap.id}', '${upload.title}', '${upload.url}')" class="action-btn btn-edit">✏️ تعديل</button>
@@ -2011,15 +1983,13 @@
         };
 
         window.deleteParentUpload = async function(uploadId) {
-            if (!confirm('️ هل أنت متأكد من حذف هذا الملف؟')) return;
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا الملف؟')) return;
             try {
                 await deleteDoc(doc(db, 'parentUploads', uploadId));
                 alert('✅ تم حذف الملف بنجاح!');
                 await loadParentUploads();
             } catch (error) { alert('❌ خطأ: ' + error.message); }
         };
-
-      
 
         // ============ الإشعارات ============
         async function loadParentNotifications() {
@@ -2129,6 +2099,7 @@
                             return;
                         }
                         window.selectedUploadFile = file;
+                        
                         if (file.type.startsWith('image/')) {
                             const reader = new FileReader();
                             reader.onload = function(e) {
