@@ -1650,7 +1650,7 @@
         };
 
         // ============ صفحة ولي الأمر ============
-     window.switchParentTab = function(tabName) {
+    window.switchParentTab = function(tabName) {
     const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
     tabs.forEach(t => {
         document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`)?.classList.remove('active');
@@ -1668,11 +1668,23 @@
             
             getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
                 .then(snapshot => {
-                    console.log('📥 تم تحميل', snapshot.size, 'أطفال');
+                    // فلتر المكرر - كل ولي أمر يشوف أبنائه بس بدون تكرار
+                    const uniqueChildren = [];
+                    const seenCodes = new Set();
+                    
                     snapshot.forEach(docSnap => {
                         const child = docSnap.data();
-                        console.log(' طفل:', child.name);
-                        uploadSelect.innerHTML += `<option value="${docSnap.id}">${child.name}</option>`;
+                        if (!seenCodes.has(child.code)) {
+                            seenCodes.add(child.code);
+                            uniqueChildren.push({ id: docSnap.id, ...child });
+                        }
+                    });
+                    
+                    console.log('📥 ولي الأمر:', currentUser.uid);
+                    console.log('👶 عدد أطفاله:', uniqueChildren.length);
+                    uniqueChildren.forEach(child => {
+                        console.log(' -', child.name, '(', child.code, ')');
+                        uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
                     });
                 })
                 .catch(error => {
