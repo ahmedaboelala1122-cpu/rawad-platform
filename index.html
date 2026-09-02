@@ -953,50 +953,64 @@
 
         // ✅ دالة إضافة PDF من الجهاز (مكتبة أوراق العمل)
         window.addStandalonePdf = async function() {
-            const title = document.getElementById('pdfTitle').value.trim();
-            const stage = document.getElementById('pdfStage').value;
-            
-            if (!title || !selectedStandalonePdf) { 
-                alert('❌ الرجاء إدخال العنوان واختيار ملف PDF'); 
-                return; 
-            }
-            
-            try {
-                let statusDiv = document.getElementById('adminStatus');
-                if (!statusDiv) {
-                    statusDiv = document.createElement('div');
-                    statusDiv.id = 'adminStatus';
-                    statusDiv.className = 'mt-4 text-center font-bold';
-                    document.getElementById('tabPdfs').appendChild(statusDiv);
-                }
-                
-                statusDiv.textContent = '⏳ جاري رفع PDF...';
-                statusDiv.className = 'mt-4 text-center font-bold text-lg text-blue-600';
-                
-                const pdfRef = ref(storage, `standalonePdfs/${Date.now()}_${selectedStandalonePdf.name}`);
-                await uploadBytes(pdfRef, selectedStandalonePdf);
-                const url = await getDownloadURL(pdfRef);
-                
-                await addDoc(collection(db, 'standalonePdfs'), { 
-                    title, 
-                    stage, 
-                    url, 
-                    uploadedBy: currentUser.uid, 
-                    createdAt: new Date() 
-                });
-                
-                alert('✅ تم إضافة الورقة بنجاح!');
-                document.getElementById('pdfTitle').value = '';
-                document.getElementById('standalonePdfFile').value = '';
-                document.getElementById('standalonePdfPreview')?.classList.add('hidden');
-                selectedStandalonePdf = null;
-                statusDiv.textContent = '';
-                await loadStandalonePdfs();
-            } catch (error) { 
-                alert('❌ خطأ: ' + error.message);
-            }
-        };
+    const title = document.getElementById('pdfTitle').value.trim();
+    const stage = document.getElementById('pdfStage').value;
 
+    const CLOUD_NAME = 'msb5rwzw';
+    const UPLOAD_PRESET = 'myapp.com';
+
+    if (!title || !selectedStandalonePdf) {
+        alert('❌ الرجاء إدخال العنوان واختيار ملف PDF');
+        return;
+    }
+
+    try {
+        let statusDiv = document.getElementById('adminStatus');
+        if (!statusDiv) {
+            statusDiv = document.createElement('div');
+            statusDiv.id = 'adminStatus';
+            statusDiv.className = 'mt-4 text-center font-bold';
+            document.getElementById('tabPdfs').appendChild(statusDiv);
+        }
+
+        statusDiv.textContent = '⏳ جاري رفع PDF...';
+        statusDiv.className = 'mt-4 text-center font-bold text-lg text-blue-600';
+
+        const formData = new FormData();
+        formData.append('file', selectedStandalonePdf);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+
+        if (!data.secure_url) {
+            throw new Error(data.error?.message || 'فشل رفع PDF');
+        }
+
+        const url = data.secure_url;
+        console.log('✅ تم رفع PDF:', url);
+
+        await addDoc(collection(db, 'standalonePdfs'), {
+            title, stage, url, uploadedBy: currentUser.uid, createdAt: new Date()
+        });
+
+        alert('✅ تم إضافة الورقة بنجاح!');
+
+        document.getElementById('pdfTitle').value = '';
+        document.getElementById('standalonePdfFile').value = '';
+        document.getElementById('standalonePdfPreview')?.classList.add('hidden');
+        selectedStandalonePdf = null;
+        statusDiv.textContent = '';
+
+        await loadStandalonePdfs();
+
+    } catch (error) {
+        alert(' خطأ: ' + error.message);
+    }
+};
         async function loadStandalonePdfs() {
             try {
                 const pdfsSnapshot = await getDocs(collection(db, 'standalonePdfs'));
@@ -1515,77 +1529,108 @@
 
         // ✅ دالة إضافة تقرير (مع رفع PDF وصور من الجهاز)
         window.addReportForChild = async function() {
-            const childId = document.getElementById('reportChildSelect').value;
-            const title = document.getElementById('reportTitle').value.trim();
-            const content = document.getElementById('reportContent').value.trim();
-            const status = document.getElementById('reportStatus');
+    const childId = document.getElementById('reportChildSelect').value;
+    const title = document.getElementById('reportTitle').value.trim();
+    const content = document.getElementById('reportContent').value.trim();
+    const status = document.getElementById('reportStatus');
 
-            if (!childId || !title || (!content && !selectedReportPdf && !selectedReportImage)) {
-                alert('❌ الرجاء اختيار الطفل وإدخال العنوان ومحتوى واحد على الأقل (نص أو PDF أو صورة)');
+    const CLOUD_NAME = 'msb5rwzw';
+    const UPLOAD_PRESET = 'myapp.com';
+
+    if (!childId || !title || (!content && !selectedReportPdf && !selectedReportImage)) {
+        alert('❌ الرجاء اختيار الطفل وإدخال العنوان ومحتوى واحد على الأقل');
+        return;
+    }
+
+    try {
+        const child = allChildren.find(c => c.id === childId);
+        if (!child) { alert('❌ الطفل غير موجود'); return; }
+
+        let imageUrl = '';
+        let pdfUrl = '';
+
+        // رفع الصورة على Cloudinary
+        if (selectedReportImage) {
+            status.textContent = '⏳ جاري رفع الصورة...';
+            status.className = 'mt-4 text-center font-bold text-blue-600';
+            try {
+                const formData = new FormData();
+                formData.append('file', selectedReportImage);
+                formData.append('upload_preset', UPLOAD_PRESET);
+                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.secure_url) {
+                    imageUrl = data.secure_url;
+                    console.log('✅ تم رفع الصورة:', imageUrl);
+                } else {
+                    throw new Error(data.error?.message || 'فشل رفع الصورة');
+                }
+            } catch (err) {
+                alert('❌ خطأ في رفع الصورة: ' + err.message);
                 return;
             }
+        }
 
+        // رفع PDF على Cloudinary
+        if (selectedReportPdf) {
+            status.textContent = ' جاري رفع PDF...';
+            status.className = 'mt-4 text-center font-bold text-blue-600';
             try {
-                const child = allChildren.find(c => c.id === childId);
-                if (!child) { alert('❌ الطفل غير موجود'); return; }
-
-                let imageUrl = '';
-                let pdfUrl = '';
-                
-                if (selectedReportPdf) {
-                    status.textContent = ' جاري رفع PDF...';
-                    status.className = 'mt-4 text-center font-bold text-blue-600';
-                    const pdfRef = ref(storage, `reportPdfs/${Date.now()}_${selectedReportPdf.name}`);
-                    await uploadBytes(pdfRef, selectedReportPdf);
-                    pdfUrl = await getDownloadURL(pdfRef);
-                }
-                
-                if (selectedReportImage) {
-                    status.textContent = ' جاري رفع الصورة...';
-                    status.className = 'mt-4 text-center font-bold text-blue-600';
-                    const imageRef = ref(storage, `reportImages/${Date.now()}_${selectedReportImage.name}`);
-                    await uploadBytes(imageRef, selectedReportImage);
-                    imageUrl = await getDownloadURL(imageRef);
-                }
-
-                await addDoc(collection(db, 'reports'), {
-                    childId: childId,
-                    parentId: child.parentId,
-                    childName: child.name,
-                    title: title,
-                    content: content,
-                    pdfUrl: pdfUrl,
-                    imageUrl: imageUrl,
-                    read: false,
-                    createdAt: new Date()
+                const formData = new FormData();
+                formData.append('file', selectedReportPdf);
+                formData.append('upload_preset', UPLOAD_PRESET);
+                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`, {
+                    method: 'POST',
+                    body: formData
                 });
-
-                await addDoc(collection(db, 'notifications'), {
-                    userId: child.parentId,
-                    message: `📝 تم إضافة تقرير جديد لطفلك "${child.name}": ${title}`,
-                    type: 'report',
-                    read: false,
-                    createdAt: new Date()
-                });
-
-                alert('✅ تم إرسال التقرير بنجاح!');
-                document.getElementById('reportTitle').value = '';
-                document.getElementById('reportContent').value = '';
-                document.getElementById('reportPdfFile').value = '';
-                document.getElementById('reportPdfPreview')?.classList.add('hidden');
-                selectedReportPdf = null;
-                document.getElementById('reportImageFile').value = '';
-                document.getElementById('reportImagePreview')?.classList.add('hidden');
-                selectedReportImage = null;
-                status.textContent = '✅ تم إرسال التقرير بنجاح!';
-                status.className = 'mt-4 text-center font-bold text-green-600';
-                await loadAdminReports();
-                setTimeout(() => { status.textContent = ''; }, 3000);
-            } catch (error) { 
-                alert(' خطأ: ' + error.message);
-                status.textContent = '';
+                const data = await response.json();
+                if (data.secure_url) {
+                    pdfUrl = data.secure_url;
+                    console.log('✅ تم رفع PDF:', pdfUrl);
+                } else {
+                    throw new Error(data.error?.message || 'فشل رفع PDF');
+                }
+            } catch (err) {
+                alert('❌ خطأ في رفع PDF: ' + err.message);
+                return;
             }
-        };
+        }
+
+        await addDoc(collection(db, 'reports'), {
+            childId, parentId: child.parentId, childName: child.name,
+            title, content, pdfUrl, imageUrl, read: false, createdAt: new Date()
+        });
+
+        await addDoc(collection(db, 'notifications'), {
+            userId: child.parentId,
+            message: ` تم إضافة تقرير جديد لطفلك "${child.name}": ${title}`,
+            type: 'report', read: false, createdAt: new Date()
+        });
+
+        alert('✅ تم إرسال التقرير بنجاح!');
+
+        document.getElementById('reportTitle').value = '';
+        document.getElementById('reportContent').value = '';
+        document.getElementById('reportPdfFile').value = '';
+        document.getElementById('reportPdfPreview')?.classList.add('hidden');
+        selectedReportPdf = null;
+        document.getElementById('reportImageFile').value = '';
+        document.getElementById('reportImagePreview')?.classList.add('hidden');
+        selectedReportImage = null;
+
+        status.textContent = '✅ تم إرسال التقرير بنجاح!';
+        status.className = 'mt-4 text-center font-bold text-green-600';
+        await loadAdminReports();
+        setTimeout(() => { status.textContent = ''; }, 3000);
+
+    } catch (error) {
+        alert(' خطأ: ' + error.message);
+        status.textContent = '';
+    }
+};
 
         async function loadAdminReports() {
             try {
@@ -1859,55 +1904,69 @@
 
         // ✅ دالة رفع الملفات من الجهاز (ولي الأمر)
         window.uploadParentFile = async function() {
-            const childId = document.getElementById('uploadChildSelect').value;
-            const title = document.getElementById('uploadTitle').value.trim();
-            const status = document.getElementById('uploadStatus');
+    const childId = document.getElementById('uploadChildSelect').value;
+    const title = document.getElementById('uploadTitle').value.trim();
+    const status = document.getElementById('uploadStatus');
 
-            if (!childId || !title || !selectedUploadFile) {
-                alert('❌ الرجاء اختيار الطفل وإدخال العنوان واختيار ملف');
-                return;
-            }
+    const CLOUD_NAME = 'msb5rwzw';
+    const UPLOAD_PRESET = 'myapp.com';
 
-            try {
-                const child = allChildren.find(c => c.id === childId);
-                if (!child) { alert('❌ الطفل غير موجود'); return; }
+    if (!childId || !title || !selectedUploadFile) {
+        alert('❌ الرجاء اختيار الطفل وإدخال العنوان واختيار ملف');
+        return;
+    }
 
-                status.textContent = ' جاري رفع الملف...';
-                status.className = 'mt-4 text-center font-bold text-blue-600';
+    try {
+        const child = allChildren.find(c => c.id === childId);
+        if (!child) { alert(' الطفل غير موجود'); return; }
 
-                let type = 'note';
-                if (selectedUploadFile.type.startsWith('image/')) type = 'image';
-                else if (selectedUploadFile.type === 'application/pdf') type = 'pdf';
+        status.textContent = '⏳ جاري رفع الملف...';
+        status.className = 'mt-4 text-center font-bold text-blue-600';
 
-                const fileRef = ref(storage, `parentUploads/${Date.now()}_${selectedUploadFile.name}`);
-                await uploadBytes(fileRef, selectedUploadFile);
-                const url = await getDownloadURL(fileRef);
+        let type = 'note';
+        if (selectedUploadFile.type.startsWith('image/')) type = 'image';
+        else if (selectedUploadFile.type === 'application/pdf') type = 'pdf';
 
-                await addDoc(collection(db, 'parentUploads'), {
-                    childId: childId,
-                    parentId: currentUser.uid,
-                    childName: child.name,
-                    title: title,
-                    type: type,
-                    url: url,
-                    createdAt: new Date()
-                });
+        const formData = new FormData();
+        formData.append('file', selectedUploadFile);
+        formData.append('upload_preset', UPLOAD_PRESET);
 
-                alert('✅ تم رفع الملف بنجاح!');
-                document.getElementById('uploadTitle').value = '';
-                document.getElementById('uploadFile').value = '';
-                document.getElementById('uploadPreview')?.classList.add('hidden');
-                selectedUploadFile = null;
-                status.textContent = '✅ تم رفع الملف بنجاح!';
-                status.className = 'mt-4 text-center font-bold text-green-600';
-                await loadParentUploads();
-                setTimeout(() => { status.textContent = ''; }, 3000);
-            } catch (error) { 
-                alert('❌ خطأ: ' + error.message);
-                status.textContent = '';
-            }
-        };
+        const uploadType = type === 'image' ? 'image/upload' : 'raw/upload';
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${uploadType}`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
 
+        if (!data.secure_url) {
+            throw new Error(data.error?.message || 'فشل رفع الملف');
+        }
+
+        const url = data.secure_url;
+        console.log('✅ تم رفع الملف:', url);
+
+        await addDoc(collection(db, 'parentUploads'), {
+            childId, parentId: currentUser.uid, childName: child.name,
+            title, type, url, createdAt: new Date()
+        });
+
+        alert('✅ تم رفع الملف بنجاح!');
+
+        document.getElementById('uploadTitle').value = '';
+        document.getElementById('uploadFile').value = '';
+        document.getElementById('uploadPreview')?.classList.add('hidden');
+        selectedUploadFile = null;
+
+        status.textContent = '✅ تم رفع الملف بنجاح!';
+        status.className = 'mt-4 text-center font-bold text-green-600';
+        await loadParentUploads();
+        setTimeout(() => { status.textContent = ''; }, 3000);
+
+    } catch (error) {
+        alert('❌ خطأ: ' + error.message);
+        status.textContent = '';
+    }
+};
         async function loadParentUploads() {
             try {
                 const container = document.getElementById('parentUploadsList');
