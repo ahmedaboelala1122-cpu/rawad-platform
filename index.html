@@ -1653,27 +1653,34 @@
     window.switchParentTab = function(tabName) {
     const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
     tabs.forEach(t => {
-        document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`)?.classList.remove('active');
-        document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`)?.classList.remove('active');
+        const tabEl = document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const tabBtnEl = document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        if (tabEl) tabEl.classList.remove('active');
+        if (tabBtnEl) tabBtnEl.classList.remove('active');
     });
-    document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`)?.classList.add('active');
-    document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`)?.classList.add('active');
+    
+    const activeTab = document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    const activeTabBtn = document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    if (activeTab) activeTab.classList.add('active');
+    if (activeTabBtn) activeTabBtn.classList.add('active');
 
     if (tabName === 'progress') loadParentProgressReports();
     if (tabName === 'teacherReports') loadParentTeacherReports();
+    
     if (tabName === 'uploads') {
         const uploadSelect = document.getElementById('uploadChildSelect');
-        if (uploadSelect) {
+        if (uploadSelect && currentUser) {
             uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
             
             getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
                 .then(snapshot => {
-                    // فلتر المكرر - كل ولي أمر يشوف أبنائه بس بدون تكرار
                     const uniqueChildren = [];
-                    const seenNames = new Set();                    
+                    const seenNames = new Set();
+                    
                     snapshot.forEach(docSnap => {
                         const child = docSnap.data();
                         const normalizedName = child.name.trim().toLowerCase();
+                        
                         if (!seenNames.has(normalizedName)) {
                             seenNames.add(normalizedName);
                             uniqueChildren.push({ id: docSnap.id, ...child });
@@ -1681,7 +1688,8 @@
                     });
                     
                     console.log('📥 ولي الأمر:', currentUser.uid);
-                    console.log('👶 عدد أطفاله:', uniqueChildren.length);
+                    console.log(' عدد الأطفال (بدون مكرر):', uniqueChildren.length);
+                    
                     uniqueChildren.forEach(child => {
                         console.log(' -', child.name, '(', child.code, ')');
                         uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`;
@@ -1693,7 +1701,6 @@
         }
     }
 };
-
         async function loadParentProgressReports() {
             try {
                 const container = document.getElementById('parentProgressReports');
