@@ -1205,28 +1205,45 @@
         window.deleteReport = async function(reportId, reportTitle) { if (!confirm(`⚠️ هل أنت متأكد من حذف التقرير "${reportTitle}"؟`)) return; try { await deleteDoc(doc(db, 'reports', reportId)); alert('✅ تم حذف التقرير بنجاح!'); await loadAdminReports(); } catch (error) { alert('❌ خطأ: ' + error.message); } };
 
         window.switchParentTab = function(tabName) {
-            const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
-            tabs.forEach(t => { const tabEl = document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`); const tabBtnEl = document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`); if (tabEl) tabEl.classList.remove('active'); if (tabBtnEl) tabBtnEl.classList.remove('active'); });
-            const activeTab = document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-            const activeTabBtn = document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-            if (activeTab) activeTab.classList.add('active'); if (activeTabBtn) activeTabBtn.classList.add('active');
-            if (tabName === 'progress') loadParentProgressReports();
-            if (tabName === 'teacherReports') loadParentTeacherReports();
-            if (tabName === 'uploads') {
-                const uploadSelect = document.getElementById('uploadChildSelect');
-                if (uploadSelect && currentUser) {
-                    uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
-                    getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid))).then(snapshot => {
-                        const uniqueChildren = []; const seenNames = new Set();
-                        snapshot.forEach(docSnap => { const child = docSnap.data(); const normalizedName = child.name.trim().toLowerCase(); if (!seenNames.has(normalizedName)) { seenNames.add(normalizedName); uniqueChildren.push({ id: docSnap.id, ...child }); } });
-                        console.log(' ولي الأمر:', currentUser.uid);
-                        console.log('👶 عدد الأطفال (بدون مكرر):', uniqueChildren.length);
-                        uniqueChildren.forEach(child => { console.log(' -', child.name, '(', child.code, ')'); uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`; });
-                    }).catch(error => { console.error(' خطأ في تحميل الأطفال:', error); });
-                }
-            }
-        };
-
+    const tabs = ['children', 'progress', 'teacherReports', 'uploads'];
+    tabs.forEach(t => { 
+        const tabEl = document.getElementById(`parentTab${t.charAt(0).toUpperCase() + t.slice(1)}`); 
+        const tabBtnEl = document.getElementById(`parentTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`); 
+        if (tabEl) tabEl.classList.remove('active'); 
+        if (tabBtnEl) tabBtnEl.classList.remove('active'); 
+    });
+    const activeTab = document.getElementById(`parentTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    const activeTabBtn = document.getElementById(`parentTabBtn${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    if (activeTab) activeTab.classList.add('active'); 
+    if (activeTabBtn) activeTabBtn.classList.add('active');
+    
+    if (tabName === 'progress') loadParentProgressReports();
+    if (tabName === 'teacherReports') loadParentTeacherReports();
+    
+    if (tabName === 'uploads') {
+        const uploadSelect = document.getElementById('uploadChildSelect');
+        if (uploadSelect && currentUser) {
+            uploadSelect.innerHTML = '<option value="">-- اختر طفلاً --</option>';
+            getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid)))
+                .then(snapshot => {
+                    // ✅ تحميل الأطفال في allChildren عشان uploadParentFile يلاقيهم
+                    allChildren = [];
+                    snapshot.forEach(docSnap => { 
+                        allChildren.push({ id: docSnap.id, ...docSnap.data() }); 
+                    });
+                    
+                    console.log('📥 ولي الأمر:', currentUser.uid);
+                    console.log('👶 عدد الأطفال:', allChildren.length);
+                    
+                    allChildren.forEach(child => { 
+                        console.log(' -', child.name, '(', child.code, ')'); 
+                        uploadSelect.innerHTML += `<option value="${child.id}">${child.name}</option>`; 
+                    });
+                })
+                .catch(error => { console.error('❌ خطأ في تحميل الأطفال:', error); });
+        }
+    }
+};
         async function loadParentProgressReports() { try { const container = document.getElementById('parentProgressReports'); container.innerHTML = ''; const childrenSnapshot = await getDocs(query(collection(db, 'children'), where('parentId', '==', currentUser.uid))); if (childrenSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا يوجد أطفال لعرض تقاريرهم</div>'; return; } const lessonsSnapshot = await getDocs(collection(db, 'lessons')); const allLessons = {}; lessonsSnapshot.forEach(docSnap => { const data = docSnap.data(); if (!allLessons[data.stage]) allLessons[data.stage] = []; allLessons[data.stage].push(data); }); childrenSnapshot.forEach(docSnap => { const child = docSnap.data(); const stage = child.recommendedStage || 'لم يحدد'; let stageCode = ''; if (stage.includes('رياض الأطفال')) stageCode = 'kg'; else if (stage.includes('الصف الأول')) stageCode = 'grade1'; else if (stage.includes('الصف الثاني')) stageCode = 'grade2'; else if (stage.includes('الصف الثالث')) stageCode = 'grade3'; const totalLessons = stageCode && allLessons[stageCode] ? allLessons[stageCode].filter(l => !l.isLocked).length : 0; const completedLessons = (child.completedLessons || []).length; const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0; let lastLoginText = 'لم يدخل بعد'; if (child.lastLogin) { const lastLoginDate = child.lastLogin.toDate ? child.lastLogin.toDate() : new Date(child.lastLogin); const now = new Date(); const diffTime = Math.abs(now - lastLoginDate); const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); if (diffDays === 0) lastLoginText = 'اليوم'; else if (diffDays === 1) lastLoginText = 'أمس'; else if (diffDays < 7) lastLoginText = `منذ ${diffDays} أيام`; else lastLoginText = lastLoginDate.toLocaleDateString('ar-EG'); } const today = new Date(); const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); const activeDays = child.activeDays || {}; let activeDaysThisWeek = 0; Object.keys(activeDays).forEach(day => { const dayDate = new Date(day); if (dayDate >= weekAgo) activeDaysThisWeek++; }); const quizResults = child.quizResults || []; let bestScore = null; let worstScore = null; if (quizResults.length > 0) { bestScore = quizResults.reduce((best, current) => (current.score / current.total) > (best.score / best.total) ? current : best); worstScore = quizResults.reduce((worst, current) => (current.score / current.total) < (worst.score / worst.total) ? current : worst); } container.innerHTML += `<div class="report-card mb-6"><div class="flex items-center gap-4 mb-4"><div class="text-5xl"></div><div class="flex-1"><h3 class="text-xl font-black text-blue-700">${child.name}</h3><p class="text-gray-600">📚 المرحلة: ${stage}</p><p class="text-sm text-gray-500">🕐 آخر دخول: ${lastLoginText}</p><p class="text-sm text-gray-500">📅 أيام النشاط هذا الأسبوع: ${activeDaysThisWeek} أيام</p></div></div><div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4"><div class="bg-white rounded-xl p-4 text-center"><div class="text-2xl font-black text-purple-600">${totalLessons}</div><div class="text-sm text-gray-500">إجمالي الدروس</div></div><div class="bg-white rounded-xl p-4 text-center"><div class="text-2xl font-black text-green-600">${completedLessons}</div><div class="text-sm text-gray-500">الدروس المكتملة</div></div><div class="bg-white rounded-xl p-4 text-center"><div class="text-2xl font-black text-yellow-600">${child.stars || 0}</div><div class="text-sm text-gray-500">النجوم</div></div><div class="bg-white rounded-xl p-4 text-center"><div class="text-2xl font-black text-blue-600">${progressPercent}%</div><div class="text-sm text-gray-500">نسبة الإنجاز</div></div></div>${quizResults.length > 0 ? `<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"><div class="bg-green-50 rounded-xl p-4 border-2 border-green-200"><div class="font-bold text-green-700 mb-2"> أفضل نتيجة</div><div class="text-lg">${bestScore.score}/${bestScore.total} (${Math.round((bestScore.score/bestScore.total)*100)}%)</div></div><div class="bg-orange-50 rounded-xl p-4 border-2 border-orange-200"><div class="font-bold text-orange-700 mb-2">⚠️ يحتاج تحسين</div><div class="text-lg">${worstScore.score}/${worstScore.total} (${Math.round((worstScore.score/worstScore.total)*100)}%)</div></div></div>` : ''}<div class="mb-2"><div class="flex justify-between text-sm text-gray-600 mb-1"><span>التقدم في المرحلة</span><span>${progressPercent}%</span></div><div class="progress-bar-container"><div class="progress-bar-fill bg-gradient-to-r from-purple-500 to-pink-500" style="width: ${progressPercent}%"></div></div></div></div>`; }); } catch (error) { console.error('Error loading progress reports:', error); } }
 
         async function loadParentTeacherReports() { try { const container = document.getElementById('parentTeacherReports'); container.innerHTML = ''; const reportsSnapshot = await getDocs(query(collection(db, 'reports'), where('parentId', '==', currentUser.uid))); if (reportsSnapshot.empty) { container.innerHTML = '<div class="text-center text-gray-500 py-8">لا توجد تقارير من المعلم بعد</div>'; return; } reportsSnapshot.forEach(docSnap => { const report = docSnap.data(); const date = report.createdAt?.toDate ? report.createdAt.toDate().toLocaleDateString('ar-EG') : ''; if (!report.read) updateDoc(doc(db, 'reports', docSnap.id), { read: true }); container.innerHTML += `<div class="report-card"><div class="flex justify-between items-start mb-2"><h3 class="font-bold text-lg text-blue-700">${report.title}</h3><span class="text-sm text-gray-500">${date}</span></div><p class="text-gray-600 mb-2">👶 الطفل: ${report.childName}</p>${report.content ? `<p class="text-gray-700 mb-3 bg-white p-3 rounded-lg">${report.content}</p>` : ''}${report.imageUrl ? `<div class="mb-3"><p class="font-bold text-sm text-gray-600 mb-2">🖼️ الصورة المرفقة:</p><img src="${report.imageUrl}" alt="${report.title}" class="w-full max-h-96 object-contain rounded-xl border-2 border-gray-200 bg-gray-50"><a href="${report.imageUrl}" target="_blank" class="inline-block mt-2 bg-pink-600 text-white px-4 py-2 rounded-lg magic-btn text-sm"> تكبير الصورة</a></div>` : ''}${report.pdfUrl ? `<a href="${report.pdfUrl}" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg magic-btn text-sm">📄 عرض PDF</a>` : ''}</div>`; }); } catch (error) { console.error('Error loading teacher reports:', error); } }
